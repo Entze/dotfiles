@@ -106,7 +106,10 @@ set tm=500
 syntax enable
 
 " Solarized colorscheme
-let g:solarized_termcolors=256
+if !has("gui_running")
+        let g:solarized_termtrans=1
+        let g:solarized_termcolors=256
+endif
 set background=light 
 colorscheme solarized
 

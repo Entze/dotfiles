@@ -1,0 +1,319 @@
+# Diese viminfo-Datei wurde von Vim 7.4 generiert.
+# Sie können sie verändern, wenn Sie vorsichtig vorgehen!
+
+# Wert von 'encoding', als diese Datei geschrieben wurde
+*encoding=utf-8
+
+
+# hlsearch on (H) or off (h):
+~h
+# Letztes Suchmuster:
+~MSle0~/sol
+
+# Letztes Substitute Suchmuster:
+~MSle0&ruler
+
+# Letzte ersetzte Zeichenkette:
+$
+
+# Befehlszeile Geschichte (neueste bis älteste):
+:w
+:q
+:q!
+:help statusline
+:set rulerformat=%-14.(%l,%c%V%)\ %P
+:s/ruler
+:help ruler
+
+# Suchausdruck Geschichte (neueste bis älteste):
+?/sol
+?/solar
+?/solari
+?/statusline
+?/statuslin
+?/number
+?/wrap
+?/ruler
+? ruler
+? ##########
+
+# Ausdruck Geschichte (neueste bis älteste):
+
+# Eingabe-Zeile Geschichte (neueste bis älteste):
+
+# Eingabe-Zeile Geschichte (neueste bis älteste):
+
+# Register:
+"0	LINE	0
+	##################
+	# custom section #
+""1	LINE	0
+	let g:solarized_termcolors=256
+"2	LINE	0
+	let g:solarized_termcolors=256
+"3	LINE	0
+	set background=light "change to dark if prefered
+"4	LINE	0
+	
+"5	LINE	0
+	let g:solarized_termcolors=256
+"6	LINE	0
+	set background=light
+"7	LINE	0
+	set background=light
+"8	LINE	0
+	set background=light
+"9	LINE	0
+	
+"-	CHAR	0
+	 "important see http://tinyurl.com/solarized-fix
+
+# Datei-Marken:
+'0  109  0  ~/.vimrc
+'1  111  0  ~/.vimrc
+'2  113  29  ~/.vimrc
+'3  1  15  ~/.dotfiles/.git/COMMIT_EDITMSG
+'4  233  23  ~/.vimrc
+'5  232  23  ~/.vimrc
+'6  115  29  ~/.vimrc
+'7  114  11  ~/.vimrc
+'8  114  7  ~/.vimrc
+'9  23  0  ~/.vimrc
+
+# Geschichte (neueste zuerst):
+-'  109  0  ~/.vimrc
+-'  111  0  ~/.vimrc
+-'  114  0  ~/.vimrc
+-'  113  29  ~/.vimrc
+-'  233  23  ~/.vimrc
+-'  1  15  ~/.dotfiles/.git/COMMIT_EDITMSG
+-'  232  23  ~/.vimrc
+-'  115  29  ~/.vimrc
+-'  175  7  ~/.vimrc
+-'  164  29  ~/.vimrc
+-'  23  0  ~/.vimrc
+-'  8  0  ~/.vimrc
+-'  88  0  ~/.vimrc
+-'  67  9  ~/.vimrc
+-'  159  10  ~/.vimrc
+-'  69  0  ~/.vimrc
+-'  382  0  ~/.vimrc
+-'  58  0  ~/.vimrc
+-'  59  27  ~/.vimrc
+-'  62  0  ~/.vimrc
+-'  4  0  ~/.vimrc
+-'  1  72  ~/.vimrc
+-'  95  32  ~/.zshrc
+-'  1  0  ~/.zshrc
+-'  8  27  ~/.zshrc
+-'  9  0  ~/.zshrc
+-'  98  129  ~/.zshrc
+-'  84  92  ~/.zshrc
+-'  99  0  ~/.zshrc
+-'  87  17  ~/.zshrc
+-'  86  9  ~/.zshrc
+-'  16  0  ~/.zshrc
+-'  100  0  ~/.zshrc
+-'  88  129  ~/.zshrc
+-'  83  92  ~/.zshrc
+-'  85  9  ~/.zshrc
+-'  15  0  ~/.zshrc
+-'  89  129  ~/.zshrc
+-'  90  0  ~/.zshrc
+-'  91  0  ~/.zshrc
+-'  95  32  ~/.zshrc
+-'  1  0  ~/.zshrc
+-'  8  27  ~/.zshrc
+-'  9  0  ~/.zshrc
+-'  98  129  ~/.zshrc
+-'  84  92  ~/.zshrc
+-'  99  0  ~/.zshrc
+-'  87  17  ~/.zshrc
+-'  86  9  ~/.zshrc
+-'  16  0  ~/.zshrc
+-'  100  0  ~/.zshrc
+-'  88  129  ~/.zshrc
+-'  83  92  ~/.zshrc
+-'  85  9  ~/.zshrc
+-'  15  0  ~/.zshrc
+-'  89  129  ~/.zshrc
+-'  90  0  ~/.zshrc
+-'  91  0  ~/.zshrc
+-'  95  32  ~/.zshrc
+-'  1  0  ~/.zshrc
+-'  8  27  ~/.zshrc
+-'  9  0  ~/.zshrc
+-'  98  129  ~/.zshrc
+-'  84  92  ~/.zshrc
+-'  99  0  ~/.zshrc
+-'  87  17  ~/.zshrc
+-'  86  9  ~/.zshrc
+-'  16  0  ~/.zshrc
+-'  100  0  ~/.zshrc
+-'  88  129  ~/.zshrc
+-'  83  92  ~/.zshrc
+-'  85  9  ~/.zshrc
+-'  15  0  ~/.zshrc
+-'  89  129  ~/.zshrc
+-'  90  0  ~/.zshrc
+-'  91  0  ~/.zshrc
+-'  95  32  ~/.zshrc
+-'  1  0  ~/.zshrc
+-'  8  27  ~/.zshrc
+-'  9  0  ~/.zshrc
+-'  98  129  ~/.zshrc
+-'  84  92  ~/.zshrc
+-'  99  0  ~/.zshrc
+-'  87  17  ~/.zshrc
+-'  86  9  ~/.zshrc
+-'  16  0  ~/.zshrc
+-'  100  0  ~/.zshrc
+-'  88  129  ~/.zshrc
+-'  83  92  ~/.zshrc
+-'  85  9  ~/.zshrc
+-'  15  0  ~/.zshrc
+-'  89  129  ~/.zshrc
+-'  90  0  ~/.zshrc
+-'  91  0  ~/.zshrc
+-'  95  32  ~/.zshrc
+-'  1  0  ~/.zshrc
+-'  8  27  ~/.zshrc
+
+# Liste der Puffer:
+%~/.vimrc	109	0
+
+# Geschichte der Markierungen innerhalb von Dateien (neueste zuerst):
+
+> ~/.vimrc
+	"	109	0
+	^	111	0
+	.	111	0
+	+	1	37
+	+	1	11
+	+	1	0
+	+	1	52
+	+	1	10
+	+	1	28
+	+	1	0
+	+	1	10
+	+	1	0
+	+	1	14
+	+	1	0
+	+	83	0
+	+	1	0
+	+	1	0
+	+	1	72
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	58	0
+	+	59	0
+	+	58	0
+	+	59	0
+	+	59	0
+	+	114	20
+	+	115	19
+	+	233	0
+	+	233	0
+	+	233	34
+	+	88	0
+	+	2	0
+	+	3	29
+	+	4	0
+	+	59	0
+	+	115	0
+	+	114	0
+	+	114	0
+	+	23	0
+	+	114	0
+	+	114	29
+	+	106	13
+	+	106	13
+	+	114	0
+	+	115	0
+	+	115	0
+	+	108	22
+	+	114	21
+	+	114	47
+	+	115	77
+	+	233	176
+	+	235	0
+	+	233	175
+	+	234	0
+	+	233	167
+	+	114	0
+	+	113	20
+	+	115	0
+	+	113	0
+	+	233	109
+	+	232	47
+	+	233	46
+	+	232	24
+	+	113	0
+	+	114	0
+	+	112	0
+	+	111	0
+
+> ~/.dotfiles/.git/COMMIT_EDITMSG
+	"	1	15
+	^	1	16
+	.	1	15
+	+	1	15
+
+> /usr/share/vim/vim74/doc/options.txt
+	"	6860	1
+
+> ~/.zshrc
+	"	95	32
+	^	95	33
+	.	95	0
+	+	2	14
+	+	9	18
+	+	22	0
+	+	19	0
+	+	12	0
+	+	16	0
+	+	25	24
+	+	28	0
+	+	31	0
+	+	34	0
+	+	44	0
+	+	53	38
+	+	69	19
+	+	66	0
+	+	76	0
+	+	99	0
+	+	84	4
+	+	83	0
+	+	84	91
+	+	87	7
+	+	86	5
+	+	85	0
+	+	86	10
+	+	87	9
+	+	86	10
+	+	99	9
+	+	87	16
+	+	86	7
+	+	99	0
+	+	99	0
+	+	86	7
+	+	99	0
+	+	88	0
+	+	88	0
+	+	99	0
+	+	99	0
+	+	84	92
+	+	1	0
+	+	98	130
+	+	9	35
+	+	9	81
+	+	9	0
+	+	8	27
+	+	97	16
+	+	97	0
+	+	90	11
+	+	95	0
