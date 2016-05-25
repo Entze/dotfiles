@@ -106,11 +106,12 @@ set tm=500
 syntax enable
 
 " Solarized colorscheme
-if !has("gui_running")
-        let g:solarized_termtrans=1
-        let g:solarized_termcolors=256
+set term=xterm-256color
+if has("gui_running")
+    set background=light
+else
+    set background=dark "for some reason their values are swapped for terminal version 
 endif
-set background=light 
 colorscheme solarized
 
 " Set extra options when running in GUI mode
