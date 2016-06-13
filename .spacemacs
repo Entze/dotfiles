@@ -35,6 +35,7 @@ values."
      auto-completion
      better-defaults
      git
+     org
      ;;languages
      java
      c-c++
