@@ -81,7 +81,7 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-alias cw='$(clear && welcome_message)'
+alias cw='clear && welcome_message'
 # Keys
 alias addSSHkeyToKeyChain='eval "$(ssh-agent -s)" && ssh-add "$SSH_KEY_PATH"'
 alias addGPGkeyToKeyChain='if test -f $HOME/.gpg-agent-info && \
