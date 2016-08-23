@@ -1,0 +1,14 @@
+[user]
+	name = Lukas Grassauer
+	email = entze@grassauer.eu
+[push]
+	default = simple
+[alias]
+    update = pull --rebase
+    started = "!git init && git commit -S -m 'root commit' && git tag -s -m 'root tag' v0.0.0"
+    co = checkout
+    br = branch
+    ci = commit
+    st = status
+    last = log -1 HEAD
+    rekt = reset
