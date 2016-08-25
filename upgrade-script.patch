@@ -1,0 +1,6 @@
+26a27,28
+>   git submodule foreach --recursive git pull --rebase --stat origin master
+>   printf '%s\n' ' updated themes'
+35,36d36
+<   printf "${BLUE}${BOLD}%s${NORMAL}\n" "To keep up on the latest news and updates, follow us on twitter: https://twitter.com/ohmyzsh"
+<   printf "${BLUE}${BOLD}%s${NORMAL}\n" "Get your Oh My Zsh swag at:  http://shop.planetargon.com/"
