@@ -37,7 +37,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+ DISABLE_UNTRACKED_FILES_DIRTY="false"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -54,9 +54,6 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 plugins=(git debian common-aliases sudo)
 
 # User configuration
-
-  export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
-# export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -76,25 +73,18 @@ source $ZSH/oh-my-zsh.sh
 # ssh
  export SSH_KEY_PATH=~/.ssh/id_rsa
 
+# gpg
+ GPG_TTY=$(tty)
+ export GPG_TTY
+
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
 alias cw='clear && welcome_message'
-# Keys
-alias addSSHkeyToKeyChain='eval "$(ssh-agent -s)" && ssh-add "$SSH_KEY_PATH"'
-alias addGPGkeyToKeyChain='if test -f $HOME/.gpg-agent-info && \
-         kill -0 `cut -d: -f 2 $HOME/.gpg-agent-info` 2>/dev/null; then
-         GPG_AGENT_INFO=`cat $HOME/.gpg-agent-info | cut -c 16-`
-         else
-             # No, gpg-agent not available; start gpg-agent
-                 eval `gpg-agent --daemon --no-grab --write-env-file $HOME/.gpg-agent-info`
-                 fi
-                 export GPG_TTY=`tty`
-                 export GPG_AGENT_INFO
-                 echo "GPG-agent is set to listen"'
-alias keychain='addSSHkeyToKeyChain && addGPGkeyToKeyChain'
+
 #
 # VPN
 alias vpn_tu='sudo openconnect --user e1526001@student.tuwien.ac.at https://vpn.tuwien.ac.at'
@@ -117,12 +107,6 @@ if [ -n "$DISPLAY" ]; then
 fi
 
 function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
-#
-# The next line updates PATH for the Google Cloud SDK.
-source '/home/lukas/Apps/google-cloud-sdk/path.zsh.inc'
-
-# The next line enables shell command completion for gcloud.
-source '/home/lukas/Apps/google-cloud-sdk/completion.zsh.inc'
 
 welcome_message (){
 RNG_COLOR=$(print -P $(uname -r && date +'%T%N') | sha1sum | tr -dc '0-9' | grep -o -m1 -E "[[:digit:]]{5}" | grep -o -m1 -E "[1-9][[:digit:]]{4}" | tr -dc '0-9')
