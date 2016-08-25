@@ -4,11 +4,22 @@
 [push]
 	default = simple
 [alias]
-    update = pull --rebase
-    started = "!git init && git commit -S -m 'root commit' && git tag -s -m 'root tag' v0.0.0"
-    co = checkout
-    br = branch
-    ci = commit
-    st = status
-    last = log -1 HEAD
-    rekt = reset
+	update = fetch
+	upgrade = pull --rebase
+	new  = "!git fetch && git pull --rebase"
+	started = "!git init && git commit -S -m 'root commit' && git tag -s -m 'root tag' v0.0.0"
+	ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
+	last = log -1 HEAD
+    	rekt = reset
+	co = checkout
+	cm = commit
+	ud = fetch
+	ug = pull --rebase
+	br = branch
+	st = status
+[merge]
+	tool = meld
+[core]
+	excludesfile = /home/lukas/.gitignore_global
+[rebase]
+	autoStash = true
