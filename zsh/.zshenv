@@ -6,6 +6,3 @@ export GPG_TTY
 
 # ssh
 export SSH_KEY_PATH=~/.ssh/id_rsa
-
-# updates PATH for the Google Cloud SDK.
-source '/home/lukas/Apps/google-cloud-sdk/path.zsh.inc'
