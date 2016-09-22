@@ -41,6 +41,7 @@ values."
      java
      python
      c-c++
+     haskell
      emacs-lisp
      ;;web
      html
