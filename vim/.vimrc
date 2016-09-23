@@ -109,9 +109,9 @@ syntax enable
 " Solarized colorscheme
 set term=xterm-256color
 if has("gui_running")
-    set background=light
+    set background=dark
 else
-    set background=dark "for some reason their values are swapped for terminal version 
+    set background=dark
 endif
 colorscheme solarized
 
