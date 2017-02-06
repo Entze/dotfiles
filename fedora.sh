@@ -7,7 +7,7 @@ sudo dnf install -y etckeeper
 printf "done\n"
 sudo dnf config-manager -y --add-repo http://download.opensuse.org/repositories/home:Horst3180/Fedora_24/home:Horst3180.repo
 printf "installing all packages in packages.list"
-sudo dnf install $(cat packages.list)
+sudo dnf install $(cat $HOME/dotfiles/packages.list)
 printf "done\n"
 printf "changing the shell to zsh\n"
 chsh -s /usr/bin/zsh
@@ -31,4 +31,4 @@ printf "update icon cache\n"
 gtk-update-icon-cache ~/.icons/Numix-Circle
 printf "done\n"
 ln -s ~/.config/xfce4/terminal/Darkterminalrc ~/.config/xfce4/terminal/terminalrc
-printf "done with everything.\nCheck and then restart."
+printf "done with everything.\nCheck and then restart.\n"
