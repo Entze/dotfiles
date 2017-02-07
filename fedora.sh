@@ -17,6 +17,7 @@ chsh -s /usr/bin/zsh
 printf "done\n-----\n"
 printf "restoring gitconfig"
 rm -f $HOME/.gitconfig
+stow --verbose=1 git
 printf "done\n-----\n"
 $HOME/dotfiles/configure-ssh.sh
 $HOME/dotfiles/install-emacs-plugins.sh
@@ -24,9 +25,8 @@ $HOME/dotfiles/install-solarized-theme.sh
 $HOME/dotfiles/install-oh-my-zsh.sh
 $HOME/dotfiles/install-zsh-theme.sh
 printf "stowing dotfiles"
-cd ~/dotfiles/.
+cd $HOME/dotfiles/.
 stow --verbose=1 emacs
-stow --verbose=1 git
 stow --verbose=1 vim
 stow --verbose=1 xfce
 stow --verbose=1 zsh
