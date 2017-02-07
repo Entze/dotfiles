@@ -19,6 +19,7 @@ printf "restoring gitconfig"
 rm -f $HOME/.gitconfig
 printf "done\n"
 printf "stowing dotfiles"
+cd ~/dotfiles/.
 stow --verbose=1 emacs
 stow --verbose=1 git
 stow --verbose=1 vim
