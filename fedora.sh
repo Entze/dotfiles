@@ -18,6 +18,11 @@ printf "done\n-----\n"
 printf "restoring gitconfig"
 rm -f $HOME/.gitconfig
 printf "done\n-----\n"
+$HOME/dotfiles/configure-ssh.sh
+$HOME/dotfiles/install-emacs-plugins.sh
+$HOME/dotfiles/install-solarized-theme.sh
+$HOME/dotfiles/install-oh-my-zsh.sh
+$HOME/dotfiles/install-zsh-theme.sh
 printf "stowing dotfiles"
 cd ~/dotfiles/.
 stow --verbose=1 emacs
@@ -26,13 +31,9 @@ stow --verbose=1 vim
 stow --verbose=1 xfce
 stow --verbose=1 zsh
 printf "done\n-----\n"
-$HOME/dotfiles/configure-ssh.sh
-$HOME/dotfiles/install-emacs-plugins.sh
-$HOME/dotfiles/install-solarized-theme.sh
-$HOME/dotfiles/install-oh-my-zsh.sh
-$HOME/dotfiles/install-zsh-theme.sh
 printf "update icon cache\n"
-gtk-update-icon-cache ~/.icons/Numix-Circle
+gtk-update-icon-cache $HOME/.icons/Numix
+gtk-update-icon-cache $HOME/.icons/Numix-Circle
 printf "done\n-----\n"
 ln -s ~/.config/xfce4/terminal/Darkterminalrc ~/.config/xfce4/terminal/terminalrc
 printf "done with everything.\nCheck and then restart.\n"

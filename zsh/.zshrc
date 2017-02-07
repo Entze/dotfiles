@@ -116,12 +116,12 @@ if (($RNG_COLOR < 100)); then
 fi
 
 # welcome message
-print -P "$reset_color$(date +"%F") $FG[$RNG_COLOR]$(date +"%T"),$reset_color $(date +"%A"), $(date +"%d"). $(date +"%B")\n$FG[069]$(cat /etc/os-release | grep -E '^PRETTY_NAME="' | sed 's/\(^PRETTY_NAME="\)\(.*\)\("$\)/\2/')$reset_color on $fg[blue]$(uname) $(uname -r)$reset_color\c"
+print -P "$reset_color$(date +"%F") $FG[$RNG_COLOR]$(date +"%T"),$reset_color $(date +"%A"), $(date +"%d"). $(date +"%B")\n$FG[069]$(cat /etc/os-release | grep -E '^PRETTY_NAME="' | sed 's/\(^PRETTY_NAME="\)\(.*\)\("$\)/\2/')$reset_color on $fg[blue]$(uname) $(uname -r)$reset_color\n\c"
 }
 welcome_message
 finished=$(( $(date +%s%N) / 1000000 ))
 zshrc-analyze(){
-readTime=$(( finished - start)) 
+readTime=$(( finished - start))
 readTime=$(print -P $readTime | sed 's/\(.\)\(...\)$/\1.\2s/;t;s/^...$/0.&s/;t;s/^..$/0.0&s/;t;s/^.$/0.00&s/')
 print -P "zshrc was loaded in $readTime"
 }
