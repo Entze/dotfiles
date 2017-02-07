@@ -8,7 +8,7 @@ printf "done\n-----\n"
 printf "update installed packages\n"
 sudo dnf update
 printf "done\n-----\n"
-sudo dnf config-manager -y --add-repo http://download.opensuse.org/repositories/home:Horst3180/Fedora_24/home:Horst3180.repo
+sudo dnf config-manager -y --add-repo https://download.opensuse.org/repositories/home:Horst3180/Fedora_24/home:Horst3180.repo
 printf "installing all packages in packages.list"
 sudo dnf install --best $(cat $HOME/dotfiles/packages.list)
 printf "done\n-----\n"

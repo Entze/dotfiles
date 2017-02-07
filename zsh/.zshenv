@@ -1,4 +1,4 @@
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:$HOME/.cask/bin:$PATH"
 
 # gpg
 GPG_TTY=$(tty)
