@@ -8,7 +8,6 @@ printf "done\n-----\n"
 printf "update installed packages\n"
 sudo dnf update
 printf "done\n-----\n"
-sudo dnf config-manager -y --add-repo https://download.opensuse.org/repositories/home:Horst3180/Fedora_24/home:Horst3180.repo
 printf "installing all packages in packages.list"
 sudo dnf install --best $(cat $HOME/dotfiles/packages.list)
 printf "done\n-----\n"
@@ -20,15 +19,10 @@ rm -f $HOME/.gitconfig
 cd $HOME/dotfiles/.
 stow --verbose=1 git
 printf "done\n-----\n"
-cd $HOME/dotfiles/.
 $HOME/dotfiles/configure-ssh.sh
-cd $HOME/dotfiles/.
 $HOME/dotfiles/install-emacs-plugins.sh
-cd $HOME/dotfiles/.
 $HOME/dotfiles/install-solarized-theme.sh
-cd $HOME/dotfiles/.
 $HOME/dotfiles/install-oh-my-zsh.sh
-cd $HOME/dotfiles/.
 $HOME/dotfiles/install-zsh-theme.sh
 printf "stowing dotfiles"
 cd $HOME/dotfiles/.
