@@ -6,10 +6,10 @@ git config --global user.email "entze@grassauer.eu"
 sudo dnf install -y etckeeper
 printf "done\n-----\n"
 printf "update installed packages\n"
-sudo dnf update
+sudo dnf update -y
 printf "done\n-----\n"
-printf "installing all packages in packages.list"
-sudo dnf install --best $(cat $HOME/dotfiles/packages.list)
+printf "installing all packages in packages.list\n"
+sudo dnf install -y --best $(cat $HOME/dotfiles/packages.list)
 printf "done\n-----\n"
 printf "changing the shell to zsh\n"
 chsh -s /usr/bin/zsh
@@ -30,10 +30,6 @@ stow --verbose=1 emacs
 stow --verbose=1 vim
 stow --verbose=1 xfce
 stow --verbose=1 zsh
-printf "done\n-----\n"
-printf "update icon cache\n"
-gtk-update-icon-cache $HOME/.icons/Numix
-gtk-update-icon-cache $HOME/.icons/Numix-Circle
 printf "done\n-----\n"
 ln -s ~/.config/xfce4/terminal/Darkterminalrc ~/.config/xfce4/terminal/terminalrc
 printf "done with everything.\nCheck and then restart.\n"
