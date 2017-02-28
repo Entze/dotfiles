@@ -3,13 +3,23 @@ printf "preconfiguring git for etckeeper\n"
 rm -f $HOME/.gitconfig
 git config --global user.name "Lukas Grassauer"
 git config --global user.email "entze@grassauer.eu"
-sudo dnf install -y etckeeper
+sudo dnf install --assumeyes --allowerasing --best etckeeper
+printf "done\n-----\n"
+printf "starting etckeeper\n"
+cd /etc
+etckeeper init
+cd $HOME
 printf "done\n-----\n"
 printf "update installed packages\n"
-sudo dnf update -y
+sudo dnf update --assumeyes --allowerasing --best
 printf "done\n-----\n"
-printf "installing all packages in packages.list\n"
-sudo dnf install -y --best $(cat $HOME/dotfiles/packages.list)
+printf "installing all packages in packages.list and google chrome\n"
+sudo dnf install --assumeyes --allowerasing --best $(cat $HOME/dotfiles/packages.list)
+cd $HOME/Downloads/.
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+wget https://dl.google.com/linux/linux_signing_key.pub
+sudo rpm --import linux_signing_key.pub
+rpm --checksig --verbose google-chrome-stable_current_x86_64.rpm && sudo dnf install google-chrome-stable_current_x86_64.rpm
 printf "done\n-----\n"
 printf "changing the shell to zsh\n"
 chsh -s /usr/bin/zsh
