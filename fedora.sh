@@ -16,9 +16,10 @@ printf "done\n-----\n"
 printf "installing all packages in packages.list and google chrome\n"
 sudo dnf install --assumeyes --allowerasing --best $(cat $HOME/dotfiles/packages.list)
 cd $HOME/Downloads/.
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
-wget https://dl.google.com/linux/linux_signing_key.pub
-sudo rpm --import linux_signing_key.pub
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm &
+wget https://dl.google.com/linux/linux_signing_key.pub &
+wait
+sudo rpm --import ./linux_signing_key.pub
 rpm --checksig --verbose google-chrome-stable_current_x86_64.rpm && sudo dnf install --assumeyes --allowerasing --best google-chrome-stable_current_x86_64.rpm
 printf "done\n-----\n"
 printf "changing the shell to zsh\n"
