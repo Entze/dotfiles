@@ -19,12 +19,12 @@ cd $HOME/Downloads/.
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
 wget https://dl.google.com/linux/linux_signing_key.pub
 sudo rpm --import linux_signing_key.pub
-rpm --checksig --verbose google-chrome-stable_current_x86_64.rpm && sudo dnf install google-chrome-stable_current_x86_64.rpm
+rpm --checksig --verbose google-chrome-stable_current_x86_64.rpm && sudo dnf install --assumeyes --allowerasing --best google-chrome-stable_current_x86_64.rpm
 printf "done\n-----\n"
 printf "changing the shell to zsh\n"
 chsh -s /usr/bin/zsh
 printf "done\n-----\n"
-printf "restoring gitconfig"
+printf "restoring gitconfig\n"
 rm -f $HOME/.gitconfig
 cd $HOME/dotfiles/.
 stow --verbose=1 git
@@ -34,7 +34,7 @@ $HOME/dotfiles/install-emacs-plugins.sh
 $HOME/dotfiles/install-solarized-theme.sh
 $HOME/dotfiles/install-oh-my-zsh.sh
 $HOME/dotfiles/install-zsh-theme.sh
-printf "stowing dotfiles"
+printf "stowing dotfiles\n"
 cd $HOME/dotfiles/.
 stow --verbose=1 emacs
 stow --verbose=1 vim
