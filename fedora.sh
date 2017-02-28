@@ -7,7 +7,7 @@ sudo dnf install --assumeyes --allowerasing --best etckeeper
 printf "done\n-----\n"
 printf "starting etckeeper\n"
 cd /etc
-etckeeper init
+sudo etckeeper init
 cd $HOME
 printf "done\n-----\n"
 printf "update installed packages\n"
