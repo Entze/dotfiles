@@ -93,18 +93,7 @@ alias vpn_tu='sudo openconnect --user e1526001@student.tuwien.ac.at https://vpn.
 # custom section #
 ##################
 
-# graphical
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status rbenv)
-POWERLEVEL9K_STATUS_VERBOSE=false
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
-
 DISABLE_AUTO_TITLE="true"
-
-if [ -n "$DISPLAY" ]; then
-      xset b off
-fi
 
 function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 
