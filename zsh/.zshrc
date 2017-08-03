@@ -7,7 +7,7 @@ start=$(($(date +%s%N)/1000000))
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 export TERM="xterm-256color"
-ZSH_THEME="powerlevel9k/powerlevel9k"
+ZSH_THEME=""
 
 # Uncomment the following line to use case-sensitive completion.
  CASE_SENSITIVE="false"
@@ -17,7 +17,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
  HYPHEN_INSENSITIVE="false"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-  DISABLE_AUTO_UPDATE="false"
+# DISABLE_AUTO_UPDATE="false"
 
 # Uncomment the following line to change how often to auto-update (in days).
  export UPDATE_ZSH_DAYS=30
@@ -51,7 +51,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git fedora common-aliases sudo)
+plugins=(git common-aliases sudo)
 
 # User configuration
 
