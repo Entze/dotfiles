@@ -1,3 +1,6 @@
 [submodule "emacs/.emacs.d/opt/sensible-defaults"]
 	path = emacs/.emacs.d/opt/sensible-defaults
 	url = https://github.com/hrs/sensible-defaults.el
+[submodule "zsh/.oh-my-zsh"]
+	path = zsh/.oh-my-zsh
+	url = https://gitlab.com/Entze/oh-my-zsh.git
