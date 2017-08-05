@@ -7,4 +7,3 @@ export PKGMNG
 export PKGINSTALL
 export PKGUPGRADE
 export ASSUMEYES
-./install.sh
