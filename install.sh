@@ -9,6 +9,9 @@ rm -f $HOME/.gitconfig
 cd $HOME/dotfiles/.
 stow --verbose=1 git
 printf "done.\n-----\n"
+printf "fetching submodules\n"
+git submodule update --init --recursive
+printf "done.\n-----\n"
 printf "configuring programs\n"
 $HOME/dotfiles/configure-ssh.sh
 $HOME/dotfiles/install-emacs-plugins.sh
@@ -22,7 +25,7 @@ stow --verbose=1 vim
 stow --verbose=1 xfce
 stow --verbose=1 zsh
 printf "done.\n-----\n"
-printf "changing to zsh"
+printf "changing to zsh\n"
 chsh -s /usr/bin/zsh
 printf "done.\n-----\n"
 printf "updating packages\n"
