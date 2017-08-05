@@ -1,1 +1,1 @@
-git GraphicsMagick GraphicsMagick-doc R stow zsh emacs vim texlive firefox thunderbird python python3 nodejs owncloud-client gnupg2 ghc transmission keepassx galculator libreoffice util-linux-user
+git GraphicsMagick R stow zsh emacs vim texlive-all firefox thunderbird python python3 nodejs owncloud-client gnupg ghc transmission keepassx libreoffice-all
