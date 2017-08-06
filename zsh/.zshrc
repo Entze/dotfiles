@@ -7,7 +7,7 @@ start=$(($(date +%s%N)/1000000))
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 export TERM="xterm-256color"
-ZSH_THEME=""
+ZSH_THEME="lambda-mod/lambda-mod"
 
 # Uncomment the following line to use case-sensitive completion.
  CASE_SENSITIVE="false"
