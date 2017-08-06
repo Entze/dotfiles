@@ -53,15 +53,10 @@ also requires =pallet= to be loaded.
 
 ** Theme
 
-I very much enjoy the [[http://ethanschoonover.com/solarized][solarized]] color scheme.  It's very light on the
-eyes and makes finding the important stuff fast and easy.
-
-The following block enables the solarized theme solely when using a
-graphical interface
 #+BEGIN_SRC emacs-lisp
 
   (when window-system
-   (load-theme 'solarized-dark t))
+   (load-theme 'idea-darkula t))
 
 #+END_SRC
 

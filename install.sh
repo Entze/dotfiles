@@ -26,7 +26,7 @@ stow --verbose=1 xfce
 stow --verbose=1 zsh
 printf "done.\n-----\n"
 printf "changing to zsh\n"
-chsh -s /usr/bin/zsh
+chsh -s /bin/zsh || chsh -s /usr/bin/zsh
 printf "done.\n-----\n"
 printf "updating packages\n"
 sudo $PKGMNG $PKGUPGRADE $ASSUMEYES
