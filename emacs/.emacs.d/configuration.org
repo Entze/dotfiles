@@ -196,6 +196,10 @@ The width-masterrace speaks through me
 
 #+END_SRC
 
+*** Allow dead-keys
+
+(require 'iso-transl)
+
 ** Visual Bell
 
 Disable the visual bell (I think it does not help in any way)

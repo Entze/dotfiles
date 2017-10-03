@@ -10,8 +10,9 @@
 	started = "!git init && git commit --allow-empty -S -m 'root commit' && git tag -s -m 'root tag' 0.0.0"
 	ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
 	last = log -1 HEAD
-    	rekt = reset
-	co = checkout
+	snapshot = "!git add -A && git commit -m \"Snapshot $(date --iso-8601=seconds)\" && git push --follow-tags"
+	rekt = reset
+    co = checkout
 	cm = commit
 	ud = fetch
 	ug = pull --rebase
