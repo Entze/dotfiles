@@ -6,6 +6,7 @@
 [alias]
 	update = fetch
 	upgrade = pull --rebase
+	fresh = "!git pull --stat --ff-only || git pull --stat --rebase"
 	new  = "!git fetch && git pull --rebase"
 	started = "!git init && git commit --allow-empty -S -m 'root commit' && git tag -s -m 'root tag' 0.0.0"
 	ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
