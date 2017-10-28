@@ -1,6 +1,6 @@
 #+TITLE: emacs configuration
 #+AUTHOR: Lukas Grassauer
-#+LANGUAGE: En
+#+LANGUAGE: en
 
 * Overview
 
@@ -170,6 +170,63 @@ nice to add smart indent and =haskell-doc-mode=
             (haskell-doc-mode)
             (turn-on-haskell-indent)
             (ghc-init)))
+
+#+END_SRC
+
+
+** Org-Mode
+
+Org-ref & bibtex
+#+BEGIN_SRC emacs-lisp
+
+(require 'org-ref)
+
+(setq reftex-default-bibliography '("~/Documents/bibliography/grassauer.bib"))
+(setq org-ref-default-bibliography '("~/Documents/bibliography/grassauer.bib"))
+
+#+END_SRC
+
+
+#+BEGIN_SRC emacs-lisp
+
+(eval-after-load "org"
+  '(require 'ox-md nil t))
+
+#+END_SRC
+
+ispell ignore org-mode constructs
+
+#+BEGIN_SRC emacs-lisp
+
+(add-to-list 'ispell-skip-region-alist '(":\\(PROPERTIES\\|LOGBOOK\\):" . ":END:"))
+(add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
+
+#+END_SRC
+
+enable spellchecking and grammarchecking
+
+#+BEGIN_SRC emacs-lisp
+
+(add-hook 'org-mode-hook (lambda ()
+   (progn
+     ;; Snipped
+     (auto-fill-mode t)
+
+     ;; Spelling
+     (flyspell-mode t)
+
+     ;; Grammar
+     (require 'langtool)
+     (setq langtool-java-classpath "/opt/LanguageTool-3.9/:/opt/LanguageTool-3.9/*:/usr/share/java/languagetool/*"))))
+
+#+END_SRC
+
+latex export:
+
+#+BEGIN_SRC emacs-lisp
+
+(setq org-latex-pdf-process
+'("pdflatex %f" "bibtex %b" "pdflatex %f" "pdflatex %f"))
 
 #+END_SRC
 
