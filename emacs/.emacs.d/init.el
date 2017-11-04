@@ -14,7 +14,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (langtool markdown-mode org-ref sass-mode typescript-mode haskell-mode evil solarized-theme pallet))))
+    (org-plus-contrib org langtool markdown-mode sass-mode typescript-mode haskell-mode evil solarized-theme pallet))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

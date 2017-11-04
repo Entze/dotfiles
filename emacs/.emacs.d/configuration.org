@@ -48,6 +48,23 @@ also requires =pallet= to be loaded.
 
 #+END_SRC
 
+Fetches the latest org-mode
+
+#+BEGIN_SRC emacs-lisp
+
+  (require 'package)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+  (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
+  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+
+  (add-to-list 'load-path "~/.emacs/opt/org-mode/lisp")
+  (add-to-list 'load-path "~/.emacs/opt/org-mode/contrib/lisp" t)
+
+  (package-initialize)
+  (setq package-enable-at-startup nil)
+
+#+END_SRC
+
 
 * Visual Stuff
 
@@ -224,6 +241,8 @@ enable spellchecking and grammarchecking
 latex export:
 
 #+BEGIN_SRC emacs-lisp
+
+(setq org-export-with-smart-quotes t)
 
 (setq org-latex-pdf-process
 '("pdflatex %f" "bibtex %b" "pdflatex %f" "pdflatex %f"))
