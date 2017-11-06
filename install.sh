@@ -22,7 +22,7 @@ printf "stowing dotfiles\n"
 cd $HOME/dotfiles/.
 stow --verbose=1 emacs
 stow --verbose=1 vim
-stow --verbose=1 xfce
+stow --verbose=1 os
 stow --verbose=1 zsh
 printf "done.\n-----\n"
 printf "changing to zsh\n"
