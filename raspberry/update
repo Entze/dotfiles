@@ -1,0 +1,27 @@
+#!/bin/bash
+
+(printf   "############\n# dotfiles #\n############\n\n" > /tmp/dotfiles.log && cd ~/dotfiles && ((git pull --stat --ff-only >> /tmp/dotfiles.log) || (git pull --rebase --stat >> /tmp/dotfiles.log) || (git rebase --abort >> /tmp/dotfiles.log)) && cd ~) &
+dotfilepid=($!)
+(printf "\n############\n#   apt    #\n############\n\n" > /tmp/apt.log && (sudo apt-get update >> /tmp/apt.log) && (sudo apt-get upgrade -y >> /tmp/apt.log)) &
+aptpid=($!)
+(printf "\n############\n# neofetch #\n############\n\n" > /tmp/neofetch.log && neofetch >> /tmp/neofetch.log) &
+neofetchpid=($!)
+############
+# dotfiles #
+############
+wait "$dotfilepid"
+cat /tmp/dotfiles.log
+############
+#   apt    #
+############
+wait "$aptpid"
+cat /tmp/apt.log
+############
+# neofetch #
+############
+wait "$neofetchpid"
+cat /tmp/neofetch.log
+
+# final wait to be sure everything is done
+wait
+

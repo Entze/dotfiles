@@ -1,33 +1,14 @@
 printf "updating packages\n"
-sudo $PKGMNG $PKGUPGRADE $ASSUMEYES
+sudo $PKGMNG $PKGUPGRADE $ASSUMEYES --
 printf "done.\n-----\n"
 printf "install packages from packages list\n"
-sudo $PKGMNG $PKGINSTALL $ASSUMEYES $(cat $HOME/dotfiles/packages.list)
+sudo $PKGMNG $PKGINSTALL $ASSUMEYES -- $(cat $HOME/dotfiles/packages.common.list $HOME/dotfiles/$PACKAGES)
 printf "done.\n-----\n"
 printf "restoring gitconfig\n"
-rm -f $HOME/.gitconfig
-cd $HOME/dotfiles/.
-stow --verbose=1 git
+rm -f -- $HOME/.gitconfig
+cd -- $HOME/dotfiles/.
+stow --verbose=1 -- git
 printf "done.\n-----\n"
 printf "fetching submodules\n"
-git submodule update --init --recursive
-printf "done.\n-----\n"
-printf "configuring programs\n"
-$HOME/dotfiles/configure-ssh.sh
-$HOME/dotfiles/install-emacs-plugins.sh
-$HOME/dotfiles/install-oh-my-zsh.sh
-$HOME/dotfiles/install-zsh-theme.sh
-printf "done.\n-----\n"
-printf "stowing dotfiles\n"
-cd $HOME/dotfiles/.
-stow --verbose=1 emacs
-stow --verbose=1 vim
-stow --verbose=1 os
-stow --verbose=1 zsh
-printf "done.\n-----\n"
-printf "changing to zsh\n"
-chsh -s /bin/zsh || chsh -s /usr/bin/zsh
-printf "done.\n-----\n"
-printf "updating packages\n"
-sudo $PKGMNG $PKGUPGRADE $ASSUMEYES
+git submodule update --init --recursive --remote --
 printf "done.\n-----\n"
