@@ -9,17 +9,17 @@ NEOFETCHPID=($!)
 ############
 # dotfiles #
 ############
-tail --quiet --lines=+0 --follow=dotfiles --retry --pid=$DOTFILEPID /tmp/dotfiles.log
+tail --quiet --lines=+0 --follow="dotfiles" --retry --pid=$DOTFILEPID /tmp/dotfiles.log
 wait "$DOTFILEPID"
 ############
 #   apt    #
 ############
-tail --quiet --lines=+0 --follow=apt --retry --pid=$APTPID /tmp/apt.log
+tail --quiet --lines=+0 --follow="apt" --retry --pid=$APTPID /tmp/apt.log
 wait "$APTPID"
 ############
 # neofetch #
 ############
-tail --quiet --lines=+0 --follow=neofetch --retry --pid=$NEOFETCHPID /tmp/neofetch.log
+tail --quiet --lines=+0 --follow="neofetch" --retry --pid=$NEOFETCHPID /tmp/neofetch.log
 wait "$NEOFETCHPID"
 
 # final wait to be sure everything is done
