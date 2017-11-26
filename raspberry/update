@@ -1,27 +1,26 @@
 #!/bin/bash
 
 (printf   "############\n# dotfiles #\n############\n\n" > /tmp/dotfiles.log && cd ~/dotfiles && ((git pull --stat --ff-only >> /tmp/dotfiles.log) || (git pull --rebase --stat >> /tmp/dotfiles.log) || (git rebase --abort >> /tmp/dotfiles.log)) && cd ~) &
-dotfilepid=($!)
+DOTFILEPID=($!)
 (printf "\n############\n#   apt    #\n############\n\n" > /tmp/apt.log && (sudo apt-get update >> /tmp/apt.log) && (sudo apt-get upgrade -y >> /tmp/apt.log)) &
-aptpid=($!)
+APTPID=($!)
 (printf "\n############\n# neofetch #\n############\n\n" > /tmp/neofetch.log && neofetch >> /tmp/neofetch.log) &
-neofetchpid=($!)
+NEOFETCHPID=($!)
 ############
 # dotfiles #
 ############
-wait "$dotfilepid"
-cat /tmp/dotfiles.log
+tail --quiet --lines=+0 --follow=dotfiles --retry --pid=$DOTFILEPID /tmp/dotfiles.log
+wait "$DOTFILEPID"
 ############
 #   apt    #
 ############
-wait "$aptpid"
-cat /tmp/apt.log
+tail --quiet --lines=+0 --follow=apt --retry --pid=$APTPID /tmp/apt.log
+wait "$APTPID"
 ############
 # neofetch #
 ############
-wait "$neofetchpid"
-cat /tmp/neofetch.log
+tail --quiet --lines=+0 --follow=neofetch --retry --pid=$NEOFETCHPID /tmp/neofetch.log
+wait "$NEOFETCHPID"
 
 # final wait to be sure everything is done
 wait
-
