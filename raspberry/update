@@ -1,26 +1,2 @@
 #!/bin/bash
-
-(printf   "############\n# dotfiles #\n############\n\n" > /tmp/dotfiles.log && cd ~/dotfiles && ((git pull --stat --ff-only >> /tmp/dotfiles.log) || (git pull --rebase --stat >> /tmp/dotfiles.log) || (git rebase --abort >> /tmp/dotfiles.log)) && cd ~) &
-DOTFILEPID=($!)
-(printf "\n############\n#   apt    #\n############\n\n" > /tmp/apt.log && (sudo apt-get update >> /tmp/apt.log) && (sudo apt-get upgrade -y >> /tmp/apt.log)) &
-APTPID=($!)
-(printf "\n############\n# neofetch #\n############\n\n" > /tmp/neofetch.log && neofetch >> /tmp/neofetch.log) &
-NEOFETCHPID=($!)
-############
-# dotfiles #
-############
-tail --quiet --lines=+0 -F --pid=$DOTFILEPID /tmp/dotfiles.log
-wait "$DOTFILEPID"
-############
-#   apt    #
-############
-tail --quiet --lines=+0 -F --pid=$APTPID /tmp/apt.log
-wait "$APTPID"
-############
-# neofetch #
-############
-tail --quiet --lines=+0 -F --pid=$NEOFETCHPID /tmp/neofetch.log
-wait "$NEOFETCHPID"
-
-# final wait to be sure everything is done
-wait
+parallel --keep-order -j6 ::: 'printf "############\n# dotfiles #\n############\n\n"' '(cd ~/dotfiles && (git pull --stat --ff-only || git pull --rebase --stat || git rebase --abort)); cd ~' 'printf "\n############\n#   apt    #\n############\n\n"' 'sudo apt-get update && sudo apt-get -y upgrade' 'printf "\n############\n# neofetch #\n############\n\n"' neofetch

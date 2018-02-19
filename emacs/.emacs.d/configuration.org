@@ -244,9 +244,12 @@ latex export:
 
 (setq org-export-with-smart-quotes t)
 
+;(require 'ox-bibtex)
 (setq org-latex-pdf-process
-'("pdflatex %f" "bibtex %b" "pdflatex %f" "pdflatex %f"))
-
+'("pdflatex -interaction nonstopmode -output-directory %o %f"
+        "biber %b"
+        "pdflatex -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -interaction nonstopmode -output-directory %o %f"))
 #+END_SRC
 
 
