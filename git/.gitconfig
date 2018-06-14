@@ -22,6 +22,7 @@
 [merge]
 	tool = meld
 [core]
+	editor = 'vim'
 	excludesfile = /home/lukas/.gitignore_global
 [rebase]
 	autoStash = true

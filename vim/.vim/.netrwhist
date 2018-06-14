@@ -1,3 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_cnt =4
 let g:netrw_dirhist_1='/home/lukas/Uni/WS17_IID/ex3'
+let g:netrw_dirhist_2='/home/lukas/Programming/checksum/test'
+let g:netrw_dirhist_3='/home/lukas/Uni/SS18_SSE/Lab1/owasp/app9/exploit'
+let g:netrw_dirhist_4='/home/lukas/Uni/SS18_SSE/Lab1/owasp/app10/src'
