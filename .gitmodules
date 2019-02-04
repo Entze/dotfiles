@@ -10,3 +10,6 @@
 [submodule "zsh/.zsh/plugins/zsh-git-prompt"]
 	path = zsh/.zsh/plugins/zsh-git-prompt
 	url = https://github.com/olivierverdier/zsh-git-prompt.git
+[submodule "zsh/.zsh/themes/zsh-prompt"]
+	path = zsh/.zsh/themes/zsh-prompt
+	url = https://gitlab.com/Entze/zsh-prompt.git
