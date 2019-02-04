@@ -1,15 +1,12 @@
 [submodule "emacs/.emacs.d/opt/sensible-defaults"]
 	path = emacs/.emacs.d/opt/sensible-defaults
 	url = https://github.com/hrs/sensible-defaults.el
-[submodule "zsh/.oh-my-zsh"]
-	path = zsh/.oh-my-zsh
-	url = https://gitlab.com/Entze/oh-my-zsh.git
-[submodule "emacs/.emacs.d/opt/org-mode"]
-	path = emacs/.emacs.d/opt/org-mode
-	url = git://orgmode.org/org-mode.git
 [submodule "zsh/.zsh/plugins/zsh-syntax-highlighting"]
 	path = zsh/.zsh/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 [submodule "zsh/.zsh/plugins/zsh-history-substring-search"]
 	path = zsh/.zsh/plugins/zsh-history-substring-search
 	url = https://github.com/zsh-users/zsh-history-substring-search.git
+[submodule "zsh/.zsh/plugins/zsh-git-prompt"]
+	path = zsh/.zsh/plugins/zsh-git-prompt
+	url = https://github.com/olivierverdier/zsh-git-prompt.git
