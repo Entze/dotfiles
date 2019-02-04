@@ -43,10 +43,11 @@ bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
+if which vim &> /dev/null
+then
+	export EDITOR='vim'
 else
-  export EDITOR='vim'
+	export EDITOR='vi'
 fi
 
 alias cw='clear && welcome_message'
