@@ -65,14 +65,14 @@ function welcome_message () {
 	
 	# welcome message
 	
-	print -P "$reset_color$(date +"%F") $FG[$RNG_COLOR]$(date +"%T"),$reset_color $(date +"%A"), $(date +"%d"). $(date +"%B")\n$fg_bold[blue]$(grep -F 'PRETTY_NAME="' /etc/os-release | sed 's/\(^PRETTY_NAME="\)\(.*\)\("$\)/\2/')$reset_color on $FG[208]$(uname) $(uname -r)$reset_color\n\c"
+	print -P "$reset_color$(date +"%F") $FG[$RNG_COLOR]$(date +"%T"),$reset_color $(date +"%A"), $(date +"%d"). $(date +"%B")\n$fg[blue]$(grep -F 'PRETTY_NAME="' /etc/os-release | sed 's/\(^PRETTY_NAME="\)\(.*\)\("$\)/\2/')$reset_color on $FG[208]$(uname) $(uname -r)$reset_color\n\c"
 
 }
 welcome_message
 finished=$(( $(date +%s%N) / 1000000 ))
 
 function zshrc-analyze() {
-  readTime=$(( finished - start))
+  readTime=$(( finished - start ))
   readTime=$(print -P $readTime | sed 's/\(.\)\(...\)$/\1.\2s/;t;s/^...$/0.&s/;t;s/^..$/0.0&s/;t;s/^.$/0.00&s/')
   print -P "zshrc was loaded in $readTime"
 }
