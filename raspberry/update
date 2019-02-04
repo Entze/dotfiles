@@ -1,2 +1,0 @@
-#!/bin/bash
-parallel --keep-order -j6 ::: 'printf "############\n# dotfiles #\n############\n\n"' '(cd ~/dotfiles && (git pull --stat --ff-only || git pull --rebase --stat || git rebase --abort)); cd ~' 'printf "\n############\n#   apt    #\n############\n\n"' 'sudo apt-get update && sudo apt-get -y upgrade' 'printf "\n############\n# neofetch #\n############\n\n"' neofetch
