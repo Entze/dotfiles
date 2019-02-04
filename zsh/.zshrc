@@ -41,6 +41,8 @@ bindkey -v
 
 bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
+bindkey "${terminfo[khome]}" beginning-of-line
+bindkey "${terminfo[kend]}" end-of-line
 
 # Preferred editor for local and remote sessions
 if which vim &> /dev/null
