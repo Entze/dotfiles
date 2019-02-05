@@ -10,6 +10,9 @@ source $HOME/.zsh/themes/zsh-prompt/lambda-mod.zsh-theme
 source $HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $HOME/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 
+GIT_PROMPT_EXECUTABLE="haskell"
+ZSH_THEME_GIT_PROMPT_CACHE="true"
+
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=1000000000
 SAVEHIST=100000000
