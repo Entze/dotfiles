@@ -32,8 +32,15 @@ There are two things you can do about this warning:
   (package-refresh-contents))
 
 (defvar my-packages
-  '(auctex evil haskell-mode idea-darkula-theme org org-bullets sass-mode typescript-mode undo-tree) 
-  "A list of packages to ensure are installed at launch.")
+  '(
+	auctex
+	evil
+	haskell-mode
+	idea-darkula-theme
+	org
+	undo-tree
+	wc-mode
+	) "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -82,6 +89,14 @@ There are two things you can do about this warning:
 
      ;; Spelling
      (flyspell-mode t))))
+
+(require 'ispell)
+
+(setenv
+  "DICPATH"
+  "/usr/share/hunspell/")
+(setq ispell-program-name "hunspell")
+
 
 (setq org-export-with-smart-quotes t)
 
