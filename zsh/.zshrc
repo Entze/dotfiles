@@ -1,10 +1,10 @@
 start=$(($(date +%s%N)/1000000))
 
-# export TERM="xterm-256color"
+export TERM="xterm-256color"
 
 source $HOME/.zsh/plugins/cp/cpv.zsh
 source $HOME/.zsh/plugins/sudo/sudo.zsh
-source $HOME/.zsh/plugins/zsh-git-promt/zshrc.sh
+source $HOME/.zsh/plugins/zsh-git-prompt/zshrc.sh
 source $HOME/.zsh/plugins/extract/extract.zsh
 source $HOME/.zsh/themes/zsh-prompt/lambda-mod.zsh-theme
 source $HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
