@@ -3,10 +3,10 @@ start=$(($(date +%s%N)/1000000))
 export TERM="xterm-256color"
 
 source $HOME/.zsh/plugins/cp/cpv.zsh
-source $HOME/.zsh/plugins/sudo/sudo.zsh
 source $HOME/.zsh/plugins/zsh-git-prompt/zshrc.sh
 source $HOME/.zsh/plugins/extract/extract.zsh
 source $HOME/.zsh/themes/zsh-prompt/lambda-mod.zsh-theme
+source $HOME/.zsh/plugins/sudo/sudo.zsh
 source $HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $HOME/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 
@@ -46,6 +46,9 @@ bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
 bindkey "${terminfo[khome]}" beginning-of-line
 bindkey "${terminfo[kend]}" end-of-line
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
 
 # Preferred editor for local and remote sessions
 if which vim &> /dev/null
