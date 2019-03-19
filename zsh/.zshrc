@@ -22,6 +22,7 @@ zstyle ':completion:*' completer _complete
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
 
 autoload -U compinit && compinit
+autoload colors && colors
 zmodload -i zsh/complist
 
 unsetopt menu_complete
@@ -49,6 +50,11 @@ bindkey "${terminfo[kend]}" end-of-line
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
+alias ls='ls --color=always'
+
+LS_COLORS='no=00;37:fi=00:di=00;33:ln=04;36:pi=40;33:so=01;35:bd=40;33;01:'
+export LS_COLORS
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # Preferred editor for local and remote sessions
 if which vim &> /dev/null
