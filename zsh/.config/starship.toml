@@ -1,10 +1,162 @@
+add_newline = false
 
+prompt_order = [
+    "username",
+    "hostname",
+#   "kubernetes",
+    "directory",
+    "git_branch",
+    "git_commit",
+    "git_state",
+    "git_status",
+#   "hg_branch",
+#   "package",
+#   "dotnet",
+#   "golang",
+#   "java",
+#   "nodejs",
+#   "php",
+    "python",
+#   "ruby",
+#   "rust",
+#   "terraform",
+#   "nix_shell",
+#   "conda",
+#   "memory_usage",
+#   "aws",
+#   "env_var",
+    "cmd_duration",
+#   "line_break",
+    "jobs",
+#   "battery",
+    "time",
+    "character",
+]
+
+scan_timeout = 25
+
+[aws]
+disabled = true
 
 [battery]
 disabled = true
 
 [character]
 symbol = "λ"
+error_symbol = "φ"
+vicmd_symbol = "π"
+use_symbol_for_status = true
+disabled = false
 
+[cmd_duration]
+min_time = 2048
+show_milliseconds = true
+prefix = "🕒 "
+disabled = false
 
+[conda]
+disabled = true
 
+[directory]
+prefix = ""
+disabled = false
+
+[dotnet]
+disabled = true
+
+[env_var]
+disabled = true
+
+[git_branch]
+disabled = false
+
+[git_commit]
+prefix = "["
+suffix = "] "
+disabled = false
+
+[git_state]
+disabled = false
+
+[git_status]
+style = "white"
+prefix = "("
+suffix = ") "
+conflicted.style = "red"
+conflicted_count.enabled = true
+conflicted_count.style = "red"
+untracked.style = "blue"
+untracked_count.enabled = true
+untracked_count.style = "blue"
+stashed.style = "yellow"
+stashed_count.enabled = true
+stashed_count.style = "yellow"
+modified.style = "cyan"
+modified_count.enabled = true
+modified_count.style = "cyan"
+staged.style = "green"
+staged_count.enabled = true
+staged_count.style = "green"
+renamed.style = "purple"
+renamed_count.enabled = true
+renamed_count.style = "purple"
+deleted.style = "red"
+deleted_count.enabled = true
+deleted_count.style = "red"
+show_sync_count = true
+disabled = false
+
+[golang]
+disabled = false
+
+[hg_branch]
+disabled = true
+
+[hostname]
+disabled = false
+
+[jobs]
+disabled = false
+
+[kubernetes]
+disabled = true
+
+[line_break]
+disabled = true
+
+[nix_shell]
+disabled = true
+
+[java]
+disabled = true
+
+[memory_usage]
+disabled = true
+
+[nodejs]
+disabled = true
+
+[package]
+disabled = true
+
+[php]
+disabled = true
+
+[python]
+pyenv_version_name = true
+disabled = false
+
+[ruby]
+disabled = true
+
+[rust]
+disabled = true
+
+[terraform]
+disabled = true
+
+[time]
+disabled = true
+
+[username]
+disabled = false
