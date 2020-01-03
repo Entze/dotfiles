@@ -8,10 +8,11 @@ else
 	printf "Installing necessary packages.\n"
 fi
 
+SUDO=""
 
 if [ whoami != "root" ]
 then
-	sudo -i
+	SUDO="sudo"
 fi
 
 OS_PRETTY_NAME=$(grep -E '^PRETTY_NAME=".*"$' /etc/os-release | sed -E 's/(^PRETTY_NAME=")(.*)("$)/\2/')
@@ -47,6 +48,6 @@ printf "$SUDO $PKG_MNG $INSTALL $PACKAGES\n"
 
 if which starship --version > /dev/null 2> /dev/null
 then
-	curl -fsSL https://starship.rs/install.sh | bash
+	curl -fsSL https://starship.rs/install.sh | sudo bash
 fi
-	
+
