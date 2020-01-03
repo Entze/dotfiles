@@ -1,13 +1,9 @@
 #!/bin/bash
-printf "restoring gitconfig\n"
-rm -f -- $HOME/.gitconfig
-cd -- $HOME/dotfiles/.
-stow --verbose=1 -- git
 
-printf "seting up environment\n"
+STOWING=$(find . -mindepth 1 -maxdepth 1 -type d -not -wholename "./.*" -exec basename {} \; | tr '\n' ' ' | sed -E "s/[ \t]*$//")
 
-stow --verbose=1 -- zsh
-stow --verbose=1 -- vim
-stow --verbose=1 -- emacs
+stow --target=$HOME --delete --verbose=1 $STOWING
+stow --target=$HOME --verbose=1 $STOWING
+
 
 
