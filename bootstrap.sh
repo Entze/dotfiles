@@ -46,10 +46,16 @@ printf "$SUDO $PKG_MNG $INSTALL $PACKAGES\n"
 
 "$SUDO" "$PKG_MNG" "$INSTALL" $PACKAGES
 
+printf "Installing starship.\n"
+
 if ! which starship > /dev/null 2> /dev/null
 then
 	curl -fsSL https://starship.rs/install.sh | sudo bash
+else
+	printf "Already installed.\n"
 fi
+
+printf "Updating all submodules.\n"
 
 git submodule update --depth 3 --init --recursive
 
