@@ -51,3 +51,5 @@ then
 	curl -fsSL https://starship.rs/install.sh | sudo bash
 fi
 
+git submodule update --depth 3 --init --recursive
+
