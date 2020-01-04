@@ -13,3 +13,6 @@
 [submodule "zsh/.zsh/themes/zsh-prompt"]
 	path = zsh/.zsh/themes/zsh-prompt
 	url = https://gitlab.com/Entze/zsh-prompt.git
+[submodule "zsh/.zplugin/bin"]
+	path = zsh/.zplugin/bin
+	url = https://github.com/zdharma/zplugin

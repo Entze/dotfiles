@@ -4,4 +4,7 @@ ssh/.ssh/known_hosts
 vim/.vim/.netrwhist
 emacs/.emacs.d/elpa/
 emacs/.emacs.d/network-security.data
+zsh/.zplugin/completions/
+zsh/.zplugin/plugins/
+zsh/.zplugin/snippets/
 
