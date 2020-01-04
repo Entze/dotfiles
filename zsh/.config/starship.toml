@@ -33,7 +33,7 @@ prompt_order = [
     "character",
 ]
 
-scan_timeout = 25
+scan_timeout = 5
 
 [aws]
 disabled = true
@@ -49,9 +49,10 @@ use_symbol_for_status = true
 disabled = false
 
 [cmd_duration]
-min_time = 2048
+min_time = 10000
 show_milliseconds = true
-prefix = "🕒 "
+prefix = ""
+style = "yellow"
 disabled = false
 
 [conda]
@@ -59,6 +60,7 @@ disabled = true
 
 [directory]
 prefix = ""
+truncate_to_repo = false
 disabled = false
 
 [dotnet]
@@ -73,6 +75,7 @@ disabled = false
 [git_commit]
 prefix = "["
 suffix = "] "
+style = "white"
 disabled = false
 
 [git_state]
