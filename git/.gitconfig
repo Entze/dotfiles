@@ -24,5 +24,6 @@
 [core]
 	editor = 'vim'
 	excludesfile = /home/lukas/.gitignore_global
+	pager = less -+FX
 [rebase]
 	autoStash = true
