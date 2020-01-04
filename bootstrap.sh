@@ -46,7 +46,7 @@ printf "$SUDO $PKG_MNG $INSTALL $PACKAGES\n"
 
 "$SUDO" "$PKG_MNG" "$INSTALL" $PACKAGES
 
-if which starship --version > /dev/null 2> /dev/null
+if ! which starship > /dev/null 2> /dev/null
 then
 	curl -fsSL https://starship.rs/install.sh | sudo bash
 fi
