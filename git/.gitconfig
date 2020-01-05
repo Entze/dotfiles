@@ -11,8 +11,8 @@
 [merge]
 	tool = meld
 [core]
-	editor = 'vim'
+	editor = "vim -c 'startinsert|norm! ggA'"
 	excludesfile = /home/lukas/.gitignore_global
-	pager = less -+FX
+	pager = "less -+FX"
 [rebase]
 	autoStash = true

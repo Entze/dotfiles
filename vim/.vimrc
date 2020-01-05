@@ -106,6 +106,10 @@ if 1
 
 endif
 
+" Jump to the first line in git commit
+autocmd FileType gitcommit setlocal noundofile
+autocmd FileType gitcommit setlocal nobackup
+
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
 " Only define it when not defined already.
@@ -154,5 +158,5 @@ set writebackup
 set backupcopy=yes
 
 " Meaningful backup name
-au BufWritePre * let &bex = '@' . strftime("%F.%H:%M")
+autocmd BufWritePre * let &bex = '@' . strftime("%F.%H:%M")
 
