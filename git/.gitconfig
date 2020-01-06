@@ -11,7 +11,7 @@
 [merge]
 	tool = meld
 [core]
-	editor = "vim -c 'startinsert|norm! ggA'"
+	editor = "vim -c 'norm! gg'"
 	excludesfile = /home/lukas/.gitignore_global
 	pager = diff-so-fancy | less -FXi
 [rebase]
