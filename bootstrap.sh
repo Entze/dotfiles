@@ -118,7 +118,7 @@ do_common(){
   mkdir -p "$HOME/.local/bin"
 
   trace "Creating ~/Apps, if not already present"
-  mkdir -p "$HOME/.local/bin"
+  mkdir -p "$HOME/Apps/.bin"
 
   if [ -z "$SKIP_PACKAGES" ]
   then
