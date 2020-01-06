@@ -27,35 +27,35 @@ NO_COLOR="$(tput sgr0 2>/dev/null || echo '')"
 
 
 trace() {
-  if [ $VERBOSITY -ge 2 ]
+  if [ "$VERBOSITY" -ge 2 ]
   then
     printf "${GREEN}?${NO_COLOR} $@\n"
   fi
 }
 
 debug() {
-  if [ $VERBOSITY -ge 1 ]
+  if [ "$VERBOSITY" -ge 1 ]
   then
     printf "${BOLD}${GREEN}:${NO_COLOR} $@\n"
   fi
 }
 
 info() {
-  if [ $VERBOSITY -ge 0 ]
+  if [ "$VERBOSITY" -ge 0 ]
   then
     printf ">${NO_COLOR} $@\n"
   fi
 }
 
 warn() {
-  if [ $VERBOSITY -ge -1 ]
+  if [ "$VERBOSITY" -ge -1 ]
   then
     printf "${YELLOW}! $@${NO_COLOR}\n"
   fi
 }
 
 error() {
-  if [ $VERBOSITY -ge -2 ]
+  if [ "$VERBOSITY" -ge -2 ]
   then
      printf "${RED}x $@${NO_COLOR}\n" >&2
   fi
@@ -115,12 +115,12 @@ set_packages(){
 
 do_common(){
   trace "Creating ~/.local/bin, if not already present"
-  mkdir -p $HOME/.local/bin
+  mkdir -p "$HOME/.local/bin"
 
   trace "Creating ~/Apps, if not already present"
-  mkdir -p $HOME/.local/bin
+  mkdir -p "$HOME/.local/bin"
 
-  if [ -z $SKIP_PACKAGES ]
+  if [ -z "$SKIP_PACKAGES" ]
   then
       INST=( $PKG_MNG $INSTALL $PACKAGES )
       sudocmd "to install packages" "${INST[@]}"
@@ -130,16 +130,15 @@ do_common(){
   if ! command -v starship > /dev/null
   then
     info "Installing starship."
-    curl --output starship-installer.sh -fsSL https://starship.rs/install.sh
+    curl --output starship-installer.sh -fsSL "https://starship.rs/install.sh"
     chmod +x starship-installer.sh
-    ./starship-installer.sh --bin-dir $HOME/.local/bin
+    ./starship-installer.sh --bin-dir "$HOME/.local/bin"
     rm -f starship-installer.sh
   else
     trace "starship already installed."
   fi
 
   debug "Updating all submodules."
-
   git submodule update --depth 3 --init --recursive
 
 }
@@ -156,7 +155,7 @@ do_languagetool(){
   if [ ! -f "$HOME/Apps/.bin/languagetool-commandline.jar" ]
   then
      trace "Checking if languagetool is installed."
-     if  [ ! -f $HOME/Apps/LanguageTool/LanguageTool-4.8/languagetool-commandline.jar ]
+     if  [ ! -f "$HOME/Apps/LanguageTool/LanguageTool-4.8/languagetool-commandline.jar" ]
      then
 	 info "installing languagetool"
 	 debug "downloading"
