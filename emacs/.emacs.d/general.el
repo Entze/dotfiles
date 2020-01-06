@@ -1,5 +1,8 @@
 (setq default-directory "~/")
 
+;; allow dead-keys
+(require 'iso-transl)
+
 ;; Give a bit more memory before garbage collecting
 (setq gc-cons-threshold 16777216)
 
@@ -80,3 +83,18 @@
   kept-old-versions 2
   version-control t)
 (setq vc-make-backup-files t)
+
+(use-package undo-tree
+  :diminish                       ;; Don't show an icon in the modeline
+  :config
+    ;; Always have it on
+    (global-undo-tree-mode)
+
+    ;; Each node in the undo tree should have a timestamp.
+    (setq undo-tree-visualizer-timestamps t)
+
+    ;; Show a diff window displaying changes between undo nodes.
+    (setq undo-tree-visualizer-diff t))
+
+;; start in org-mode
+(setq initial-major-mode 'org-mode)

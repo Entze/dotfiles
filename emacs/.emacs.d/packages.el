@@ -24,3 +24,4 @@
 ;; changes the behaviour of (use-package X) so that it is always installed if not already installed
 (setq-default use-package-always-ensure t)
 
+(use-package diminish)
