@@ -131,6 +131,7 @@ do_common(){
   then
     info "Installing starship."
     curl --output starship-installer.sh -fsSL https://starship.rs/install.sh
+    chmod +x starship-installer.sh
     ./starship-installer.sh --bin-dir $HOME/.local/bin
     rm -f starship-installer.sh
   else
