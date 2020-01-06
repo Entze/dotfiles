@@ -144,6 +144,8 @@ do_common(){
 }
 
 do_solus(){
+    INST=( $PKG_MNG $INSTALL -c system.devel )
+    sudocmd "install dev-tools" "${INST[@]}"
     do_languagetool
     do_stack
     do_stylish_haskell
