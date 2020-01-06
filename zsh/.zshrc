@@ -95,4 +95,7 @@ builtin zstyle ':completion:*'              format ' %F{yellow}-- %d --%f'
 
 setopt interactive_comments extended_glob autocd complete_aliases
 
+zplugin ice as"program" pick"bin/git-dsf"
+zplugin light zdharma/zsh-diff-so-fancy
+
 eval "$(starship init zsh)"

@@ -13,6 +13,6 @@
 [core]
 	editor = "vim -c 'startinsert|norm! ggA'"
 	excludesfile = /home/lukas/.gitignore_global
-	pager = "less -+FX"
+	pager = diff-so-fancy | less -FXi
 [rebase]
 	autoStash = true
