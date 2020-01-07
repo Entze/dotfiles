@@ -127,7 +127,7 @@ do_common(){
   fi
 
   trace "Checking if starship is already installed."
-  if ! command -v starship > /dev/null
+  if ! command -v starship > /dev/null && [ ! -f "$HOME/.local/bin/starship" ]
   then
     info "Installing starship."
     curl --output starship-installer.sh -fsSL "https://starship.rs/install.sh"
