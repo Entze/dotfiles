@@ -164,7 +164,7 @@ do_languagetool(){
 	 curl --output LanguageTool-4.8.zip -fsSL "https://languagetool.org/download/LanguageTool-4.8.zip"
 	 mkdir -p "$HOME/Apps/LanguageTool"
 	 debug "extracting"
-	 unzip -d "$HOME/Apps/LanguageTool" LanguageTool-4.8.zip
+	 unzip -qq -u -d "$HOME/Apps/LanguageTool" LanguageTool-4.8.zip
 	 rm -f LanguageTool-4.8.zip
      fi
      trace "symlinking languagetool to the correct spot"
