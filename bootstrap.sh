@@ -1,19 +1,6 @@
 #!/bin/bash
 
-# Options
-#
-#   -v, --verbose
-#     Enable verbose output for the installer
-#
-#   -q, --quiet
-#     Disable output for the installer
-#
-#   -p, --platform
-#     Override the platform identified by the installer
-#
-
 set -euo pipefail
-printf "\n"
 
 BOLD="$(tput bold 2>/dev/null || echo '')"
 GREY="$(tput setaf 0 2>/dev/null || echo '')"
@@ -120,9 +107,11 @@ do_common(){
   trace "Creating ~/Apps, if not already present"
   mkdir -p "$HOME/Apps/.bin"
 
+  PATH="$HOME/.local/bin:$HOME/Apps/.bin:$PATH"
+
   if [ -z "$SKIP_PACKAGES" ]
   then
-      INST=( $PKG_MNG $INSTALL $PACKAGES )
+      INST=( "$PKG_MNG" "$INSTALL" $PACKAGES )
       sudocmd "to install packages" "${INST[@]}"
   fi
 
@@ -139,7 +128,13 @@ do_common(){
   fi
 
   debug "Updating all submodules."
-  git submodule update --depth 3 --init --recursive
+  DEPTH=1
+  EV=( git submodule update --depth "$DEPTH" --init --recursive )
+  while ! "${EV[@]}"
+  do
+      DEPTH=$((DEPTH + 1))
+      EV=( git submodule update --depth "$DEPTH" --init --recursive )
+  done
 
 }
 
