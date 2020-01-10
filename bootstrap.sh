@@ -51,8 +51,8 @@ error() {
 sudocmd() {
   reason="$1"; shift
   if command -v sudo >/dev/null; then
-    printf "\nAbout to use 'sudo' to run the following command as root: \n"
-    printf "   "
+    printf "\nAbout to use 'sudo' to run the following command as root:
+       "
     printf "%s " "$@"
     printf "\n in order to %s.\n\n" "$reason"
     # -k: Disable cached credentials (force prompt for password).
