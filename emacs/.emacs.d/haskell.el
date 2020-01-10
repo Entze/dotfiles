@@ -1,4 +1,5 @@
 
 (use-package haskell-mode)
 
-(setq haskell-stylish-on-save t)
+(custom-set-variables
+ '(haskell-stylish-on-save t))
