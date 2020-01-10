@@ -79,6 +79,9 @@ builtin zstyle ':completion:*:messages'     format ' %F{purple} -- %d --%f'
 builtin zstyle ':completion:*:warnings'     format ' %F{red}-- no matches found --%f'
 builtin zstyle ':completion:*'              format ' %F{yellow}-- %d --%f'
 
+# case insensitive matching
+builtin zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
+
 setopt interactive_comments extended_glob autocd complete_aliases
 
 zplugin ice as"program" pick"bin/git-dsf"
