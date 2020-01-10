@@ -1,9 +1,9 @@
 # Preferred editor for local and remote sessions
 if which vim &> /dev/null
 then
-	export EDITOR='vim'
+    export EDITOR='vim'
 else
-	export EDITOR='vi'
+    export EDITOR='vi'
 fi
 
 source $HOME/.zplugin/bin/zplugin.zsh
@@ -28,10 +28,10 @@ zplugin light changyuheng/fz
 zplugin ice wait lucid
 zplugin light andrewferrier/fzf-z
 
-# zplugin ice wait lucid
+zplugin ice wait lucid
 zplugin light zsh-users/zsh-autosuggestions
 
-# zplugin ice wait lucid
+zplugin ice wait lucid
 zplugin load zdharma/history-search-multi-word
 
 # sudo
@@ -43,8 +43,6 @@ zplugin ice wait lucid
 zplugin light changyuheng/zsh-interactive-cd
 
 # History substring searching
-#zplugin ice wait lucid atload'__bind_history_keys'
-zplugin light zsh-users/zsh-history-substring-search
 export HISTFILE=$HOME/.zsh_history
 export HISTSIZE=10000000
 export SAVEHIST=10000000
@@ -57,19 +55,11 @@ setopt INC_APPEND_HISTORY    # this is default, but set for share_history
 setopt SHARE_HISTORY         # Share history file amongst all Zsh sessions
 
 source $HOME/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
-# Don't bind these keys until ready
-bindkey ${key[Home]} beginning-of-line
-bindkey ${key[End]} end-of-line
-bindkey ${key[Up]} history-substring-search-up
-bindkey ${key[Down]} history-substring-search-down
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
-bindkey ${key[CtrlLeft]} backward-word
-bindkey ${key[CtrlRight]} forward-word
-bindkey ${key[CtrlUp]} up-case-word
-bindkey ${key[CtrlDown]} down-case-word
-bindkey ${key[Delete]} delete-char
+
 bindkey -r ${key[Insert]}
+
+zplugin ice wait lucid multisrc'../../../.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE} ../../../.zshkeybinds'
+zplugin load zsh-users/zsh-history-substring-search
 
 # autosuggestions, trigger precmd hook upon load
 zplugin ice wait lucid atload'_zsh_autosuggest_start'
@@ -79,10 +69,6 @@ zplugin light zsh-users/zsh-autosuggestions
 # Tab completions
 zplugin ice wait lucid blockf atpull'zplugin creinstall -q .'
 zplugin light zsh-users/zsh-completions
-
-# Syntax highlighting
-zplugin ice wait lucid atinit'zpcompinit; zpcdreplay'
-zplugin light zdharma/fast-syntax-highlighting
 
 zplugin ice wait lucid
 zplugin load RobSis/zsh-completion-generator
@@ -97,5 +83,9 @@ setopt interactive_comments extended_glob autocd complete_aliases
 
 zplugin ice as"program" pick"bin/git-dsf"
 zplugin light zdharma/zsh-diff-so-fancy
+
+# Syntax highlighting
+zplugin ice wait lucid atinit'zpcompinit; zpcdreplay'
+zplugin light zdharma/fast-syntax-highlighting
 
 eval "$(starship init zsh)"
