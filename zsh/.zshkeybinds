@@ -9,3 +9,4 @@ bindkey ${key[CtrlRight]} forward-word
 bindkey ${key[CtrlUp]} up-case-word
 bindkey ${key[CtrlDown]} down-case-word
 bindkey ${key[Delete]} delete-char
+bindkey ${key[ShiftTab]} reverse-menu-complete
