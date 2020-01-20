@@ -91,4 +91,6 @@ zplugin light zdharma/zsh-diff-so-fancy
 zplugin ice wait lucid atinit'zpcompinit; zpcdreplay'
 zplugin light zdharma/fast-syntax-highlighting
 
+function gi() { curl -sLw "\n" https://www.gitignore.io/api/$@ ;}
+
 eval "$(starship init zsh)"
