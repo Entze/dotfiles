@@ -93,4 +93,12 @@ zplugin light zdharma/fast-syntax-highlighting
 
 function gi() { curl -sLw "\n" https://www.gitignore.io/api/$@ ;}
 
+if [ -r "$HOME/.nord-dircolors/src/dir_colors" ]
+then
+    eval $(dircolors "$HOME/.nord-dircolors/src/dir_colors")
+fi
+
+alias ls="ls --color=auto"
+
+
 eval "$(starship init zsh)"

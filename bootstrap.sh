@@ -129,11 +129,11 @@ do_common(){
 
   debug "Updating all submodules."
   DEPTH=1
-  EV=( git submodule update --depth "$DEPTH" --init --recursive )
+  EV=( git submodule update --quiet --depth "$DEPTH" --init --recursive )
   while ! "${EV[@]}"
   do
       DEPTH=$((DEPTH + 1))
-      EV=( git submodule update --depth "$DEPTH" --init --recursive )
+      EV=( git submodule update --quiet --depth "$DEPTH" --init --recursive )
   done
 
 }
@@ -146,6 +146,15 @@ do_solus(){
     do_stylish_haskell
 }
 
+do_gnome_terminal(){
+    trace "Installing Nord Gnome-terminal theme"
+    if [ -x "nord-gnome-terminal/src/nord.sh" ]
+    then
+	nord-gnome-terminal/src/nord.sh --loglevel "$((VERBOSITY + 2))" --profile "Nord"
+    else
+	debug "Nord Gnome-terminal theme not downloaded or moved."
+    fi
+}
 
 do_languagetool(){
   trace "Checking if languagetool is on correct path."
