@@ -26,4 +26,7 @@
 ;; changes the behaviour of (use-package X) so that it is always installed if not already installed
 (setq-default use-package-always-ensure t)
 
+(unless package-archive-contents
+  (ignore-errors (package-refresh-contents)))
+
 (use-package diminish)
