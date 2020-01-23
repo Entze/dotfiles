@@ -115,6 +115,21 @@ do_common(){
       sudocmd "to install packages" "${INST[@]}"
   fi
 
+  do_starship
+  do_initial_submodules
+
+}
+
+do_solus(){
+    INST=( $PKG_MNG $INSTALL -c system.devel )
+    sudocmd "install dev-tools" "${INST[@]}"
+    do_gnome_terminal
+    do_languagetool
+    do_stack
+    do_stylish_haskell
+}
+
+do_starship(){
   trace "Checking if starship is already installed."
   if ! command -v starship > /dev/null && [ ! -f "$HOME/.local/bin/starship" ]
   then
@@ -127,7 +142,12 @@ do_common(){
     trace "starship already installed."
   fi
 
-  debug "Updating all submodules."
+}
+
+do_initial_submodules(){
+
+  debug "Init all submodules."
+
   DEPTH=1
   EV=( git submodule update --quiet --depth "$DEPTH" --init --recursive )
   while ! "${EV[@]}"
@@ -136,14 +156,6 @@ do_common(){
       EV=( git submodule update --quiet --depth "$DEPTH" --init --recursive )
   done
 
-}
-
-do_solus(){
-    INST=( $PKG_MNG $INSTALL -c system.devel )
-    sudocmd "install dev-tools" "${INST[@]}"
-    do_languagetool
-    do_stack
-    do_stylish_haskell
 }
 
 do_gnome_terminal(){
