@@ -130,18 +130,8 @@ do_solus(){
 }
 
 do_starship(){
-  trace "Checking if starship is already installed."
-  if ! command -v starship > /dev/null && [ ! -f "$HOME/.local/bin/starship" ]
-  then
-    info "Installing starship."
-    curl --output starship-installer.sh -fsSL "https://starship.rs/install.sh"
-    chmod +x starship-installer.sh
-    ./starship-installer.sh --bin-dir "$HOME/.local/bin"
-    rm -f starship-installer.sh
-  else
-    trace "starship already installed."
-  fi
-
+     info "Installing starship."
+     cargo install starship
 }
 
 do_initial_submodules(){
