@@ -131,7 +131,6 @@ do_solus(){
 
 do_starship(){
      info "Installing starship."
-     cargo update
      cargo install starship
 }
 
