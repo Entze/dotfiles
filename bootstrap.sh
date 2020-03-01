@@ -115,7 +115,6 @@ do_common(){
       sudocmd "to install packages" "${INST[@]}"
   fi
 
-  do_starship
   do_initial_submodules
 
 }
@@ -127,10 +126,12 @@ do_solus(){
     do_languagetool
     do_stack
     do_stylish_haskell
+    do_starship
 }
 
 do_starship(){
      info "Installing starship."
+     cargo update
      cargo install starship
 }
 
