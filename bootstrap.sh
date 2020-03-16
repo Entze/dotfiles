@@ -154,7 +154,7 @@ do_gnome_terminal(){
     then
 	nord-gnome-terminal/src/nord.sh --loglevel "$((VERBOSITY + 2))" --profile "Nord"
     else
-	debug "Nord Gnome-terminal theme not downloaded or moved."
+	die "Nord Gnome-terminal theme not downloaded or moved."
     fi
 }
 
