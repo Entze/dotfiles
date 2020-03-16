@@ -206,7 +206,11 @@ do_antibody(){
 
 do_npm(){
 
-    mkdir "$HOME/.npm-packages"
+    info "Make npm not require sudo"
+
+    trace "Creating $HOME/.npm-packages, if it does not exist"
+    mkdir -p "$HOME/.npm-packages"
+
     npm config set prefix "$HOME/.npm-packages"
     NPM_PACKAGES="${HOME}/.npm-packages"
 
