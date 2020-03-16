@@ -153,7 +153,7 @@ do_initial_submodules(){
 
 do_gnome_terminal(){
     trace "Installing Nord Gnome-terminal theme"
-    if [ -x "nord-gnome-terminal/src/nord.sh" ]
+    if [[ -x "nord-gnome-terminal/src/nord.sh" ]]
     then
 	nord-gnome-terminal/src/nord.sh --loglevel "$((VERBOSITY + 2))" --profile "Nord"
     else
