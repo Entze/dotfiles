@@ -100,5 +100,9 @@ fi
 
 alias ls="ls --color=auto"
 
+export PS1="\$ $(pwd): "
 
-eval "$(starship init zsh)"
+if starship --version 2>&1 1>/dev/null
+then
+    eval "$(starship init zsh)"
+fi
