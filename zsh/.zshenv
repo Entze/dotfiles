@@ -1,4 +1,11 @@
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:$HOME/.local/bin:$HOME/Apps/.bin:$HOME/.cargo/bin:$PATH"
+NPM_PACKAGES="${HOME}/.npm-packages"
+
+
+export PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:$HOME/.local/bin:$HOME/Apps/.bin:$HOME/.cargo/bin:$NPM_PACKAGES/bin"
+
+# Preserve MANPATH if you already defined it somewhere in your config.
+# Otherwise, fall back to `manpath` so we can inherit from `/etc/manpath`.
+export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
 # gpg
 GPG_TTY=$(tty)

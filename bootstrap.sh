@@ -123,10 +123,13 @@ do_solus(){
     INST=( $PKG_MNG $INSTALL -c system.devel )
     sudocmd "install dev-tools" "${INST[@]}"
     do_gnome_terminal
+    do_antibody
     do_languagetool
     do_stack
     do_stylish_haskell
     do_starship
+    do_npm
+    do_diff_so_fancy
 }
 
 do_starship(){
@@ -189,6 +192,36 @@ do_stack(){
 do_stylish_haskell(){
     stack install stylish-haskell
 }
+
+do_antibody(){
+
+    info "Installing Zsh plugins."
+
+    trace "antibody bundle"
+
+    antibody bundle < zsh/.zsh_plugins > zsh/.zsh_plugins.txt
+
+    trace "done."
+}
+
+do_npm(){
+
+    mkdir "$HOME/.npm-packages"
+    npm config set prefix "$HOME/.npm-packages"
+    NPM_PACKAGES="${HOME}/.npm-packages"
+
+    export PATH="$PATH:$NPM_PACKAGES/bin"
+    export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
+
+}
+
+do_diff_so_fancy(){
+
+    npm install -g diff-so-fancy
+
+}
+
+
 
 VERBOSITY=0
 SKIP_PACKAGES=""

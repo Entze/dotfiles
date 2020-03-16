@@ -6,43 +6,15 @@ else
     export EDITOR='vi'
 fi
 
-source $HOME/.zplugin/bin/zplugin.zsh
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
+source $HOME/.zsh_plugins.sh
 
 autoload -Uz compinit
 for dump in ~/.zcompdump(N.mh+24); do
   compinit
 done
+
 compinit -C
 
-# z
-zplugin ice wait blockf lucid
-zplugin light rupa/z
-
-# z tab completion
-zplugin ice wait lucid
-zplugin light changyuheng/fz
-
-# z / fzf (ctrl-g)
-zplugin ice wait lucid
-zplugin light andrewferrier/fzf-z
-
-zplugin ice wait lucid
-zplugin light zsh-users/zsh-autosuggestions
-
-zplugin ice wait lucid
-zplugin load zdharma/history-search-multi-word
-
-# sudo
-zplugin ice wait lucid
-zplugin load hcgraf/zsh-sudo
-
-# cd
-zplugin ice wait lucid
-zplugin light changyuheng/zsh-interactive-cd
-
-# History substring searching
 export HISTFILE=$HOME/.zsh_history
 export HISTSIZE=10000000
 export SAVEHIST=10000000
@@ -54,24 +26,12 @@ setopt HIST_REDUCE_BLANKS
 setopt INC_APPEND_HISTORY    # this is default, but set for share_history
 setopt SHARE_HISTORY         # Share history file amongst all Zsh sessions
 
-source $HOME/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
+if [ -r "$HOME/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}" ]
+then
+    source $HOME/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
 
-bindkey -r ${key[Insert]}
-
-zplugin ice wait lucid multisrc'../../../.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE} ../../../.zshkeybinds'
-zplugin load zsh-users/zsh-history-substring-search
-
-# autosuggestions, trigger precmd hook upon load
-zplugin ice wait lucid atload'_zsh_autosuggest_start'
-zplugin light zsh-users/zsh-autosuggestions
-# export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=10
-
-# Tab completions
-zplugin ice wait lucid blockf atpull'zplugin creinstall -q .'
-zplugin light zsh-users/zsh-completions
-
-zplugin ice wait lucid
-zplugin load RobSis/zsh-completion-generator
+    bindkey -r ${key[Insert]}
+fi
 
 builtin zstyle ':completion:*:corrections'  format ' %F{green}-- %d (errors: %e) --%f'
 builtin zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
@@ -83,13 +43,6 @@ builtin zstyle ':completion:*'              format ' %F{yellow}-- %d --%f'
 builtin zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 
 setopt interactive_comments extended_glob autocd complete_aliases
-
-zplugin ice as"program" pick"bin/git-dsf"
-zplugin light zdharma/zsh-diff-so-fancy
-
-# Syntax highlighting
-zplugin ice wait lucid atinit'zpcompinit; zpcdreplay'
-zplugin light zdharma/fast-syntax-highlighting
 
 function gi() { curl -sLw "\n" https://www.gitignore.io/api/$@ ;}
 
