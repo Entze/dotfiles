@@ -26,12 +26,19 @@ setopt HIST_REDUCE_BLANKS
 setopt INC_APPEND_HISTORY    # this is default, but set for share_history
 setopt SHARE_HISTORY         # Share history file amongst all Zsh sessions
 
-if [ -r "$HOME/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}" ]
+if [[ -r "$HOME/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}" ]]
 then
     source $HOME/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
 
     bindkey -r ${key[Insert]}
+
+    if [[ -r "$HOME/.zshkeybinds" ]]
+    then
+	source $HOME/.zshkeybinds
+    fi
+
 fi
+
 
 builtin zstyle ':completion:*:corrections'  format ' %F{green}-- %d (errors: %e) --%f'
 builtin zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
