@@ -199,7 +199,7 @@ do_antibody(){
 
     trace "antibody bundle"
 
-    antibody bundle < zsh/.zsh_plugins > zsh/.zsh_plugins.txt
+    antibody bundle < zsh/.zsh_plugins > zsh/.zsh_plugins.sh
 
     trace "done."
 }
