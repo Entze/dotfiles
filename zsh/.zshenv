@@ -1,5 +1,13 @@
-NPM_PACKAGES="${HOME}/.npm-packages"
+# Preferred editor for local and remote sessions
+if whence -p vim 2>&1 1>/dev/null
+then
+  export VISUAL='vim'
+else
+  export VISUAL='vi'
+fi
+export EDITOR='$VISUAL'
 
+NPM_PACKAGES="${HOME}/.npm-packages"
 
 export PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:$HOME/.local/bin:$HOME/Apps/.bin:$HOME/.cargo/bin:$NPM_PACKAGES/bin"
 
@@ -14,6 +22,6 @@ export GPG_TTY
 # ssh
 export SSH_KEY_PATH="$HOME/.ssh/id_rsa"
 
-export LANG=en_GB.UTF-8
-export LC_ALL=en_GB.UTF-8
-export LC_CTYPE=en_GB.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8

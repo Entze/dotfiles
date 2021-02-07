@@ -102,6 +102,10 @@ do_linux() {
       do_common
       do_solus
       ;;
+    "ubuntu")
+      set_ubuntu
+      do_common
+      do_ubuntu
     *) die "Unsupported distribution: $OS_ID"
   esac
 
@@ -112,6 +116,14 @@ set_solus() {
   PKG_MNG="eopkg"
   INSTALL="it"
   set_packages common.packages solus.packages
+
+}
+
+set_ubuntu() {
+
+  PKG_MNG="apt-get"
+  INSTALL="install"
+  set_packages common.packages ubuntu.packages
 
 }
 
@@ -138,22 +150,25 @@ do_common() {
       sudocmd "to install packages" "${INST[@]}"
   fi
 
-  do_initial_submodules
-
 }
 
 do_solus() {
 
-    INST=( $PKG_MNG $INSTALL -c system.devel )
-    sudocmd "install dev-tools" "${INST[@]}"
-    do_gnome_terminal
-    do_antibody
-    do_languagetool
-    do_stack
-    do_stylish_haskell
-    do_starship
-    do_npm
-    do_diff_so_fancy
+  INST=( $PKG_MNG $INSTALL -c system.devel )
+  sudocmd "install dev-tools" "${INST[@]}"
+  do_antibody
+  do_starship
+  do_npm
+  do_diff_so_fancy
+
+}
+
+do_ubuntu() {
+  
+  do_antibody
+  do_starship
+  do_npm
+  do_diff_so_fancy
 
 }
 
@@ -161,70 +176,6 @@ do_starship() {
 
      info "Installing starship."
      cargo install starship
-
-}
-
-do_initial_submodules() {
-
-  debug "Init all submodules."
-
-  DEPTH=1
-  EV=( git submodule update --quiet --depth "$DEPTH" --init --recursive )
-  while ! "${EV[@]}"
-  do
-      DEPTH=$((DEPTH + 1))
-      EV=( git submodule update --quiet --depth "$DEPTH" --init --recursive )
-  done
-
-}
-
-do_gnome_terminal() {
-
-    trace "Installing Nord Gnome-terminal theme"
-    if [[ -x "nord-gnome-terminal/src/nord.sh" ]]
-    then
-	nord-gnome-terminal/src/nord.sh --loglevel "$((VERBOSITY + 2))" --profile "Nord"
-    else
-	die "Nord Gnome-terminal theme not downloaded or moved."
-    fi
-
-}
-
-do_languagetool() {
-
-  trace "Checking if languagetool is on correct path."
-  if [ ! -f "$HOME/Apps/.bin/languagetool-commandline.jar" ]
-  then
-     trace "Checking if languagetool is installed."
-     if  [ ! -f "$HOME/Apps/LanguageTool/LanguageTool-4.8/languagetool-commandline.jar" ]
-     then
-	 info "installing languagetool"
-	 debug "downloading"
-	 curl --output LanguageTool-4.8.zip -fsSL "https://languagetool.org/download/LanguageTool-4.8.zip"
-	 mkdir -p "$HOME/Apps/LanguageTool"
-	 debug "extracting"
-	 unzip -qq -u -d "$HOME/Apps/LanguageTool" LanguageTool-4.8.zip
-	 rm -f LanguageTool-4.8.zip
-     fi
-     trace "symlinking languagetool to the correct spot"
-     ln -s "$HOME/Apps/LanguageTool/LanguageTool-4.8/languagetool-commandline.jar" "$HOME/Apps/.bin/languagetool-commandline.jar"
-  fi
-
-}
-
-do_stack() {
-
-    info "Getting stack up to date."
-    trace "stack update"
-    stack update
-    trace "stack upgrade"
-    stack upgrade
-
-}
-
-do_stylish_haskell() {
-
-    stack install stylish-haskell
 
 }
 
@@ -259,8 +210,6 @@ do_diff_so_fancy() {
     npm install -g diff-so-fancy
 
 }
-
-
 
 VERBOSITY=0
 SKIP_PACKAGES=""

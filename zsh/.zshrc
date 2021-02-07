@@ -1,10 +1,3 @@
-# Preferred editor for local and remote sessions
-if which vim &> /dev/null
-then
-    export EDITOR='vim'
-else
-    export EDITOR='vi'
-fi
 
 source $HOME/.zsh_plugins.sh
 
@@ -23,20 +16,18 @@ setopt HIST_VERIFY
 setopt EXTENDED_HISTORY      # save each command's beginning timestamp and the duration to the history file
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_REDUCE_BLANKS
+setopt HIST_IGNORE_SPACE
 setopt INC_APPEND_HISTORY    # this is default, but set for share_history
 setopt SHARE_HISTORY         # Share history file amongst all Zsh sessions
 
-if [[ -r "$HOME/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}" ]]
+if [[ -r $HOME/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE} ]]
 then
-    source $HOME/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
-
-    bindkey -r ${key[Insert]}
-
-    if [[ -r "$HOME/.zshkeybinds" ]]
-    then
-	source $HOME/.zshkeybinds
-    fi
-
+  source $HOME/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
+  bindkey -r ${key[Insert]}
+  if [[ -r $HOME/.zshkeybinds ]]
+  then
+    source $HOME/.zshkeybinds
+  fi
 fi
 
 
@@ -53,16 +44,17 @@ setopt interactive_comments extended_glob autocd complete_aliases
 
 function gi() { curl -sLw "\n" https://www.gitignore.io/api/$@ ;}
 
-if [ -r "$HOME/.nord-dircolors/src/dir_colors" ]
+if whence -p exa 2>&1 1>/dev/null
 then
-    eval $(dircolors "$HOME/.nord-dircolors/src/dir_colors")
+    alias ls="exa --colour=auto"
+else
+    alias ls="ls --color=auto"
 fi
 
-alias ls="ls --color=auto"
 
-export PS1="\$ $(pwd): "
-
-if starship --version 2>&1 1>/dev/null
+if whence -p starship 2>&1 1>/dev/null
 then
     eval "$(starship init zsh)"
+else
+    export PS1="\$ $(pwd): "
 fi
