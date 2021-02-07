@@ -14,41 +14,52 @@ NO_COLOR="$(tput sgr0 2>/dev/null || echo '')"
 
 
 trace() {
+
   if [ "$VERBOSITY" -ge 2 ]
   then
     printf "${GREEN}?${NO_COLOR} $@\n"
   fi
+
 }
 
 debug() {
+
   if [ "$VERBOSITY" -ge 1 ]
   then
     printf "${BOLD}${GREEN}:${NO_COLOR} $@\n"
   fi
+
 }
 
 info() {
+
   if [ "$VERBOSITY" -ge 0 ]
   then
     printf ">${NO_COLOR} $@\n"
   fi
+
 }
 
 warn() {
+
   if [ "$VERBOSITY" -ge -1 ]
   then
     printf "${YELLOW}! $@${NO_COLOR}\n"
   fi
+
 }
 
 error() {
+
   if [ "$VERBOSITY" -ge -2 ]
   then
      printf "${RED}x $@${NO_COLOR}\n" >&2
   fi
+
 }
 
 sudocmd() {
+
   reason="$1"; shift
   if command -v sudo >/dev/null; then
     printf "\nAbout to use 'sudo' to run the following command as root:
@@ -60,24 +71,30 @@ sudocmd() {
   else
     "$@"
   fi
+
 }
 
 # print a message to stderr and exit with error code
 die() {
+
   error "$@"
   exit 1
+
 }
 
-do_os(){
+do_os() {
+
   case "$(uname)" in
     "Linux")
       do_linux
       ;;
     *) die "Unsupported os: $(uname)"
   esac
+
 }
 
-do_linux(){
+do_linux() {
+
   OS_ID=$(grep -E '^ID=".*"$' /etc/os-release | sed -E 's/(^ID=")(.*)("$)/\2/')
   case "$OS_ID" in
     "solus")
@@ -87,25 +104,31 @@ do_linux(){
       ;;
     *) die "Unsupported distribution: $OS_ID"
   esac
+
 }
 
-set_solus(){
+set_solus() {
+
   PKG_MNG="eopkg"
   INSTALL="it"
   set_packages common.packages solus.packages
+
 }
 
-set_packages(){
-	PACKAGES=$(cat $@ | sort --unique | tr "\n" ' ' | sed -E 's/[ \t]*$//')
+set_packages() {
+
+  PACKAGES=$(sort --unique $@ | tr "\n" ' ' | sed -E 's/[ \t]*$//')
+
 }
 
 
-do_common(){
-  trace "Creating ~/.local/bin, if not already present"
-  mkdir -p "$HOME/.local/bin"
+do_common() {
 
-  trace "Creating ~/Apps, if not already present"
-  mkdir -p "$HOME/Apps/.bin"
+  trace "Creating ~/.local/bin/, if not already present"
+  mkdir -p "$HOME/.local/bin/"
+
+  trace "Creating ~/Apps/.bin/, if not already present"
+  mkdir -p "$HOME/Apps/.bin/"
 
   PATH="$PATH:$HOME/.local/bin:$HOME/Apps/.bin:$HOME/.cargo/bin"
 
@@ -119,7 +142,8 @@ do_common(){
 
 }
 
-do_solus(){
+do_solus() {
+
     INST=( $PKG_MNG $INSTALL -c system.devel )
     sudocmd "install dev-tools" "${INST[@]}"
     do_gnome_terminal
@@ -130,14 +154,17 @@ do_solus(){
     do_starship
     do_npm
     do_diff_so_fancy
+
 }
 
-do_starship(){
+do_starship() {
+
      info "Installing starship."
      cargo install starship
+
 }
 
-do_initial_submodules(){
+do_initial_submodules() {
 
   debug "Init all submodules."
 
@@ -151,7 +178,8 @@ do_initial_submodules(){
 
 }
 
-do_gnome_terminal(){
+do_gnome_terminal() {
+
     trace "Installing Nord Gnome-terminal theme"
     if [[ -x "nord-gnome-terminal/src/nord.sh" ]]
     then
@@ -159,9 +187,11 @@ do_gnome_terminal(){
     else
 	die "Nord Gnome-terminal theme not downloaded or moved."
     fi
+
 }
 
-do_languagetool(){
+do_languagetool() {
+
   trace "Checking if languagetool is on correct path."
   if [ ! -f "$HOME/Apps/.bin/languagetool-commandline.jar" ]
   then
@@ -179,21 +209,26 @@ do_languagetool(){
      trace "symlinking languagetool to the correct spot"
      ln -s "$HOME/Apps/LanguageTool/LanguageTool-4.8/languagetool-commandline.jar" "$HOME/Apps/.bin/languagetool-commandline.jar"
   fi
+
 }
 
-do_stack(){
+do_stack() {
+
     info "Getting stack up to date."
     trace "stack update"
     stack update
     trace "stack upgrade"
     stack upgrade
+
 }
 
-do_stylish_haskell(){
+do_stylish_haskell() {
+
     stack install stylish-haskell
+
 }
 
-do_antibody(){
+do_antibody() {
 
     info "Installing Zsh plugins."
 
@@ -204,7 +239,7 @@ do_antibody(){
     trace "done."
 }
 
-do_npm(){
+do_npm() {
 
     info "Make npm not require sudo"
 
@@ -219,7 +254,7 @@ do_npm(){
 
 }
 
-do_diff_so_fancy(){
+do_diff_so_fancy() {
 
     npm install -g diff-so-fancy
 
