@@ -83,8 +83,9 @@ die() {
 }
 
 do_os() {
+
   OS_KIND="$(uname)"
-  debug "Found os: $OS_KIND"
+  trace "Found os: $OS_KIND"
   case "$OS_KIND" in
     "Linux")
       do_linux
@@ -97,14 +98,16 @@ do_os() {
 do_linux() {
 
   OS_ID=$(grep -E '^ID=".*"$' /etc/os-release | sed -E 's/(^ID=")(.*)("$)/\2/')
-  debug "Found linux: $OS_ID"
+  trace "Found linux: $OS_ID"
   case "$OS_ID" in
     "solus")
+      debug "Installing for solus"
       set_solus
       do_common
       do_solus
       ;;
     "ubuntu")
+      debug "Installing for ubuntu"
       set_ubuntu
       do_common
       do_ubuntu
@@ -239,3 +242,5 @@ done
 trace "Parsed argv variables"
 
 do_os
+
+debug "Done"
