@@ -1,9 +1,9 @@
 bindkey ${key[Home]} beginning-of-line
 bindkey ${key[End]} end-of-line
-bindkey ${key[Up]} history-substring-search-up
-bindkey ${key[Down]} history-substring-search-down
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
+bindkey ${key[Up]} up-line-or-search
+bindkey ${key[Down]} down-line-or-select
+bindkey -M vicmd 'k' up-line-or-search
+bindkey -M vicmd 'j' down-line or-select
 bindkey ${key[CtrlLeft]} backward-word
 bindkey ${key[CtrlRight]} forward-word
 bindkey ${key[CtrlUp]} up-case-word

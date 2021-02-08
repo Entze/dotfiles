@@ -82,6 +82,16 @@ die() {
 
 }
 
+do_znap() {
+
+  trace "Creating ~/Apps/zsh-plugins/, if not already present"
+  mkdir -p "$HOME/Apps/zsh-plugins/"
+
+  trace "Installing zsh-snap"
+  git clone --depth 1 "https://github.com/marlonrichert/zsh-snap.git" "$HOME/Apps/zsh-plugins/zsh-snap"
+
+}
+
 do_starship() {
 
   trace "Installing starship"
@@ -148,6 +158,8 @@ do_common() {
     INST=( "$PKG_MNG" "$INSTALL" $PACKAGES )
     sudocmd "to install packages" "${INST[@]}"
   fi
+
+  do_znap
 
 }
 

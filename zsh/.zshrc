@@ -1,13 +1,12 @@
-if [[ -r /usr/share/zsh-antigen/antigen.zsh ]]
+if [[ -r $HOME/Apps/zsh-plugins/zsh-snap/znap.sh ]]
 then
 
-  source /usr/share/zsh-antigen/antigen.zsh
+  source $HOME/Apps/zsh-plugins/zsh-snap/znap.sh
 
-  antigen bundle zsh-users/zsh-history-substring-search
-  antigen bundle zsh-users/zsh-completions
-  antigen bundle zsh-users/zsh-syntax-highlighting
-
-  antigen apply
+  #znap source zsh-users/zsh-history-substring-search
+  znap source marlonrichert/zsh-autocomplete
+  znap source zsh-users/zsh-completions
+  znap source zsh-users/zsh-syntax-highlighting
 
 fi
 
@@ -23,11 +22,11 @@ export HISTSIZE=10000000
 export SAVEHIST=10000000
 
 setopt HIST_VERIFY
-setopt EXTENDED_HISTORY      # save each command's beginning timestamp and the duration to the history file
+setopt EXTENDED_HISTORY      # Save each command's beginning timestamp and the duration to the history file
 setopt HIST_IGNORE_ALL_DUPS  # Ignore duplicates
 setopt HIST_REDUCE_BLANKS    # Trim Whitespace
 setopt HIST_IGNORE_SPACE     # Don't save in history if first character is a space
-setopt INC_APPEND_HISTORY    # this is default, but set for share_history
+setopt INC_APPEND_HISTORY    # This is default, but set for share_history
 setopt SHARE_HISTORY         # Share history file amongst all Zsh sessions
 
 if [[ -r $HOME/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE} ]]
