@@ -53,7 +53,7 @@ error() {
 
   if [ "$VERBOSITY" -ge -2 ]
   then
-     printf "${RED}x $@${NO_COLOR}\n" >&2
+    printf "${RED}x $@${NO_COLOR}\n" >&2
   fi
 
 }
@@ -63,7 +63,7 @@ sudocmd() {
   reason="$1"; shift
   if command -v sudo >/dev/null; then
     printf "\nAbout to use 'sudo' to run the following command as root:
-       "
+      "
     printf "%s " "$@"
     printf "\n in order to %s.\n\n" "$reason"
     # -k: Disable cached credentials (force prompt for password).
@@ -84,46 +84,36 @@ die() {
 
 do_starship() {
 
-     trace "Installing starship"
-     cargo install starship
+  trace "Installing starship"
+  cargo install starship
 
-}
-
-do_antibody() {
-
-    trace "Installing Zsh plugins"
-
-    antibody bundle < zsh/.zsh_plugins > zsh/.zsh_plugins.sh
-
-    trace "done."
 }
 
 do_npm() {
 
-    trace "Make npm not require sudo"
+  trace "Make npm not require sudo"
 
-    trace "Creating $HOME/.npm-packages, if it does not exist"
-    mkdir -p "$HOME/.npm-packages"
+  trace "Creating $HOME/.npm-packages, if it does not exist"
+  mkdir -p "$HOME/.npm-packages"
 
-    npm config set prefix "$HOME/.npm-packages"
-    NPM_PACKAGES="${HOME}/.npm-packages"
+  npm config set prefix "$HOME/.npm-packages"
+  NPM_PACKAGES="${HOME}/.npm-packages"
 
-    export PATH="$PATH:$NPM_PACKAGES/bin"
-    export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
+  export PATH="$PATH:$NPM_PACKAGES/bin"
+  export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
 }
 
 do_diff_so_fancy() {
 
-    trace "Installing diff-so-fancy"
-    npm install -g diff-so-fancy
+  trace "Installing diff-so-fancy"
+  npm install -g diff-so-fancy
 
 }
 
 do_ubuntu() {
   
   trace "Doing installation steps for ubuntu"
-  do_antibody
   do_starship
   do_npm
   do_diff_so_fancy
@@ -135,7 +125,6 @@ do_solus() {
   trace "Doing installation steps for solus"
   INST=( $PKG_MNG $INSTALL -c system.devel )
   sudocmd "install dev-tools" "${INST[@]}"
-  do_antibody
   do_starship
   do_npm
   do_diff_so_fancy
@@ -156,8 +145,8 @@ do_common() {
 
   if [ -z "$SKIP_PACKAGES" ]
   then
-      INST=( "$PKG_MNG" "$INSTALL" $PACKAGES )
-      sudocmd "to install packages" "${INST[@]}"
+    INST=( "$PKG_MNG" "$INSTALL" $PACKAGES )
+    sudocmd "to install packages" "${INST[@]}"
   fi
 
 }
