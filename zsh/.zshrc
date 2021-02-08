@@ -1,7 +1,8 @@
-if [[ -r $HOME/Apps/zsh-plugins/zsh-snap/znap.sh ]]
+
+if [[ -r $HOME/Apps/zsh-plugins/zsh-snap/znap.zsh ]]
 then
 
-  source $HOME/Apps/zsh-plugins/zsh-snap/znap.sh
+  source $HOME/Apps/zsh-plugins/zsh-snap/znap.zsh
 
   znap source sindresorhus/pure
   znap prompt sindresorhus/pure
@@ -15,13 +16,14 @@ then
 
 else
 
+  printf "znap was not found\n"
+
   autoload -Uz compinit
   for dump in ~/.zcompdump(N.mh+24); do
     compinit
   done
 
   compinit -C
-
 
 fi
 
