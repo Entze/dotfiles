@@ -3,19 +3,27 @@ then
 
   source $HOME/Apps/zsh-plugins/zsh-snap/znap.sh
 
+  znap source sindresorhus/pure
+  znap prompt sindresorhus/pure
+
   #znap source zsh-users/zsh-history-substring-search
   znap source marlonrichert/zsh-autocomplete
   znap source zsh-users/zsh-completions
+
+  export ZSH_HIGHLIGHT_HIGHLIGHTERS=( main brackets )
   znap source zsh-users/zsh-syntax-highlighting
 
+else
+
+  autoload -Uz compinit
+  for dump in ~/.zcompdump(N.mh+24); do
+    compinit
+  done
+
+  compinit -C
+
+
 fi
-
-autoload -Uz compinit
-for dump in ~/.zcompdump(N.mh+24); do
-  compinit
-done
-
-compinit -C
 
 export HISTFILE=$HOME/.zsh_history
 export HISTSIZE=10000000
