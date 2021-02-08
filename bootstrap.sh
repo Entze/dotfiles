@@ -188,7 +188,7 @@ set_solus() {
 
 do_linux() {
 
-  OS_ID=$(grep -E '^ID=".*"$' /etc/os-release | sed -E 's/(^ID=")(.*)("$)/\2/')
+  OS_ID=$(grep -E '^ID="?[a-zA-Z]*"?$' /etc/os-release | sed -E 's/(^ID="?)([a-zA-Z]*)("?$)/\2/')
   trace "Found linux: $OS_ID"
   case "$OS_ID" in
     "solus")
