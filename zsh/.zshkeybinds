@@ -1,7 +1,5 @@
 bindkey ${key[Home]} beginning-of-line
 bindkey ${key[End]} end-of-line
-bindkey ${key[Up]} up-line-or-search
-bindkey ${key[Down]} down-line-or-select
 bindkey -M vicmd 'k' up-line-or-search
 bindkey -M vicmd 'j' down-line-or-select
 bindkey ${key[CtrlLeft]} backward-word
