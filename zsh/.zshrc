@@ -14,6 +14,8 @@ then
   export ZSH_HIGHLIGHT_HIGHLIGHTERS=( main brackets )
   znap source zsh-users/zsh-syntax-highlighting
 
+
+
 else
 
   printf "znap was not found\n"
@@ -58,6 +60,7 @@ builtin zstyle ':completion:*'              format ' %F{yellow}-- %d --%f'
 
 # case insensitive matching
 builtin zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':autocomplete:tab:*' widget-style menu-select
 
 setopt interactive_comments extended_glob autocd complete_aliases
 
