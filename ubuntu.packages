@@ -1,7 +1,8 @@
-libhunspell
-hunspell-de
-hunspell-en
+libhunspell-1.7-0
+hunspell-de-at
+hunspell-en-gb
+hunspell-en-us
 fd-find
 util-linux
-antibody
+zsh-antigen
 npm
