@@ -82,107 +82,6 @@ die() {
 
 }
 
-do_os() {
-
-  OS_KIND="$(uname)"
-  trace "Found os: $OS_KIND"
-  case "$OS_KIND" in
-    "Linux")
-      do_linux
-      ;;
-    *) die "Unsupported os: $OS_KIND"
-  esac
-
-}
-
-do_linux() {
-
-  OS_ID=$(grep -E '^ID=".*"$' /etc/os-release | sed -E 's/(^ID=")(.*)("$)/\2/')
-  trace "Found linux: $OS_ID"
-  case "$OS_ID" in
-    "solus")
-      debug "Installing for solus"
-      set_solus
-      do_common
-      do_solus
-      ;;
-    "ubuntu")
-      debug "Installing for ubuntu"
-      set_ubuntu
-      do_common
-      do_ubuntu
-      ;;
-    *) die "Unsupported distribution: $OS_ID"
-  esac
-
-}
-
-set_solus() {
-
-  trace "Setting variables for solus"
-  PKG_MNG="eopkg"
-  INSTALL="it"
-  set_packages common.packages solus.packages
-
-}
-
-set_ubuntu() {
-
-  trace "Setting variables for ubuntu"
-  PKG_MNG="apt-get"
-  INSTALL="install"
-  set_packages common.packages ubuntu.packages
-
-}
-
-set_packages() {
-
-  PACKAGES=$(sort --unique $@ | tr "\n" ' ' | sed -E 's/[ \t]*$//')
-
-}
-
-
-do_common() {
-
-  trace "Doing common installation steps"
-  trace "Creating ~/.local/bin/, if not already present"
-  mkdir -p "$HOME/.local/bin/"
-
-  trace "Creating ~/Apps/.bin/, if not already present"
-  mkdir -p "$HOME/Apps/.bin/"
-
-  PATH="$PATH:$HOME/.local/bin:$HOME/Apps/.bin:$HOME/.cargo/bin"
-
-  if [ -z "$SKIP_PACKAGES" ]
-  then
-      INST=( "$PKG_MNG" "$INSTALL" $PACKAGES )
-      sudocmd "to install packages" "${INST[@]}"
-  fi
-
-}
-
-do_solus() {
-
-  trace "Doing installation steps for solus"
-  INST=( $PKG_MNG $INSTALL -c system.devel )
-  sudocmd "install dev-tools" "${INST[@]}"
-  do_antibody
-  do_starship
-  do_npm
-  do_diff_so_fancy
-
-}
-
-do_ubuntu() {
-  
-  trace "Doing installation steps for ubuntu"
-  do_antibody
-  do_starship
-  do_npm
-  do_diff_so_fancy
-
-}
-
 do_starship() {
 
      trace "Installing starship"
@@ -218,6 +117,108 @@ do_diff_so_fancy() {
 
     trace "Installing diff-so-fancy"
     npm install -g diff-so-fancy
+
+}
+
+do_ubuntu() {
+  
+  trace "Doing installation steps for ubuntu"
+  do_antibody
+  do_starship
+  do_npm
+  do_diff_so_fancy
+
+}
+
+do_solus() {
+
+  trace "Doing installation steps for solus"
+  INST=( $PKG_MNG $INSTALL -c system.devel )
+  sudocmd "install dev-tools" "${INST[@]}"
+  do_antibody
+  do_starship
+  do_npm
+  do_diff_so_fancy
+
+}
+
+
+do_common() {
+
+  trace "Doing common installation steps"
+  trace "Creating ~/.local/bin/, if not already present"
+  mkdir -p "$HOME/.local/bin/"
+
+  trace "Creating ~/Apps/.bin/, if not already present"
+  mkdir -p "$HOME/Apps/.bin/"
+
+  PATH="$PATH:$HOME/.local/bin:$HOME/Apps/.bin:$HOME/.cargo/bin"
+
+  if [ -z "$SKIP_PACKAGES" ]
+  then
+      INST=( "$PKG_MNG" "$INSTALL" $PACKAGES )
+      sudocmd "to install packages" "${INST[@]}"
+  fi
+
+}
+
+set_packages() {
+
+  PACKAGES=$(sort --unique $@ | tr "\n" ' ' | sed -E 's/[ \t]*$//')
+
+}
+
+set_ubuntu() {
+
+  trace "Setting variables for ubuntu"
+  PKG_MNG="apt-get"
+  INSTALL="install"
+  set_packages common.packages ubuntu.packages
+
+}
+
+set_solus() {
+
+  trace "Setting variables for solus"
+  PKG_MNG="eopkg"
+  INSTALL="it"
+  set_packages common.packages solus.packages
+
+}
+
+do_linux() {
+
+  OS_ID=$(grep -E '^ID=".*"$' /etc/os-release | sed -E 's/(^ID=")(.*)("$)/\2/')
+  trace "Found linux: $OS_ID"
+  case "$OS_ID" in
+    "solus")
+      debug "Installing for solus"
+      set_solus
+      do_common
+      do_solus
+      ;;
+    "ubuntu")
+      debug "Installing for ubuntu"
+      set_ubuntu
+      do_common
+      do_ubuntu
+      ;;
+    *) die "Unsupported distribution: $OS_ID"
+  esac
+
+}
+
+do_os() {
+
+  OS_KIND="$(uname)"
+  trace "Found os: $OS_KIND"
+  case "$OS_KIND" in
+    "Linux")
+      debug "Installing for linux"
+      do_linux
+      ;;
+    *) die "Unsupported os: $OS_KIND"
+  esac
 
 }
 
