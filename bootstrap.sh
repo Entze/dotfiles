@@ -83,12 +83,13 @@ die() {
 }
 
 do_os() {
-
-  case "$(uname)" in
+  OS_KIND="$(uname)"
+  debug "Found os: $OS_KIND"
+  case "$OS_KIND" in
     "Linux")
       do_linux
       ;;
-    *) die "Unsupported os: $(uname)"
+    *) die "Unsupported os: $OS_KIND"
   esac
 
 }
@@ -96,6 +97,7 @@ do_os() {
 do_linux() {
 
   OS_ID=$(grep -E '^ID=".*"$' /etc/os-release | sed -E 's/(^ID=")(.*)("$)/\2/')
+  debug "Found linux: $OS_ID"
   case "$OS_ID" in
     "solus")
       set_solus
@@ -106,6 +108,7 @@ do_linux() {
       set_ubuntu
       do_common
       do_ubuntu
+      ;;
     *) die "Unsupported distribution: $OS_ID"
   esac
 
@@ -113,6 +116,7 @@ do_linux() {
 
 set_solus() {
 
+  trace "Setting variables for solus"
   PKG_MNG="eopkg"
   INSTALL="it"
   set_packages common.packages solus.packages
@@ -121,6 +125,7 @@ set_solus() {
 
 set_ubuntu() {
 
+  trace "Setting variables for ubuntu"
   PKG_MNG="apt-get"
   INSTALL="install"
   set_packages common.packages ubuntu.packages
@@ -136,6 +141,7 @@ set_packages() {
 
 do_common() {
 
+  trace "Doing common installation steps"
   trace "Creating ~/.local/bin/, if not already present"
   mkdir -p "$HOME/.local/bin/"
 
@@ -154,6 +160,7 @@ do_common() {
 
 do_solus() {
 
+  trace "Doing installation steps for solus"
   INST=( $PKG_MNG $INSTALL -c system.devel )
   sudocmd "install dev-tools" "${INST[@]}"
   do_antibody
@@ -165,6 +172,7 @@ do_solus() {
 
 do_ubuntu() {
   
+  trace "Doing installation steps for ubuntu"
   do_antibody
   do_starship
   do_npm
@@ -174,16 +182,14 @@ do_ubuntu() {
 
 do_starship() {
 
-     info "Installing starship."
+     trace "Installing starship"
      cargo install starship
 
 }
 
 do_antibody() {
 
-    info "Installing Zsh plugins."
-
-    trace "antibody bundle"
+    trace "Installing Zsh plugins"
 
     antibody bundle < zsh/.zsh_plugins > zsh/.zsh_plugins.sh
 
@@ -192,7 +198,7 @@ do_antibody() {
 
 do_npm() {
 
-    info "Make npm not require sudo"
+    trace "Make npm not require sudo"
 
     trace "Creating $HOME/.npm-packages, if it does not exist"
     mkdir -p "$HOME/.npm-packages"
@@ -207,6 +213,7 @@ do_npm() {
 
 do_diff_so_fancy() {
 
+    trace "Installing diff-so-fancy"
     npm install -g diff-so-fancy
 
 }
