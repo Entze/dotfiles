@@ -3,32 +3,32 @@ add_newline = false
 format = """\
     $username
     $hostname\
-#   $kubernetes\
+    $kubernetes\
     $directory\
     $git_branch\
     $git_commit\
     $git_state\
     $git_status\
-#   $hg_branch\
-#   $package\
-#   $dotnet\
-#   $golang\
-#   $java\
-#   $nodejs\
-#   $php\
+    $hg_branch\
+    $package\
+    $dotnet\
+    $golang\
+    $java\
+    $nodejs\
+    $php\
     $python\
-#   $ruby\
-#   $rust\
-#   $terraform\
-#   $nix_shell\
-#   $conda\
-#   $memory_usage\
-#   $aws\
-#   $env_var\
+    $ruby\
+    $rust\
+    $terraform\
+    $nix_shell\
+    $conda\
+    $memory_usage\
+    $aws\
+    $env_var\
     $cmd_duration\
     $line_break\
     $jobs\
-#   $battery\
+    $battery\
     $time\
     $character\
     """
@@ -73,7 +73,7 @@ disabled = false
 
 [git_commit]
 style = "white"
-format = "[\($hash\)]($style)"
+format = '[\($hash\)]($style)'
 disabled = false
 
 [git_state]
@@ -81,7 +81,7 @@ disabled = false
 
 [git_status]
 style = "white"
-format = (\([$all_status]\)($style) )
+format = '([\($all_status$ahead_behind\)]($style) )'
 conflicted.style = "red"
 conflicted_count.enabled = true
 conflicted_count.style = "red"
