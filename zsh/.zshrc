@@ -61,6 +61,7 @@ builtin zstyle ':completion:*'              format ' %F{yellow}-- %d --%f'
 # case insensitive matching
 builtin zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':autocomplete:tab:*' widget-style menu-select
+zstyle ':autocomplete:*' min-delay 1.3
 
 setopt interactive_comments extended_glob autocd complete_aliases
 
