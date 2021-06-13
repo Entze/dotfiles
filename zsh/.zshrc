@@ -4,9 +4,6 @@ then
 
   source $HOME/Apps/zsh-plugins/zsh-snap/znap.zsh
 
-  #znap source sindresorhus/pure
-  #znap prompt sindresorhus/pure
-
   #znap source zsh-users/zsh-history-substring-search
   znap source marlonrichert/zsh-autocomplete
   znap source zsh-users/zsh-completions
