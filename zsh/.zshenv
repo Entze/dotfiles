@@ -1,15 +1,17 @@
 # Preferred editor for local and remote sessions
 if whence -p vim 2>&1 1>/dev/null
 then
-  export VISUAL='vim'
+  export VISUAL="vim"
 else
-  export VISUAL='vi'
+  export VISUAL="vi"
 fi
-export EDITOR='$VISUAL'
+export EDITOR="$VISUAL"
 
 NPM_PACKAGES="${HOME}/.npm-packages"
 
-export PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:$HOME/.local/bin:$HOME/Apps/.bin:$HOME/.cargo/bin:$NPM_PACKAGES/bin"
+export PYENV_ROOT="$HOME/Apps/pyenv"
+
+export PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:$HOME/.local/bin:$HOME/Apps/.bin:$HOME/.cargo/bin:$NPM_PACKAGES/bin:$PYENV_ROOT/bin"
 
 # Preserve MANPATH if you already defined it somewhere in your config.
 # Otherwise, fall back to `manpath` so we can inherit from `/etc/manpath`.

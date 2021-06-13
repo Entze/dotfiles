@@ -1,6 +1,7 @@
 [user]
 	name = Lukas Grassauer
 	email = lukas@grassauer.eu
+	signingkey = 0C8EC34972FF4180
 [push]
 	default = simple
 [alias]
@@ -32,3 +33,5 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+[init]
+	defaultBranch = main

@@ -10,6 +10,7 @@ then
   #znap source zsh-users/zsh-history-substring-search
   znap source marlonrichert/zsh-autocomplete
   znap source zsh-users/zsh-completions
+  znap source dim-an/cod
 
   export ZSH_HIGHLIGHT_HIGHLIGHTERS=( main brackets )
   znap source zsh-users/zsh-syntax-highlighting
@@ -99,6 +100,10 @@ else
   alias ls="ls --color=auto"
 fi
 
+if whence -p pyenv 2>&1 1>/dev/null
+then
+  eval "$(pyenv init -)"
+fi
 
 if whence -p starship 2>&1 1>/dev/null
 then

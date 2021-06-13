@@ -1,0 +1,23 @@
+name: Test
+
+on:
+  push:
+    paths:
+      - "bootstrap.sh"
+      - "git/**"
+      - "install.sh"
+      - "vim/**"
+      - "zsh/**"
+
+jobs:
+  ubuntu:
+    name: 🐧 Linux Ubuntu
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v2
+      - name: Run bootstrap.sh
+        run: ./bootstrap.sh --verbose --verbose
+      - name: Run install.sh
+        run: ./install.sh
+

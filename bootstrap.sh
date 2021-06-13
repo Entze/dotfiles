@@ -82,6 +82,29 @@ die() {
 
 }
 
+do_cod() {
+  trace "Downloading the latest cod"
+
+  downloader="aria2c"
+  if !which -p "$downloader" 2>&1 1>/dev/null
+  then
+    downloader=wget
+    if !which -p "$downloader" 2>&1 1>/dev/null
+    then
+      downloader=curl
+    fi
+  fi
+
+  cd Downloads
+
+  "$downloader" "https://github.com/dim-an/cod/releases/latest/download/cod-linux-amd64.tgz"
+
+  tar --extract --file cod-linux-amd64.tgz
+
+  mv cod $HOME/.local/bin/.
+
+}
+
 do_znap() {
 
   trace "Creating ~/Apps/zsh-plugins/, if not already present"
