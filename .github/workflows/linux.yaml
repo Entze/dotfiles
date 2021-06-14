@@ -1,0 +1,37 @@
+name: Linux
+
+on:
+  push:
+    paths:
+      - "bootstrap.sh"
+      - "git/**"
+      - "install.sh"
+      - "vim/**"
+      - "zsh/**"
+
+jobs:
+  ubuntu_2004:
+    name: 🐧 Linux Ubuntu 20.04
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v2
+      - name: Run bootstrap.sh
+        run: ./bootstrap.sh --verbose --verbose
+      - name: Run install.sh
+        run: ./install.sh
+  ubuntu_container:
+    strategy:
+      matrix:
+        version: ["21.04", "21.10"]
+    name: 🐧 Linux Ubuntu ${{ matrix.version }}
+    container: "ubuntu:${{ matrix.version }}"
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v2
+      - name: Run bootstrap.sh
+        run: ./bootstrap.sh --verbose --verbose
+      - name: Run install.sh
+        run: ./install.sh
+
+

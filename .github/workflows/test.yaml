@@ -1,0 +1,59 @@
+name: Test
+
+on:
+  push:
+    - "**.sh"
+    - "**zsh*"
+    - "**rc"
+    - "**.git*"
+
+jobs:
+  check_shell:
+    name: 🐚 Check Shell Files
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v2
+      - name: Run ShellCheck on [bootstrap.sh,install.sh]
+        uses: ludeeus/action-shellcheck@1.1.0
+        with:
+          ignore: >-
+            git
+            vim
+            zsh
+      - name: Run ShellCheck on []
+        uses: ludeeus/action-shellcheck@1.1.0
+        env:
+          SHELLCHECK_OPTS: -s zsh
+        with:
+          additional_files: >-
+            zsh/.zkbd/xterm-256color-:0
+            zsh/.zshenv
+            zsh/.zshkeybinds
+            zsh/.zshrc
+          ignore: >-
+            bootstrap.sh
+            install.sh
+  check_toml:
+    name: 📝 Check TOML Files
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Set up Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip
+          restore-keys: |
+            ${{ runner.os }}-pip
+      - name: Install TOML Validator
+        shell: bash
+        run: python3 -m pip install --upgrade --user toml-validator
+      - name: Validate TOML [zsh/.config/starship.toml,git/.gitconfig]
+        shell: bash
+        run: toml-validator zsh/.config/starship.toml git/.gitconfig
