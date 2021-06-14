@@ -7,7 +7,7 @@
 [alias]
 	fresh = "!git pull --stat --ff-only || git pull --stat --rebase"
 	last = log -1 HEAD
-    	co = checkout
+	co = checkout
 	st = status
 [merge]
 	tool = meld
