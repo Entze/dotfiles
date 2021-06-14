@@ -148,7 +148,7 @@ do_ubuntu() {
   
   trace "Doing installation steps for ubuntu"
 
-  if [ "$SKIP_PACKAGES" == "true" ]
+  if [ "$SKIP_PACKAGES" != "true" ]
   then
     packagelist="$(sort --unique ubuntu.packages common.packages)"
 
@@ -167,7 +167,7 @@ do_solus() {
 
   sudocmd "install dev-tools" "sudo eopkg install -c system.devel"
 
-  if [ "$SKIP_PACKAGES" == "true" ]
+  if [ "$SKIP_PACKAGES" != "true" ]
   then
     packagelist="$(sort --unique solus.packages common.packages)"
     xargs -a <(awk '! /^ *(#|$)/' "$packagelist") -r -- sudo eopkg install -y
