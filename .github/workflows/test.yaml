@@ -22,15 +22,11 @@ jobs:
             git
             vim
             zsh
-      - name: Run ShellCheck on []
+      - name: Run ShellCheck on [zsh/*]
         uses: ludeeus/action-shellcheck@1.1.0
-        env:
-          SHELLCHECK_OPTS: -s zsh
         with:
           additional_files: >-
-            zsh/.zkbd/xterm-256color-:0
             zsh/.zshenv
-            zsh/.zshkeybinds
             zsh/.zshrc
           ignore: >-
             bootstrap.sh
