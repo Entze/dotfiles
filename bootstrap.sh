@@ -188,7 +188,24 @@ do_common() {
   trace "Creating ~/Apps/.bin/, if not already present"
   mkdir -p "$HOME/Apps/.bin/"
 
-  PATH="$PATH:$HOME/.local/bin:$HOME/Apps/.bin:$HOME/.cargo/bin"
+  trace "Creating ~/.config, if not already present"
+  mkdir -p "$HOME/.config"
+
+  trace "Creating ~/.cache, if not already present"
+  mkdir -p "$HOME/.cache"
+
+  trace "Creating ~/.local/share, if not already present"
+  mkdir -p "$HOME/.local/share"
+
+  trace "Creating ~/.local/state, if not already present"
+  mkdir -p "$HOME/.local/state"
+
+  export PATH="$PATH:$HOME/.local/bin:$HOME/Apps/.bin:$HOME/.cargo/bin"
+
+  export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+  export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
+  export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
+  export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
 
 }
 
