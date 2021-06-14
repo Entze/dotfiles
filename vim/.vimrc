@@ -116,7 +116,7 @@ autocmd FileType gitcommit setlocal nobackup
 " Revert with: ":delcommand DiffOrig".
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
+      \ | wincmd p | diffthis
 endif
 
 if has('langmap') && exists('+langremap')
@@ -159,4 +159,3 @@ set backupcopy=yes
 
 " Meaningful backup name
 autocmd BufWritePre * let &bex = '@' . strftime("%F.%H:%M")
-
