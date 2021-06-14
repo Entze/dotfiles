@@ -2,10 +2,11 @@ name: Test
 
 on:
   push:
-    - "**.sh"
-    - "**zsh*"
-    - "**rc"
-    - "**.git*"
+    paths:
+      - "**.sh"
+      - "**zsh*"
+      - "**rc"
+      - "**.git*"
 
 jobs:
   check_shell:
