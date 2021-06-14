@@ -3,13 +3,13 @@
 set -euo pipefail
 
 BOLD="$(tput bold 2>/dev/null || echo '')"
-GREY="$(tput setaf 0 2>/dev/null || echo '')"
-UNDERLINE="$(tput smul 2>/dev/null || echo '')"
+#GREY="$(tput setaf 0 2>/dev/null || echo '')"
+#UNDERLINE="$(tput smul 2>/dev/null || echo '')"
 RED="$(tput setaf 1 2>/dev/null || echo '')"
 GREEN="$(tput setaf 2 2>/dev/null || echo '')"
 YELLOW="$(tput setaf 3 2>/dev/null || echo '')"
-BLUE="$(tput setaf 4 2>/dev/null || echo '')"
-MAGENTA="$(tput setaf 5 2>/dev/null || echo '')"
+#BLUE="$(tput setaf 4 2>/dev/null || echo '')"
+#MAGENTA="$(tput setaf 5 2>/dev/null || echo '')"
 NO_COLOR="$(tput sgr0 2>/dev/null || echo '')"
 
 
@@ -17,7 +17,7 @@ trace() {
 
   if [ "$VERBOSITY" -ge 2 ]
   then
-    printf "${GREEN}?${NO_COLOR} $@\n"
+    printf "%b?%b %s\n" "${GREEN}" "${NO_COLOR}" "$@"
   fi
 
 }
@@ -26,7 +26,7 @@ debug() {
 
   if [ "$VERBOSITY" -ge 1 ]
   then
-    printf "${BOLD}${GREEN}:${NO_COLOR} $@\n"
+    printf "%b:%b %s\n" "${BOLD}${GREEN}" "${NO_COLOR}" "$@"
   fi
 
 }
@@ -35,7 +35,7 @@ info() {
 
   if [ "$VERBOSITY" -ge 0 ]
   then
-    printf ">${NO_COLOR} $@\n"
+    printf ">%b %s\n" "${NO_COLOR}" "$@"
   fi
 
 }
@@ -44,7 +44,7 @@ warn() {
 
   if [ "$VERBOSITY" -ge -1 ]
   then
-    printf "${YELLOW}! $@${NO_COLOR}\n"
+    printf "%b! %s%b\n" "${YELLOW}" "$@" "${NO_COLOR}"
   fi
 
 }
@@ -53,7 +53,7 @@ error() {
 
   if [ "$VERBOSITY" -ge -2 ]
   then
-    printf "${RED}x $@${NO_COLOR}\n" >&2
+    printf "%bx %s%b\n" "${RED}" "$@" "${NO_COLOR}" >&2
   fi
 
 }
@@ -86,12 +86,12 @@ do_cod() {
   trace "Downloading the latest cod"
 
   downloader="aria2c"
-  if !which -p "$downloader" 2>&1 1>/dev/null
+  if ! which -p "$downloader" > /dev/null 2>&1
   then
     downloader=wget
-    if !which -p "$downloader" 2>&1 1>/dev/null
+    if ! which -p "$downloader" > /dev/null 2>&1
     then
-      downloader=curl
+      downloader="curl"
     fi
   fi
 
@@ -101,7 +101,7 @@ do_cod() {
 
   tar --extract --file cod-linux-amd64.tgz
 
-  mv cod $HOME/.local/bin/.
+  mv cod "$HOME"/.local/bin/.
 
 }
 
@@ -156,7 +156,7 @@ do_ubuntu() {
 do_solus() {
 
   trace "Doing installation steps for solus"
-  INST=( $PKG_MNG $INSTALL -c system.devel )
+  INST=( "$PKG_MNG" "$INSTALL" -c system.devel )
   sudocmd "install dev-tools" "${INST[@]}"
   do_starship
   do_npm
@@ -176,9 +176,11 @@ do_common() {
 
   PATH="$PATH:$HOME/.local/bin:$HOME/Apps/.bin:$HOME/.cargo/bin"
 
+  mapfile -t PACKAGEARRAY <<< "$PACKAGES"
+
   if [ -z "$SKIP_PACKAGES" ]
   then
-    INST=( "$PKG_MNG" "$INSTALL" $PACKAGES )
+    INST=( "$PKG_MNG" "$INSTALL" "${PACKAGEARRAY[@]}" )
     sudocmd "to install packages" "${INST[@]}"
   fi
 
@@ -188,7 +190,7 @@ do_common() {
 
 set_packages() {
 
-  PACKAGES=$(sort --unique $@ | tr "\n" ' ' | sed -E 's/[ \t]*$//')
+  PACKAGES=$(sort --unique "$@" | tr "\n" ' ' | sed -E 's/[ \t]*$//')
 
 }
 
@@ -252,7 +254,6 @@ SKIP_PACKAGES=""
 # parse argv variables
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    -p|--platform) ARG_PLATFORM="$2"; shift 2;;
 
     -v|--verbose) VERBOSITY=$((VERBOSITY + 1)); shift 1;;
     -q|--quiet) VERBOSITY=$((VERBOSITY - 1)); shift 1;;
