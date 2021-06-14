@@ -51,6 +51,15 @@ jobs:
       - name: Install TOML Validator
         shell: bash
         run: python3 -m pip install --upgrade --user toml-validator
-      - name: Validate TOML [zsh/.config/starship.toml,git/.gitconfig]
+      - name: Validate TOML [zsh/.config/starship.toml]
         shell: bash
-        run: toml-validator zsh/.config/starship.toml git/.gitconfig
+        run: toml-validator zsh/.config/starship.toml
+  check_gitconfig:
+    name: 🔻 Check Gitconfig
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v2
+      - name: Validate git/.gitconfig
+        shell: bash
+        run: git config --file git/.gitconfig --list
