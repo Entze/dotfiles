@@ -1,5 +1,8 @@
+
+# shellcheck shell=bash
+
 # Preferred editor for local and remote sessions
-if whence -p vim 2>&1 1>/dev/null
+if whence -p vim > /dev/null 2>&1
 then
   export VISUAL="vim"
 else
@@ -7,9 +10,9 @@ else
 fi
 export EDITOR="$VISUAL"
 
-NPM_PACKAGES="${HOME}/.npm-packages"
+NPM_PACKAGES="$HOME"/.npm-packages
 
-export PYENV_ROOT="$HOME/Apps/pyenv"
+export PYENV_ROOT="$HOME"/Apps/pyenv
 
 export PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:$HOME/.local/bin:$HOME/Apps/.bin:$HOME/.cargo/bin:$NPM_PACKAGES/bin:$PYENV_ROOT/bin"
 
@@ -22,7 +25,7 @@ GPG_TTY=$(tty)
 export GPG_TTY
 
 # ssh
-export SSH_KEY_PATH="$HOME/.ssh/id_rsa"
+export SSH_KEY_PATH="$HOME"/.ssh/id_rsa
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
