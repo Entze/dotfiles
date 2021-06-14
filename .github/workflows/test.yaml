@@ -6,6 +6,7 @@ on:
       - "**.sh"
       - "**zsh*"
       - "**rc"
+      - "**.toml"
       - "**.git*"
 
 jobs:
