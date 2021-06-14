@@ -2,13 +2,13 @@
 
 set -exou pipefail
 
-STOWING=( "git" "vim" "zsh" )
 
-EV=( mkdir -p "$HOME"/.vim/swap "$HOME"/.vim/undo "$HOME"/.vim/backup )
-"${EV[@]}"
+mkdir -p "$HOME"/.vim/swap "$HOME"/.vim/undo "$HOME"/.vim/backup 
 
-EV=( stow --target="$HOME" --delete --verbose=1 "${STOWING[@]}" )
-"${EV[@]}"
+stow --target="$HOME" --delete --verbose=1 git
+stow --target="$HOME" --delete --verbose=1 vim
+stow --target="$HOME" --delete --verbose=1 zsh
 
-EV=( stow --target="$HOME" --verbose=1 "${STOWING[@]}" )
-"${EV[@]}"
+stow --target="$HOME" --verbose=1 git
+stow --target="$HOME" --verbose=1 vim
+stow --target="$HOME" --verbose=1 zsh

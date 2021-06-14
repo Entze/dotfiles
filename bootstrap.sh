@@ -147,6 +147,14 @@ do_diff_so_fancy() {
 do_ubuntu() {
   
   trace "Doing installation steps for ubuntu"
+
+  if [ "$SKIP_PACKAGES" == "true" ]
+  then
+    packagelist="$(sort --unique ubuntu.packages common.packages)"
+
+    xargs -a <(awk '! /^ *(#|$)/' "$packagelist") -r -- sudo apt-get install -y
+  fi
+
   do_starship
   do_npm
   do_diff_so_fancy
@@ -156,8 +164,15 @@ do_ubuntu() {
 do_solus() {
 
   trace "Doing installation steps for solus"
-  INST=( "$PKG_MNG" "$INSTALL" -c system.devel )
-  sudocmd "install dev-tools" "${INST[@]}"
+
+  sudocmd "install dev-tools" "sudo eopkg install -c system.devel"
+
+  if [ "$SKIP_PACKAGES" == "true" ]
+  then
+    packagelist="$(sort --unique solus.packages common.packages)"
+    xargs -a <(awk '! /^ *(#|$)/' "$packagelist") -r -- sudo eopkg install -y
+  fi
+
   do_starship
   do_npm
   do_diff_so_fancy
@@ -176,40 +191,6 @@ do_common() {
 
   PATH="$PATH:$HOME/.local/bin:$HOME/Apps/.bin:$HOME/.cargo/bin"
 
-  mapfile -t PACKAGEARRAY <<< "$PACKAGES"
-
-  if [ -z "$SKIP_PACKAGES" ]
-  then
-    INST="$PKG_MNG" "$INSTALL" "${PACKAGEARRAY[@]}"
-    sudocmd "to install packages" "${INST[@]}"
-  fi
-
-  do_znap
-
-}
-
-set_packages() {
-
-  PACKAGES=$(sort --unique "$@" | tr "\n" ' ' | sed -E 's/[ \t]*$//')
-
-}
-
-set_ubuntu() {
-
-  trace "Setting variables for ubuntu"
-  PKG_MNG="apt-get"
-  INSTALL="install"
-  set_packages common.packages ubuntu.packages
-
-}
-
-set_solus() {
-
-  trace "Setting variables for solus"
-  PKG_MNG="eopkg"
-  INSTALL="it"
-  set_packages common.packages solus.packages
-
 }
 
 do_linux() {
@@ -219,13 +200,11 @@ do_linux() {
   case "$OS_ID" in
     "solus")
       debug "Installing for solus"
-      set_solus
       do_common
       do_solus
       ;;
     "ubuntu")
       debug "Installing for ubuntu"
-      set_ubuntu
       do_common
       do_ubuntu
       ;;
