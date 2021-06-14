@@ -150,11 +150,10 @@ do_ubuntu() {
 
   if [ "$SKIP_PACKAGES" != "true" ]
   then
-    packagelist="$(sort --unique ubuntu.packages common.packages)"
-
-    xargs -a <(awk '! /^ *(#|$)/' "$packagelist") -r -- sudo apt-get install -y
+    xargs -a <(awk '! /^ *(#|$)/' <(sort --unique ubuntu.packages common.packages)) -r -- sudo apt-get install -y
   fi
 
+  do_znap
   do_starship
   do_npm
   do_diff_so_fancy
@@ -169,10 +168,10 @@ do_solus() {
 
   if [ "$SKIP_PACKAGES" != "true" ]
   then
-    packagelist="$(sort --unique solus.packages common.packages)"
-    xargs -a <(awk '! /^ *(#|$)/' "$packagelist") -r -- sudo eopkg install -y
+    xargs -a <(awk '! /^ *(#|$)/' <(sort --unique solus.packages common.packages)) -r -- sudo apt-get install -y
   fi
 
+  do_znap
   do_starship
   do_npm
   do_diff_so_fancy
