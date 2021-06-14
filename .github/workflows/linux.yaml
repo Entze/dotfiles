@@ -25,6 +25,7 @@ jobs:
       matrix:
         version: ["21.04", "21.10"]
     name: 🐧 Linux Ubuntu ${{ matrix.version }}
+    runs-on: ubuntu-20.04
     container: "ubuntu:${{ matrix.version }}"
     steps:
       - name: Checkout project
