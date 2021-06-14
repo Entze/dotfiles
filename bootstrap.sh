@@ -180,7 +180,7 @@ do_common() {
 
   if [ -z "$SKIP_PACKAGES" ]
   then
-    INST=( "$PKG_MNG" "$INSTALL" "${PACKAGEARRAY[@]}" )
+    INST="$PKG_MNG" "$INSTALL" "${PACKAGEARRAY[@]}"
     sudocmd "to install packages" "${INST[@]}"
   fi
 
