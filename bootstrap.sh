@@ -168,7 +168,7 @@ do_solus() {
 
   if [ "$SKIP_PACKAGES" != "true" ]
   then
-    xargs -a <(awk '! /^ *(#|$)/' <(sort --unique solus.packages common.packages)) -r -- sudo apt-get install -y
+    xargs -a <(awk '! /^ *(#|$)/' <(sort --unique solus.packages common.packages)) -r -- sudo eopkg install -y
   fi
 
   do_znap
