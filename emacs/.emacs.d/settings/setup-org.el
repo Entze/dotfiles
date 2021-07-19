@@ -10,18 +10,23 @@
   :config
   (progn
     (setq org-directory "~/Documents/Org")
-    (setq org-agenda-files (mapcar 'my/prepend-org-directory ["/inbox.org"
-                             "/gtd.org"
-                             "/tickler.org"
-                             "/media.org"]))
+    (setq org-agenda-files (mapcar 'my/prepend-org-directory [
+                             "/inbox.org"
+                             "/projects.org"
+                             "/media.org"
+                             "/calendar.org"
+                             "/contacts.org"]))
     (setq org-default-notes-file (concat org-directory "/inbox.org"))
     (setq org-archive-location (concat org-directory "/archive.org::* From %s"))
     (setq org-capture-templates `(
                                   ("t" "Todo [inbox]" entry
                                    (file ,(concat org-directory "/inbox.org"))
                                    "* TODO %i%?")
-                                  ("T" "Tickler" entry
-                                   (file ,(concat org-directory "/tickler.org"))
+                                  ("c" "Calendar" entry
+                                   (file ,(concat org-directory "/calendar.org"))
+                                   "* %i%? \n %U")
+                                  ("r" "Reference" entry
+                                   (file ,(concat org-directory "/reference.org"))
                                    "* %i%? \n %U")))
     (setq org-refile-targets '((nil :maxlevel . 9)
                                (org-agenda-files :maxlevel . 3)))
