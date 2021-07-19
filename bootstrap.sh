@@ -13,6 +13,17 @@ YELLOW="$(tput setaf 3 2>/dev/null || echo '')"
 NO_COLOR="$(tput sgr0 2>/dev/null || echo '')"
 
 
+DOWNLOADER="aria2c"
+if ! which -p "$DOWNLOADER" > /dev/null 2>&1
+then
+  DOWNLOADER=wget
+  if ! which -p "$DOWNLOADER" > /dev/null 2>&1
+  then
+    DOWNLOADER="curl"
+  fi
+fi
+
+
 trace() {
 
   if [ "$VERBOSITY" -ge 2 ]
@@ -85,19 +96,9 @@ die() {
 do_cod() {
   trace "Downloading the latest cod"
 
-  downloader="aria2c"
-  if ! which -p "$downloader" > /dev/null 2>&1
-  then
-    downloader=wget
-    if ! which -p "$downloader" > /dev/null 2>&1
-    then
-      downloader="curl"
-    fi
-  fi
-
   cd Downloads
 
-  "$downloader" "https://github.com/dim-an/cod/releases/latest/download/cod-linux-amd64.tgz"
+  "$DOWNLOADER" "https://github.com/dim-an/cod/releases/latest/download/cod-linux-amd64.tgz"
 
   tar --extract --file cod-linux-amd64.tgz
 
@@ -144,8 +145,32 @@ do_diff_so_fancy() {
 
 }
 
+do_emacs_on_linux() {
+  trace "Preparing Emacs installation"
+
+  cd "$HOME/Downloads"
+
+  "$DOWNLOADER" "https://github.com/haskell/haskell-language-server/releases/latest/download/haskell-language-server-Linux-1.2.0.tar.gz"
+
+  mkdir -p "$HOME/Apps/haskell-language-server"
+
+  tar --extract --file "$HOME/Downloads/haskell-language-server-Linux-1.2. 0.tar.gz"
+
+  if which -p fdfind > /dev/null/ 2>&1
+  then
+      fdfind --type file --exec ln -s "$HOME/Apps/haskell-language-server/{/}" "$HOME/.local/bin/{/}" \;
+  elif which -p fd > /dev/null/ 2>&1
+  then
+      fd --type file --exec ln -s "$HOME/Apps/haskell-language-server/{/}" "$HOME/.local/bin/{/}" \;
+  else
+      find . -type f -exec ln -s "$HOME/Apps/haskell-language-server/{}" "$HOME/.local/bin/{}" \;
+  fi
+
+}
+
+
 do_ubuntu() {
-  
+
   trace "Doing installation steps for ubuntu"
 
   if [ "$SKIP_PACKAGES" != "true" ]
@@ -199,6 +224,9 @@ do_common() {
 
   trace "Creating ~/.local/state, if not already present"
   mkdir -p "$HOME/.local/state"
+
+  trace "Creating ~/Downloads, if not already present"
+  mkdir -p "$HOME/Downloads"
 
   export PATH="$PATH:$HOME/.local/bin:$HOME/Apps/.bin:$HOME/.cargo/bin"
 
