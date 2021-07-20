@@ -182,6 +182,7 @@ do_ubuntu() {
   do_starship
   do_npm
   do_diff_so_fancy
+  do_emacs_on_linux
 
 }
 
