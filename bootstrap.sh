@@ -16,7 +16,7 @@ NO_COLOR="$(tput sgr0 2>/dev/null || echo '')"
 DOWNLOADER="aria2c"
 if ! which -p "$DOWNLOADER" > /dev/null 2>&1
 then
-  DOWNLOADER=wget
+  DOWNLOADER="wget"
   if ! which -p "$DOWNLOADER" > /dev/null 2>&1
   then
     DOWNLOADER="curl"
@@ -153,7 +153,7 @@ do_emacs_on_linux() {
 
   trace "Downloading Haskell Language Server with $DOWNLOADER"
 
-  "$DOWNLOADER" "https://github.com/haskell/haskell-language-server/releases/download/1.2.0/haskell-language-server-Linux-1.2.0.tar.gz"
+  "$DOWNLOADER" -o "haskell-language-server-Linux-1.2.0.tar.gz" "https://github.com/haskell/haskell-language-server/releases/download/1.2.0/haskell-language-server-Linux-1.2.0.tar.gz"
 
   trace "Downloaded Haskell Language Server."
 
@@ -189,6 +189,17 @@ do_ubuntu() {
     xargs -a <(awk '! /^ *(#|$)/' <(sort --unique ubuntu.packages common.packages)) -r -- sudo apt-get install -y
   fi
 
+  DOWNLOADER="aria2c"
+  if ! which -p "$DOWNLOADER" > /dev/null 2>&1
+  then
+    DOWNLOADER="wget"
+    if ! which -p "$DOWNLOADER" > /dev/null 2>&1
+    then
+      DOWNLOADER="curl"
+    fi
+  fi
+
+
   do_znap
   do_starship
   do_npm
@@ -207,6 +218,17 @@ do_solus() {
   then
     xargs -a <(awk '! /^ *(#|$)/' <(sort --unique solus.packages common.packages)) -r -- sudo eopkg install -y
   fi
+
+  DOWNLOADER="aria2c"
+  if ! which -p "$DOWNLOADER" > /dev/null 2>&1
+  then
+    DOWNLOADER="wget"
+    if ! which -p "$DOWNLOADER" > /dev/null 2>&1
+    then
+      DOWNLOADER="curl"
+    fi
+  fi
+
 
   do_znap
   do_starship
