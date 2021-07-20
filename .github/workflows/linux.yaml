@@ -8,6 +8,7 @@ on:
       - "install.sh"
       - "vim/**"
       - "zsh/**"
+      - "emacs/**"
 
 jobs:
   ubuntu_2004:
@@ -20,4 +21,3 @@ jobs:
         run: ./bootstrap.sh --verbose --verbose
       - name: Run install.sh
         run: ./install.sh
-
