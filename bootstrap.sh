@@ -153,7 +153,7 @@ do_emacs_on_linux() {
 
   trace "Downloading Haskell Language Server with $DOWNLOADER"
 
-  "$DOWNLOADER" "https://github.com/haskell/haskell-language-server/releases/latest/download/haskell-language-server-Linux-1.2.0.tar.gz"
+  "$DOWNLOADER" "https://github.com/haskell/haskell-language-server/releases/download/1.2.0/haskell-language-server-Linux-1.2.0.tar.gz"
 
   trace "Downloaded Haskell Language Server."
 

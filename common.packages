@@ -7,3 +7,5 @@ stow
 vim
 cargo
 emacs
+wget
+aria2
