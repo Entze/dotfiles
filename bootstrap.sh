@@ -146,6 +146,7 @@ do_diff_so_fancy() {
 }
 
 do_emacs_on_linux() {
+
   trace "Preparing Emacs installation"
 
   cd "$HOME/Downloads"
@@ -154,7 +155,7 @@ do_emacs_on_linux() {
 
   mkdir -p "$HOME/Apps/haskell-language-server"
 
-  tar --extract --file "$HOME/Downloads/haskell-language-server-Linux-1.2. 0.tar.gz"
+  tar --extract --file "$HOME/Downloads/haskell-language-server-Linux-1.2.0.tar.gz"
 
   if which -p fdfind > /dev/null/ 2>&1
   then
