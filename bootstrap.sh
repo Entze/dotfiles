@@ -176,10 +176,10 @@ do_emacs_on_linux() {
 
   tar --extract --file "$HOME/Downloads/haskell-language-server-Linux-1.2.0.tar.gz"
 
-  if which fdfind > /dev/null/ 2>&1
+  if which fdfind > /dev/null 2>&1
   then
       fdfind --type file --exec ln -s "$HOME/Apps/haskell-language-server/{/}" "$HOME/.local/bin/{/}" \;
-  elif which fd > /dev/null/ 2>&1
+  elif which fd > /dev/null 2>&1
   then
       fd --type file --exec ln -s "$HOME/Apps/haskell-language-server/{/}" "$HOME/.local/bin/{/}" \;
   else
