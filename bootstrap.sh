@@ -14,10 +14,10 @@ NO_COLOR="$(tput sgr0 2>/dev/null || echo '')"
 
 
 DOWNLOADER="aria2c"
-if ! which -p "$DOWNLOADER" > /dev/null 2>&1
+if ! which "$DOWNLOADER" > /dev/null 2>&1
 then
   DOWNLOADER="wget"
-  if ! which -p "$DOWNLOADER" > /dev/null 2>&1
+  if ! which "$DOWNLOADER" > /dev/null 2>&1
   then
     DOWNLOADER="curl"
   fi
@@ -94,13 +94,22 @@ die() {
 }
 
 do_cod() {
+
   trace "Downloading the latest cod"
 
   cd Downloads
 
-  "$DOWNLOADER" "https://github.com/dim-an/cod/releases/latest/download/cod-linux-amd64.tgz"
+  trace "Downloading cod with $DOWNLOADER"
+
+  "$DOWNLOADER" -o "cod-linux-amd64.tgz" "https://github.com/dim-an/cod/releases/latest/download/cod-linux-amd64.tgz"
+
+  trace "Downloaded cod"
+
+  trace "Extracting cod"
 
   tar --extract --file cod-linux-amd64.tgz
+
+  trace "Moving cod to ~.local/bin"
 
   mv cod "$HOME"/.local/bin/.
 
@@ -167,10 +176,10 @@ do_emacs_on_linux() {
 
   tar --extract --file "$HOME/Downloads/haskell-language-server-Linux-1.2.0.tar.gz"
 
-  if which -p fdfind > /dev/null/ 2>&1
+  if which fdfind > /dev/null/ 2>&1
   then
       fdfind --type file --exec ln -s "$HOME/Apps/haskell-language-server/{/}" "$HOME/.local/bin/{/}" \;
-  elif which -p fd > /dev/null/ 2>&1
+  elif which fd > /dev/null/ 2>&1
   then
       fd --type file --exec ln -s "$HOME/Apps/haskell-language-server/{/}" "$HOME/.local/bin/{/}" \;
   else
@@ -190,10 +199,10 @@ do_ubuntu() {
   fi
 
   DOWNLOADER="aria2c"
-  if ! which -p "$DOWNLOADER" > /dev/null 2>&1
+  if ! which "$DOWNLOADER" > /dev/null 2>&1
   then
     DOWNLOADER="wget"
-    if ! which -p "$DOWNLOADER" > /dev/null 2>&1
+    if ! which "$DOWNLOADER" > /dev/null 2>&1
     then
       DOWNLOADER="curl"
     fi
@@ -201,10 +210,10 @@ do_ubuntu() {
 
 
   do_znap
-  do_starship
   do_npm
   do_diff_so_fancy
   do_emacs_on_linux
+  do_starship
 
 }
 
@@ -220,10 +229,10 @@ do_solus() {
   fi
 
   DOWNLOADER="aria2c"
-  if ! which -p "$DOWNLOADER" > /dev/null 2>&1
+  if ! which "$DOWNLOADER" > /dev/null 2>&1
   then
     DOWNLOADER="wget"
-    if ! which -p "$DOWNLOADER" > /dev/null 2>&1
+    if ! which "$DOWNLOADER" > /dev/null 2>&1
     then
       DOWNLOADER="curl"
     fi
@@ -231,10 +240,10 @@ do_solus() {
 
 
   do_znap
-  do_starship
   do_npm
   do_diff_so_fancy
   do_emacs_on_linux
+  do_starship
 
 }
 
