@@ -16,6 +16,12 @@ jobs:
     steps:
       - name: Checkout project
         uses: actions/checkout@v2
+      - name: Check if file bootstrap.sh exist
+        shell: bash
+        run: file -f bootstrap.sh
+      - name: Check if file install.sh exist
+        shell: bash
+        run: file -f install.sh
       - name: Run ShellCheck on [bootstrap.sh,install.sh]
         uses: ludeeus/action-shellcheck@1.1.0
         with:
@@ -23,6 +29,12 @@ jobs:
             git
             vim
             zsh
+      - name: Check if file zsh/.zshenv exist
+        shell: bash
+        run: file -f zsh/.zshenv
+      - name: Check if file zsh/.zshrc exist
+        shell: bash
+        run: file -f zsh/.zshrc
       - name: Run ShellCheck on [zsh/*]
         uses: ludeeus/action-shellcheck@1.1.0
         with:
@@ -38,6 +50,9 @@ jobs:
     steps:
       - name: Checkout project
         uses: actions/checkout@v2
+      - name: Check if file zsh/.config/starship.toml exists
+        shell: bash
+        run: test -f zsh/.config/starship.toml
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
@@ -61,6 +76,9 @@ jobs:
     steps:
       - name: Checkout project
         uses: actions/checkout@v2
+      - name: Check if file git/.gitconfig exists
+        shell: bash
+        run: test -f git/.gitconfig
       - name: Validate git/.gitconfig
         shell: bash
         run: git config --file git/.gitconfig --list
@@ -70,6 +88,9 @@ jobs:
     steps:
       - name: Checkout project
         uses: actions/checkout@v2
+      - name: Check if file vim/.vimrc exists
+        shell: bash
+        run: test -f vim/.vimrc
       - name: Validate vim/.vimrc
         shell: bash
         run: vim -u NONE -c 'try | source vim/.vimrc | catch | cq | endtry | q'
@@ -79,6 +100,11 @@ jobs:
     steps:
       - name: Checkout project
         uses: actions/checkout@v2
+        name: Check if directory emacs/.emacs.d exists
+        shell: bash
+        run: test -d emacs/.emacs.d/
+      - name: Ensure emacs
+        uses: sudo apt-get install -y emacs
       - name: Validate emacs/.emacs.d
         shell: bash
-        run: env HOME=emacs emacs --debug-init --batch
+        run: env HOME=./emacs emacs --debug-init --batch
