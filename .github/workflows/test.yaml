@@ -10,6 +10,7 @@ on:
       - "**.git*"
       - "**.el"
     tags:
+  workflow_dispatch:
 
 jobs:
   check_shell:
