@@ -9,7 +9,7 @@ on:
       - "**.toml"
       - "**.git*"
       - "**.el"
-  tag:
+    tags:
 
 jobs:
   check_shell:

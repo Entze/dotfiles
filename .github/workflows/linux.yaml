@@ -9,7 +9,7 @@ on:
       - "vim/**"
       - "zsh/**"
       - "emacs/**"
-  tag:
+    tags:
 
 jobs:
   ubuntu_2004:
