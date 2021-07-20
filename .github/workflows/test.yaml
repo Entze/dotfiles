@@ -100,7 +100,7 @@ jobs:
     steps:
       - name: Checkout project
         uses: actions/checkout@v2
-        name: Check if directory emacs/.emacs.d exists
+      - name: Check if directory emacs/.emacs.d exists
         shell: bash
         run: test -d emacs/.emacs.d/
       - name: Ensure emacs
