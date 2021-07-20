@@ -70,9 +70,13 @@ jobs:
     steps:
       - name: Checkout project
         uses: actions/checkout@v2
-      - name: Create test.vim
-        shell: bash
-        run: echo "try\n  source vim/.vimrc\n  quit\ncatch\n  cquit\nendtry" > test.vim
       - name: Validate vim/.vimrc
         shell: bash
-        run: vim -E -s -u test.vim
+        run: vim -u NONE -c 'try | source vim/.vimrc | catch | cq | endtry | q'
+  check_emacs:
+    name: 📝 Check Emacs
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Not implemented yet
+        shell: bash
+        run: echo ✅
