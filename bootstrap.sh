@@ -151,9 +151,19 @@ do_emacs_on_linux() {
 
   cd "$HOME/Downloads"
 
+  trace "Downloading Haskell Language Server with $DOWNLOADER"
+
   "$DOWNLOADER" "https://github.com/haskell/haskell-language-server/releases/latest/download/haskell-language-server-Linux-1.2.0.tar.gz"
 
+  trace "Downloaded Haskell Language Server."
+
+  trace "Creating $HOME/Apps/haskell-language-server, if it does not exist"
+
   mkdir -p "$HOME/Apps/haskell-language-server"
+
+  cd "$HOME/Apps/haskell-language-server"
+
+  trace "Extracting Haskell Language Server"
 
   tar --extract --file "$HOME/Downloads/haskell-language-server-Linux-1.2.0.tar.gz"
 
@@ -202,6 +212,7 @@ do_solus() {
   do_starship
   do_npm
   do_diff_so_fancy
+  do_emacs_on_linux
 
 }
 
