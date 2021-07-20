@@ -77,6 +77,8 @@ jobs:
     name: 📝 Check Emacs
     runs-on: ubuntu-20.04
     steps:
-      - name: Not implemented yet
+      - name: Checkout project
+        uses: actions/checkout@v2
+      - name: Validate emacs/.emacs.d
         shell: bash
-        run: echo ✅
+        run: env HOME=emacs emacs --debug-init --batch
