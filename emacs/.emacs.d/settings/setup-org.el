@@ -9,7 +9,7 @@
   :hook (org-capture-mode . evil-insert-state)
   :config
   (progn
-    (setq org-directory "~/Documents/Org")
+    (setq org-directory "~/Org")
     (setq org-agenda-files (mapcar 'my/prepend-org-directory [
                              "/inbox.org"
                              "/projects.org"
