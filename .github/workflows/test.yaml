@@ -106,9 +106,11 @@ jobs:
       - name: Check if directory emacs/.emacs.d exists
         shell: bash
         run: test -d emacs/.emacs.d/
-      - name: Ensure emacs
+      - name: Ensure emacs and stow
         shell: bash
-        run: sudo apt-get install -y emacs
+        run: sudo apt-get install -y emacs stow
+      - name: Stow emacs config
+        run: stow --target="$HOME" --verbose=1 emacs
       - name: Validate emacs/.emacs.d
         shell: bash
-        run: env HOME=./emacs emacs --debug-init --batch
+        run: emacs --debug-init --batch
