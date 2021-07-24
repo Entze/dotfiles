@@ -5,6 +5,7 @@ vim/.vim/.netrwhist
 emacs/.emacs.d/elpa/
 emacs/.emacs.d/network-security.data
 emacs/.emacs.d/custom.el
+emacs/.emacs.d/.cache/
 zsh/.zplugin/completions/
 zsh/.zplugin/plugins/
 zsh/.zplugin/snippets/
