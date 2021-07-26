@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-local ZNAP_FOUND="false"
+ZNAP_FOUND="false"
 
 if [[ -r "$HOME"/Apps/zsh-plugins/zsh-snap/znap.zsh ]]
 then
@@ -85,7 +85,8 @@ bindkey -M vicmd '\e\e' sudo-command-line
 
 # Plugins
 
-if [ ZNAP_FOUND = "true" ]
+# shellcheck disable=SC2153
+if [ $ZNAP_FOUND = "true" ]
 then
 
   #znap source zsh-users/zsh-history-substring-search
@@ -130,7 +131,8 @@ fi
 if whence -p starship > /dev/null 2>&1
 then
 
-  if [ ZNAP_FOUND = "true" ]
+  # shellcheck disable=SC2153
+  if [ $ZNAP_FOUND = "true" ]
   then
 
     znap eval starship "starship init zsh --print-full-init"
