@@ -128,7 +128,18 @@ do_znap() {
 do_starship() {
 
   trace "Installing starship"
-  cargo install starship
+
+  cd "$HOME/Downloads"
+
+  trace "Downloading Starship installer with $DOWNLOADER"
+
+  "$DOWNLOADER" -o starship.sh "https://starship.rs/install.sh"
+
+  trace "Downloaded Starship installer"
+
+  chmod +x starship.sh
+
+  ./starship.sh -y -b "$HOME/.local/bin"
 
 }
 
@@ -208,7 +219,7 @@ do_ubuntu() {
     fi
   fi
 
-
+  do_cod
   do_znap
   do_npm
   do_diff_so_fancy
@@ -238,7 +249,7 @@ do_solus() {
     fi
   fi
 
-
+  do_cod
   do_znap
   do_npm
   do_diff_so_fancy
