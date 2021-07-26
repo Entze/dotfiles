@@ -1,5 +1,9 @@
 # shellcheck shell=bash
 
+
+PS1="\$ $(pwd): "
+export PS1
+
 ZNAP_FOUND="false"
 
 if [[ -r "$HOME"/Apps/zsh-plugins/zsh-snap/znap.zsh ]]
@@ -143,12 +147,6 @@ then
     eval "$(starship init zsh)"
 
   fi
-
-
-else
-
-  PS1="\$ $(pwd): "
-  export PS1
 
 fi
 
