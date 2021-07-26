@@ -12,6 +12,7 @@ YELLOW="$(tput setaf 3 2>/dev/null || echo '')"
 #MAGENTA="$(tput setaf 5 2>/dev/null || echo '')"
 NO_COLOR="$(tput sgr0 2>/dev/null || echo '')"
 
+THIS_PWD="$(pwd)"
 
 DOWNLOADER="aria2c"
 if ! which "$DOWNLOADER" > /dev/null 2>&1
@@ -97,7 +98,7 @@ do_cod() {
 
   trace "Downloading the latest cod"
 
-  cd Downloads
+  cd "$HOME/Downloads"
 
   trace "Downloading cod with $DOWNLOADER"
 
@@ -348,3 +349,5 @@ trace "Parsed argv variables"
 do_os
 
 debug "Done"
+
+cd "$THIS_PWD"
