@@ -109,7 +109,7 @@ do_cod() {
 
   tar --extract --file cod-linux-amd64.tgz
 
-  trace "Moving cod to ~.local/bin"
+  trace "Moving cod to ~/.local/bin"
 
   mv cod "$HOME"/.local/bin/.
 
