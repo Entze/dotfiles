@@ -36,10 +36,26 @@
             ("NEXT" . (:foreground "#AB47BC" :weight bold))
             ("WAITING" . (:foreground "#42A5F5" :weight bold))
             ("DONE" . (:foreground "#388E3C" :weight bold))
-            ("CANCELED" . (:foreground "#26C6DA" :weight bold))))
+            ("CANCELED" . (:foreground "#26C6DA" :weight bold))
+            ("PROJECT" . (:foreground "#FF8F00"))
+            ("COMPLETED" . (:foreground "#D4E157"))
+            ("CONSUME" . (:foreground "#26A69A"))
+            ("FINISHED" . (:foreground "#7E57C2"))))
     (global-set-key (kbd "C-c l") 'org-store-link)
     (global-set-key (kbd "C-c a") 'org-agenda)
     (global-set-key (kbd "C-c c") 'org-capture)
+    (setq org-agenda-custom-commands
+          '(("c" . "Calendar")
+            ("ct" agenda "Agenda today"
+             ((org-agenda-span 'day)))
+            ("cw" agenda "Agenda week"
+             ((org-agenda-span 'week)))
+            ("l" . "Lists")
+            ("lt" todo "TODO")
+            ("ln" todo "NEXT")
+            ("lp" todo "PROJECT")
+            ("lw" todo "WAITING")
+            ))
     (unless (boundp 'org-latex-packages-alist)
       (setq org-latex-packages-alist nil))
     (add-to-list 'org-latex-packages-alist
