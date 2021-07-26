@@ -65,4 +65,12 @@
     (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
     ))
 
+;; htmlize for exporting the agenda to html
+
+(use-package htmlize
+  :config
+  (progn
+    (setq htmlize-html-charset "utf-8"))
+  )
+
 (provide 'setup-org)
