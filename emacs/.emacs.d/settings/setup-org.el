@@ -28,8 +28,9 @@
                                   ("r" "Reference" entry
                                    (file ,(concat org-directory "/reference.org"))
                                    "* %i%? \n %U")))
-    (setq org-refile-targets '((nil :maxlevel . 9)
-                               (org-agenda-files :maxlevel . 3)))
+    (setq org-refile-targets `((nil :maxlevel . 9)
+                               (org-agenda-files :maxlevel . 9)
+                               (,(concat org-directory "/someday.org") :maxlevel . 9)))
     (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "NEXT(n)" "|" "DONE(d)" "CANCELLED(c)")))
     (setq org-todo-keyword-faces
           '(("TODO" . (:foreground "#EF5350" :weight bold))
@@ -80,6 +81,7 @@
                    ("\\paragraph{%s}" . "\\paragraph*{%s}")))
     (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
     ))
+
 
 ;; htmlize for exporting the agenda to html
 
