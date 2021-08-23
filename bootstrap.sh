@@ -207,6 +207,7 @@ do_ubuntu() {
 
   if [ "$SKIP_PACKAGES" != "true" ]
   then
+    sudo apt-get update
     xargs -a <(awk '! /^ *(#|$)/' <(sort --unique ubuntu.packages common.packages)) -r -- sudo apt-get install -y
   fi
 
