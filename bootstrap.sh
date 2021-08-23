@@ -112,6 +112,8 @@ do_stack() {
 
     trace "Moving stack to ~/.local/bin"
 
+    find . -type f -iname "stack" | grep -E "stack-[0-9]+\.[0-9]+\.[0-9]+-linux-x86_64" | sort | xargs -L 1 mv -t "$HOME/.local/bin/."
+
     mv "stack" "$HOME/.local/bin/."
 
 }
@@ -222,6 +224,18 @@ do_emacs_on_linux() {
 
 }
 
+do_post_distro() {
+
+  do_npm
+  do_diff_so_fancy
+  do_cod
+  do_stack
+  do_starship
+  do_znap
+  do_emacs_on_linux
+
+}
+
 
 do_ubuntu() {
 
@@ -242,13 +256,6 @@ do_ubuntu() {
       DOWNLOADER="curl"
     fi
   fi
-
-  do_cod
-  do_znap
-  do_npm
-  do_diff_so_fancy
-  do_emacs_on_linux
-  do_starship
 
 }
 
@@ -272,13 +279,6 @@ do_solus() {
       DOWNLOADER="curl"
     fi
   fi
-
-  do_cod
-  do_znap
-  do_npm
-  do_diff_so_fancy
-  do_emacs_on_linux
-  do_starship
 
 }
 
@@ -325,11 +325,13 @@ do_linux() {
       debug "Installing for solus"
       do_common
       do_solus
+      do_post_distro
       ;;
     "ubuntu")
       debug "Installing for ubuntu"
       do_common
       do_ubuntu
+      do_post_distro
       ;;
     *) die "Unsupported distribution: $OS_ID"
   esac
