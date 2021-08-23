@@ -112,7 +112,7 @@ do_stack() {
 
     trace "Moving stack to ~/.local/bin"
 
-    mv "stack" "~/.local/bin/."
+    mv "stack" "$HOME/.local/bin/."
 
 }
 
@@ -134,7 +134,7 @@ do_cod() {
 
   trace "Moving cod to ~/.local/bin"
 
-  mv "cod" "$HOME"/.local/bin/.
+  mv "cod" "$HOME/.local/bin/."
 
 }
 
