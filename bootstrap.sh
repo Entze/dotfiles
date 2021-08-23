@@ -94,6 +94,28 @@ die() {
 
 }
 
+do_stack() {
+
+    trace "Downloading the latest stack"
+
+    cd "$HOME/Downloads"
+
+    trace "Downloading stack with $DOWNLOADER"
+
+    "$DOWNLOADER" -o "stack-linux-x86_64.tar.gz" "https://get.haskellstack.org/stable/linux-x86_64.tar.gz"
+
+    trace "Downloaded stack"
+
+    trace "Extracting stack"
+
+    tar --extract --file "stack-linux-x86_64.tar.gz"
+
+    trace "Moving stack to ~/.local/bin"
+
+    mv "stack" "~/.local/bin/."
+
+}
+
 do_cod() {
 
   trace "Downloading the latest cod"
