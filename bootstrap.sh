@@ -114,6 +114,8 @@ do_stack() {
 
     find . -type f -iname "stack" | grep -E "stack-[0-9]+\.[0-9]+\.[0-9]+-linux-x86_64" | sort | xargs -L 1 mv -t "$HOME/.local/bin/."
 
+    sudo apt-get install g++ gcc libc6-dev libffi-dev libgmp-dev make xz-utils zlib1g-dev git gnupg netbase
+
 }
 
 do_cod() {
@@ -227,10 +229,10 @@ do_post_distro() {
   do_npm
   do_diff_so_fancy
   do_cod
-  do_stack
   do_starship
   do_znap
   do_emacs_on_linux
+  do_stack
 
 }
 
