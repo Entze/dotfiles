@@ -114,8 +114,6 @@ do_stack() {
 
     find . -type f -iname "stack" | grep -E "stack-[0-9]+\.[0-9]+\.[0-9]+-linux-x86_64" | sort | xargs -L 1 mv -t "$HOME/.local/bin/."
 
-    mv "stack" "$HOME/.local/bin/."
-
 }
 
 do_cod() {
