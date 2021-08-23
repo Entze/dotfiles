@@ -7,6 +7,7 @@ emacs/.emacs.d/elpa/
 emacs/.emacs.d/network-security.data
 emacs/.emacs.d/custom.el
 emacs/.emacs.d/.cache/
+emacs/.emacs.d/.lsp-session-*
 zsh/.zplugin/completions/
 zsh/.zplugin/plugins/
 zsh/.zplugin/snippets/
