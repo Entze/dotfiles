@@ -56,4 +56,9 @@
 
 (use-package dap-mode)
 
+(use-package yasnippet)
+
+(use-package yasnippet-snippets
+  :pin "melpa")
+
 (provide 'setup-programming)
