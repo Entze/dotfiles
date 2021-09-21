@@ -261,9 +261,8 @@ do_agda() {
 
     mv "agda-stdlib-1.7" "$HOME/Apps/Agda/."
 
-    cd "$HOME/Agda/agda-stdlib-1.7"
-
-    trace "Moved agda-stdlib to ~/Apps/Agda/."
+    trace "Change directory to ~/Apps/Agda/agda-stdlib-1.7"
+    cd "$HOME/Apps/Agda/agda-stdlib-1.7"
 
     trace "Install agda-stdlib"
 
