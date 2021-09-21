@@ -79,6 +79,86 @@
                    ("\\subsection{%s}" . "\\subsection*{%s}")
                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                    ("\\paragraph{%s}" . "\\paragraph*{%s}")))
+    (add-to-list 'org-latex-classes
+                 '("scrartcl-crimson"
+                   "\\documentclass[paper=a4,fontsize=11pt,BCOR=0mm,DIV=calc]{scrartcl}
+                    \\usepackage{
+                    amsmath,
+                    amssymb,
+                    microtype,
+                    iftex,
+                    }
+                        [PACKAGES]
+                        [EXTRA]
+                    \\newif\\ifxetexorluatex
+                    \\ifxetex
+                       \\xetexorluatextrue
+                       \\message{Detected XeLaTeX}
+                    \\else
+                      \\ifluatex
+                        \\xetexorluatextrue
+                        \\message{Detected LuaLaTeX}
+                      \\else
+                        \\xetexorluatexfalse
+                        \\message{Detected pdfLaTeX}
+                       \\fi
+                    \\fi
+
+                    \\ifxetexorluatex
+                      \\usepackage{fontspec}
+                      \\usepackage{polyglossia}
+                      \\ifluatex
+                        \\setsansfont{TeX Gyre Heros}
+                        \\setmainfont[Ligatures=TeX]{Crimson}
+                        \\setmonofont[
+                          UprightFont = *-Light,
+                          BoldFont = *-Regular,
+                          ItalicFont = *-LightItalic,
+                          %BoldItalicFont = *-Italic,
+                          Extension = .ttf,
+                          Scale = 1.0
+                        ]{JetBrains Mono}
+                      \\else
+                        \\setsansfont[
+                          UprightFont = *-regular,
+                          BoldFont = *-bold,
+                          ItalicFont = *-italic,
+                          BoldItalicFont = *-bolditalic,
+                          Extension = .otf, % chktex 26
+                          Scale = 1.0
+                        ]{texgyreheros}
+                        \\setmainfont[
+                          Ligatures = TeX,
+                          UprightFont = *-Roman,
+                          BoldFont = *-Bold,
+                          ItalicFont = *-Italic,
+                          BoldItalicFont = *-BoldItalic,
+                          Extension = .otf, % chktex 26
+                          Scale = 1.0
+                        ]{Crimson}
+                        \\setmonofont[
+                          UprightFont = *-Light,
+                          BoldFont = *-Regular,
+                          ItalicFont = *-LightItalic,
+                          BoldItalicFont = *-Italic,
+                          Extension = .ttf, % chktex 26
+                          Scale = 1.0
+                        ]{JetBrainsMono}
+                      \\fi
+                      \\ifxetex
+                        \\XeTeXinputnormalization=1
+                      \\fi
+                    \\else
+                      \\usepackage[utf8]{inputenc}
+                      \\usepackage[T1]{fontenc}
+                      \\usepackage{tgheros}
+                      \\usepackage{crimson}
+                      \\usepackage{babel}
+                    \\fi"
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                   ("\\paragraph{%s}" . "\\paragraph*{%s}")))
     (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
     (setq calendar-week-start-day 1
           calendar-day-name-array ["Sonntag" "Montag" "Dienstag" "Mittwoch"
