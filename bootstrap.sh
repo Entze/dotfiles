@@ -15,13 +15,21 @@ NO_COLOR="$(tput sgr0 2>/dev/null || echo '')"
 THIS_PWD="$(pwd)"
 
 DOWNLOADER="aria2c"
+DOWNLOADER_FLAG="-o"
 if ! which "$DOWNLOADER" > /dev/null 2>&1
 then
-  DOWNLOADER="wget"
-  if ! which "$DOWNLOADER" > /dev/null 2>&1
-  then
-    DOWNLOADER="curl"
-  fi
+    DOWNLOADER="wget2"
+    DOWNLOADER_FLAG="-O"
+    if ! which "$DOWNLOADER" > /dev/null 2>&1
+    then
+        DOWNLOADER="wget"
+        DOWNLOADER_FLAG="-O"
+        if ! which "$DOWNLOADER" > /dev/null 2>&1
+        then
+            DOWNLOADER="curl"
+            DOWNLOADER_FLAG="-o"
+        fi
+    fi
 fi
 
 
@@ -126,7 +134,7 @@ do_cod() {
 
   trace "Downloading cod with $DOWNLOADER"
 
-  "$DOWNLOADER" -o "cod-linux-amd64.tgz" "https://github.com/dim-an/cod/releases/latest/download/cod-linux-amd64.tgz"
+  "$DOWNLOADER" "$DOWNLOADER_FLAG" "cod-linux-amd64.tgz" "https://github.com/dim-an/cod/releases/latest/download/cod-linux-amd64.tgz"
 
   trace "Downloaded cod"
 
@@ -158,7 +166,7 @@ do_starship() {
 
   trace "Downloading Starship installer with $DOWNLOADER"
 
-  "$DOWNLOADER" -o starship.sh "https://starship.rs/install.sh"
+  "$DOWNLOADER" "$DOWNLOADER_FLAG" starship.sh "https://starship.rs/install.sh"
 
   trace "Downloaded Starship installer"
 
@@ -198,7 +206,7 @@ do_emacs_on_linux() {
 
   trace "Downloading Haskell Language Server with $DOWNLOADER"
 
-  "$DOWNLOADER" -o "haskell-language-server-Linux-1.2.0.tar.gz" "https://github.com/haskell/haskell-language-server/releases/download/1.2.0/haskell-language-server-Linux-1.2.0.tar.gz"
+  "$DOWNLOADER" "$DOWNLOADER_FLAG" "haskell-language-server-Linux-1.2.0.tar.gz" "https://github.com/haskell/haskell-language-server/releases/download/1.2.0/haskell-language-server-Linux-1.2.0.tar.gz"
 
   trace "Downloaded Haskell Language Server."
 
@@ -296,13 +304,21 @@ do_ubuntu() {
   fi
 
   DOWNLOADER="aria2c"
+  DOWNLOADER_FLAG="-o"
   if ! which "$DOWNLOADER" > /dev/null 2>&1
   then
-    DOWNLOADER="wget"
-    if ! which "$DOWNLOADER" > /dev/null 2>&1
-    then
-      DOWNLOADER="curl"
-    fi
+      DOWNLOADER="wget2"
+      DOWNLOADER_FLAG="-O"
+      if ! which "$DOWNLOADER" > /dev/null 2>&1
+      then
+          DOWNLOADER="wget"
+          DOWNLOADER_FLAG="-O"
+          if ! which "$DOWNLOADER" > /dev/null 2>&1
+          then
+              DOWNLOADER="curl"
+              DOWNLOADER_FLAG="-o"
+          fi
+      fi
   fi
 
 }
@@ -319,13 +335,21 @@ do_solus() {
   fi
 
   DOWNLOADER="aria2c"
+  DOWNLOADER_FLAG="-o"
   if ! which "$DOWNLOADER" > /dev/null 2>&1
   then
-    DOWNLOADER="wget"
-    if ! which "$DOWNLOADER" > /dev/null 2>&1
-    then
-      DOWNLOADER="curl"
-    fi
+      DOWNLOADER="wget2"
+      DOWNLOADER_FLAG="-O"
+      if ! which "$DOWNLOADER" > /dev/null 2>&1
+      then
+          DOWNLOADER="wget"
+          DOWNLOADER_FLAG="-O"
+          if ! which "$DOWNLOADER" > /dev/null 2>&1
+          then
+              DOWNLOADER="curl"
+              DOWNLOADER_FLAG="-o"
+          fi
+      fi
   fi
 
 }
