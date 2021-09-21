@@ -289,6 +289,7 @@ do_post_distro() {
   do_znap
   do_emacs_on_linux
   do_stack
+  do_agda
 
 }
 
