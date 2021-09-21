@@ -1,4 +1,3 @@
-
 # shellcheck shell=bash
 
 # Preferred editor for local and remote sessions
