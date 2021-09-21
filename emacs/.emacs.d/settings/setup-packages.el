@@ -45,6 +45,13 @@
 (setq use-package-always-ensure t)
 (setq use-package-always-diminish t)
 
+(use-package exec-path-from-shell
+  :pin "melpa"
+  :config (progn
+            (setq exec-path-from-shell-check-startup-files nil)
+            (when (memq window-system '(mac ns x))
+              (exec-path-from-shell-initialize))))
+
 (provide 'setup-packages)
 
 ;;; setup-packages.el ends here

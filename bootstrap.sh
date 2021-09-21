@@ -102,7 +102,7 @@ do_stack() {
 
     trace "Downloading stack with $DOWNLOADER"
 
-    "$DOWNLOADER" -o "stack-linux-x86_64.tar.gz" "https://get.haskellstack.org/stable/linux-x86_64.tar.gz"
+    "$DOWNLOADER" "$DOWNLOADER_FLAG" "stack-linux-x86_64.tar.gz" "https://get.haskellstack.org/stable/linux-x86_64.tar.gz"
 
     trace "Downloaded stack"
 
@@ -223,6 +223,54 @@ do_emacs_on_linux() {
   fi
 
 }
+
+do_agda() {
+
+    trace "Installing Agda"
+
+    cabal update
+    cabal install Agda
+
+    trace "Installed Agda"
+
+    cd "$HOME/Downloads"
+
+    trace "Downloading agda-stdlib v1.7"
+
+    "$DOWNLOADER" "$DOWNLOADER_FLAG" "agda-stdlib.tar" "https://github.com/agda/agda-stdlib/archive/v1.7.tar.gz"
+
+    trace "Downloaded agda-stdlib"
+
+    trace "Unpack agda-stdlib"
+
+    tar -zxvf "agda-stdlib.tar"
+
+    trace "Unpacked agda-stdlib"
+
+    trace "Move agda-stdlib to $HOME/Apps/Agda/."
+
+    mkdir -p "$HOME/Apps/Agda/"
+
+    mv "agda-stdlib-1.7" "$HOME/Apps/Agda/."
+
+    cd "$HOME/Agda/agda-stdlib-1.7"
+
+    trace "Moved agda-stdlib to $HOME/Apps/Agda/."
+
+    trace "Install agda-stdlib"
+
+    cabal install
+
+    trace "Make agda-stdlib findable"
+
+    mkdir -p "$HOME/.agda"
+
+    printf "%s/Apps/Agda/agda-stdlib-1.7/standard-library.agda-lib" "$HOME" >> "$HOME/.agda/libraries"
+
+    trace "Made agda-stdlib findable"
+
+}
+
 
 do_post_distro() {
 

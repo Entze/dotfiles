@@ -61,4 +61,10 @@
 (use-package yasnippet-snippets
   :pin "melpa")
 
+;;(use-package agda2-mode
+;;  :mode (("\\.agda\\'" . agda2-mode)))
+
+(load-file (let ((coding-system-for-read 'utf-8))
+                (shell-command-to-string "agda-mode locate")))
+
 (provide 'setup-programming)
