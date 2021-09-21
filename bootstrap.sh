@@ -104,88 +104,87 @@ die() {
 
 do_stack() {
 
-    trace "Downloading the latest stack"
+    debug "Install stack"
 
+    trace "Install the dependencies of stack"
+    sudo apt-get install g++ gcc libc6-dev libffi-dev libgmp-dev make xz-utils zlib1g-dev git gnupg netbase
+
+    trace "Change directory to ~/Downloads"
     cd "$HOME/Downloads"
 
-    trace "Downloading stack with $DOWNLOADER"
-
+    trace "Download stack with $DOWNLOADER"
     "$DOWNLOADER" "$DOWNLOADER_FLAG" "stack-linux-x86_64.tar.gz" "https://get.haskellstack.org/stable/linux-x86_64.tar.gz"
 
-    trace "Downloaded stack"
-
-    trace "Extracting stack"
-
+    trace "Extract stack"
     tar --extract --file "stack-linux-x86_64.tar.gz"
 
-    trace "Moving stack to ~/.local/bin"
-
+    trace "Move stack to ~/.local/bin"
     find . -type f -iname "stack" | grep -E "stack-[0-9]+\.[0-9]+\.[0-9]+-linux-x86_64" | sort | xargs -L 1 mv -t "$HOME/.local/bin/."
 
-    sudo apt-get install g++ gcc libc6-dev libffi-dev libgmp-dev make xz-utils zlib1g-dev git gnupg netbase
 
 }
 
 do_cod() {
 
-  trace "Downloading the latest cod"
+  debug "Install cod"
 
+  trace "Change directory to ~/Downloads"
   cd "$HOME/Downloads"
 
-  trace "Downloading cod with $DOWNLOADER"
-
+  trace "Download cod with $DOWNLOADER"
   "$DOWNLOADER" "$DOWNLOADER_FLAG" "cod-linux-amd64.tgz" "https://github.com/dim-an/cod/releases/latest/download/cod-linux-amd64.tgz"
 
-  trace "Downloaded cod"
-
-  trace "Extracting cod"
-
+  trace "Extract cod"
   tar --extract --file "cod-linux-amd64.tgz"
 
-  trace "Moving cod to ~/.local/bin"
-
+  trace "Move cod to ~/.local/bin"
   mv "cod" "$HOME/.local/bin/."
 
 }
 
 do_znap() {
 
-  trace "Creating ~/Apps/zsh-plugins/, if not already present"
+  debug "Install znap"
+
+  trace "Create ~/Apps/zsh-plugins/"
   mkdir -p "$HOME/Apps/zsh-plugins/"
 
-  trace "Installing zsh-snap"
+  trace "Download zsh-snap via git"
   git clone --depth 1 "https://github.com/marlonrichert/zsh-snap.git" "$HOME/Apps/zsh-plugins/zsh-snap"
 
 }
 
 do_starship() {
 
-  trace "Installing starship"
+  debug "Install starship"
 
+  trace "Change directory to ~/Downloads"
   cd "$HOME/Downloads"
 
-  trace "Downloading Starship installer with $DOWNLOADER"
-
+  trace "Download Starship installer with $DOWNLOADER"
   "$DOWNLOADER" "$DOWNLOADER_FLAG" starship.sh "https://starship.rs/install.sh"
 
-  trace "Downloaded Starship installer"
 
+  trace "Make starship installer executable"
   chmod +x starship.sh
 
+  trace "Run starship installer"
   ./starship.sh -y -b "$HOME/.local/bin"
 
 }
 
 do_npm() {
 
-  trace "Make npm not require sudo"
+  debug "Make npm not require sudo"
 
-  trace "Creating $HOME/.npm-packages, if it does not exist"
+  trace "Create $HOME/.npm-packages"
   mkdir -p "$HOME/.npm-packages"
 
+  trace "Configure npm"
   npm config set prefix "$HOME/.npm-packages"
   NPM_PACKAGES="${HOME}/.npm-packages"
 
+  trace "Export variables for the remainder of this session"
   export PATH="$PATH:$NPM_PACKAGES/bin"
   export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
@@ -193,33 +192,33 @@ do_npm() {
 
 do_diff_so_fancy() {
 
-  trace "Installing diff-so-fancy"
+  debug "Install diff-so-fancy"
+
+  trace "Run npm installation for diff-so-fancy"
   npm install -g diff-so-fancy
 
 }
 
 do_emacs_on_linux() {
 
-  trace "Preparing Emacs installation"
+  debug "Install emacs, specifically for linux"
 
+  trace "Change directory to ~/Downloads"
   cd "$HOME/Downloads"
 
-  trace "Downloading Haskell Language Server with $DOWNLOADER"
-
+  trace "Download Haskell Language Server with $DOWNLOADER"
   "$DOWNLOADER" "$DOWNLOADER_FLAG" "haskell-language-server-Linux-1.2.0.tar.gz" "https://github.com/haskell/haskell-language-server/releases/download/1.2.0/haskell-language-server-Linux-1.2.0.tar.gz"
 
-  trace "Downloaded Haskell Language Server"
-
-  trace "Creating $HOME/Apps/haskell-language-server, if it does not exist"
-
+  trace "Create $HOME/Apps/haskell-language-server"
   mkdir -p "$HOME/Apps/haskell-language-server"
 
+  trace "Change directory to ~/Apps/haskell-language-server"
   cd "$HOME/Apps/haskell-language-server"
 
-  trace "Extracting Haskell Language Server"
-
+  trace "Extract Haskell Language Server"
   tar --extract --file "$HOME/Downloads/haskell-language-server-Linux-1.2.0.tar.gz"
 
+  trace "Symlink haskell-language-server versions to ~/.local/bin/"
   if which fdfind > /dev/null 2>&1
   then
       fdfind --type file --exec ln -s "$HOME/Apps/haskell-language-server/{/}" "$HOME/.local/bin/{/}" \;
@@ -234,72 +233,78 @@ do_emacs_on_linux() {
 
 do_agda() {
 
-    trace "Installing Agda"
+    debug "Install Agda and its standard library"
 
+    trace "Install Agda"
     cabal update
     cabal install Agda
 
-    trace "Installed Agda"
-
+    trace "Change directory to ~/Downloads/"
     cd "$HOME/Downloads"
 
-    trace "Downloading agda-stdlib v1.7 with $DOWNLOADER"
-
+    trace "Download agda-stdlib v1.7 with $DOWNLOADER"
     "$DOWNLOADER" "$DOWNLOADER_FLAG" "agda-stdlib.tar" "https://github.com/agda/agda-stdlib/archive/v1.7.tar.gz"
 
-    trace "Downloaded agda-stdlib"
-
-    trace "Unpack agda-stdlib"
-
+    trace "Extract agda-stdlib"
     tar -zxvf "agda-stdlib.tar"
 
-    trace "Unpacked agda-stdlib"
-
-    trace "Move agda-stdlib to ~/Apps/Agda/."
-
+    trace "Create ~/Apps/Agda/"
     mkdir -p "$HOME/Apps/Agda/"
 
+    trace "Move agda-stdlib to ~/Apps/Agda/."
     mv "agda-stdlib-1.7" "$HOME/Apps/Agda/."
 
     trace "Change directory to ~/Apps/Agda/agda-stdlib-1.7"
     cd "$HOME/Apps/Agda/agda-stdlib-1.7"
 
     trace "Install agda-stdlib"
-
     cabal install
 
-    trace "Make agda-stdlib findable"
-
+    trace "Create ~/.agda"
     mkdir -p "$HOME/.agda"
 
+    trace "Create ~/.agda/libraries and populate file"
     printf "%s/Apps/Agda/agda-stdlib-1.7/standard-library.agda-lib" "$HOME" >> "$HOME/.agda/libraries"
 
-    trace "Made agda-stdlib findable"
 
 }
 
 
 do_post_distro() {
 
+  info "Execute special (post) installations for programs:"
+
+  info "(0/8) npm"
   do_npm
+  info "(1/8) diff-so-fancy"
   do_diff_so_fancy
+  info "(2/8) cod"
   do_cod
+  info "(3/8) starship"
   do_starship
+  info "(4/8) znap"
   do_znap
+  info "(5/8) emacs"
   do_emacs_on_linux
+  info "(6/8) stack"
   do_stack
+  info "(7/8) agda"
   do_agda
+
+  info "(8/8) done."
 
 }
 
 
 do_ubuntu() {
 
-  trace "Doing installation steps for ubuntu"
+  debug "Do installation steps for ubuntu"
 
   if [ "$SKIP_PACKAGES" != "true" ]
   then
+    trace "Update archive"
     sudo apt-get update
+    trace "Install packages"
     xargs -a <(awk '! /^ *(#|$)/' <(sort --unique ubuntu.packages common.packages)) -r -- sudo apt-get install -y
   fi
 
@@ -320,17 +325,19 @@ do_ubuntu() {
           fi
       fi
   fi
+  debug "Downloader set to $DOWNLOADER"
 
 }
 
 do_solus() {
 
-  trace "Doing installation steps for solus"
+  debug "Do installation steps for solus"
 
   sudocmd "install dev-tools" "sudo eopkg install -c system.devel"
 
   if [ "$SKIP_PACKAGES" != "true" ]
   then
+    trace "Install packages"
     xargs -a <(awk '! /^ *(#|$)/' <(sort --unique solus.packages common.packages)) -r -- sudo eopkg install -y
   fi
 
@@ -351,34 +358,37 @@ do_solus() {
           fi
       fi
   fi
+  debug "Downloader set to $DOWNLOADER"
 
 }
 
 
 do_common() {
 
-  trace "Doing common installation steps"
-  trace "Creating ~/.local/bin/, if not already present"
+  debug "Do common installation steps"
+
+  trace "Create ~/.local/bin/, if not already present"
   mkdir -p "$HOME/.local/bin/"
 
-  trace "Creating ~/Apps/.bin/, if not already present"
+  trace "Create ~/Apps/.bin/, if not already present"
   mkdir -p "$HOME/Apps/.bin/"
 
-  trace "Creating ~/.config, if not already present"
+  trace "Create ~/.config, if not already present"
   mkdir -p "$HOME/.config"
 
-  trace "Creating ~/.cache, if not already present"
+  trace "Create ~/.cache, if not already present"
   mkdir -p "$HOME/.cache"
 
-  trace "Creating ~/.local/share, if not already present"
+  trace "Create ~/.local/share, if not already present"
   mkdir -p "$HOME/.local/share"
 
-  trace "Creating ~/.local/state, if not already present"
+  trace "Create ~/.local/state, if not already present"
   mkdir -p "$HOME/.local/state"
 
-  trace "Creating ~/Downloads, if not already present"
+  trace "Create ~/Downloads, if not already present"
   mkdir -p "$HOME/Downloads"
 
+  trace "Export necessary variables like PATH for this session"
   export PATH="$PATH:$HOME/.local/bin:$HOME/Apps/.bin:$HOME/.cargo/bin"
 
   export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
@@ -394,13 +404,13 @@ do_linux() {
   trace "Found linux: $OS_ID"
   case "$OS_ID" in
     "solus")
-      debug "Installing for solus"
+      debug "Install for solus"
       do_common
       do_solus
       do_post_distro
       ;;
     "ubuntu")
-      debug "Installing for ubuntu"
+      debug "Install for ubuntu"
       do_common
       do_ubuntu
       do_post_distro
@@ -416,7 +426,7 @@ do_os() {
   trace "Found os: $OS_KIND"
   case "$OS_KIND" in
     "Linux")
-      debug "Installing for linux"
+      debug "Install for linux"
       do_linux
       ;;
     *) die "Unsupported os: $OS_KIND"
