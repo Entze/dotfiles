@@ -208,7 +208,7 @@ do_emacs_on_linux() {
 
   "$DOWNLOADER" "$DOWNLOADER_FLAG" "haskell-language-server-Linux-1.2.0.tar.gz" "https://github.com/haskell/haskell-language-server/releases/download/1.2.0/haskell-language-server-Linux-1.2.0.tar.gz"
 
-  trace "Downloaded Haskell Language Server."
+  trace "Downloaded Haskell Language Server"
 
   trace "Creating $HOME/Apps/haskell-language-server, if it does not exist"
 
@@ -243,7 +243,7 @@ do_agda() {
 
     cd "$HOME/Downloads"
 
-    trace "Downloading agda-stdlib v1.7"
+    trace "Downloading agda-stdlib v1.7 with $DOWNLOADER"
 
     "$DOWNLOADER" "$DOWNLOADER_FLAG" "agda-stdlib.tar" "https://github.com/agda/agda-stdlib/archive/v1.7.tar.gz"
 
@@ -255,7 +255,7 @@ do_agda() {
 
     trace "Unpacked agda-stdlib"
 
-    trace "Move agda-stdlib to $HOME/Apps/Agda/."
+    trace "Move agda-stdlib to ~/Apps/Agda/."
 
     mkdir -p "$HOME/Apps/Agda/"
 
@@ -263,7 +263,7 @@ do_agda() {
 
     cd "$HOME/Agda/agda-stdlib-1.7"
 
-    trace "Moved agda-stdlib to $HOME/Apps/Agda/."
+    trace "Moved agda-stdlib to ~/Apps/Agda/."
 
     trace "Install agda-stdlib"
 
