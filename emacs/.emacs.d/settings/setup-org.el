@@ -12,50 +12,50 @@
     (setq org-directory "~/Org")
     (setq org-agenda-files (mapcar 'my/prepend-org-directory [
                              "/inbox.org"
-                             "/projects.org"
+                             "/projekte.org"
                              "/media.org"
-                             "/calendar.org"
-                             "/contacts.org"]))
+                             "/kalender.org"
+                             "/kontakte.org"]))
     (setq org-default-notes-file (concat org-directory "/inbox.org"))
-    (setq org-archive-location (concat org-directory "/archive.org::* From %s"))
+    (setq org-archive-location (concat org-directory "/archiv.org::* From %s"))
     (setq org-capture-templates `(
                                   ("t" "Todo [inbox]" entry
                                    (file ,(concat org-directory "/inbox.org"))
                                    "* TODO %i%?")
-                                  ("c" "Calendar" entry
-                                   (file ,(concat org-directory "/calendar.org"))
+                                  ("K" "Kalender" entry
+                                   (file ,(concat org-directory "/kalender.org"))
                                    "* %i%? \n %U")
-                                  ("r" "Reference" entry
-                                   (file ,(concat org-directory "/reference.org"))
+                                  ("r" "Referenz" entry
+                                   (file ,(concat org-directory "/referenz.org"))
                                    "* %i%? \n %U")))
     (setq org-refile-targets `((nil :maxlevel . 9)
                                (org-agenda-files :maxlevel . 9)
-                               (,(concat org-directory "/someday.org") :maxlevel . 9)))
-    (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "NEXT(n)" "|" "DONE(d)" "CANCELLED(c)")))
+                               (,(concat org-directory "/someday.org") :maxlevel . 9)
+                               (,(concat org-directory "/referenz.org") :maxlevel . 3)
+                               ))
+    (setq org-todo-keywords '((sequence "TODO(t)" "WARTEN(w)" "|" "FERTIG(f)" "ABGEBROCHEN(a)")))
     (setq org-todo-keyword-faces
           '(("TODO" . (:foreground "#EF5350" :weight bold))
-            ("NEXT" . (:foreground "#AB47BC" :weight bold))
-            ("WAITING" . (:foreground "#42A5F5" :weight bold))
-            ("DONE" . (:foreground "#388E3C" :weight bold))
-            ("CANCELED" . (:foreground "#26C6DA" :weight bold))
-            ("PROJECT" . (:foreground "#FF8F00"))
-            ("COMPLETED" . (:foreground "#D4E157"))
-            ("CONSUME" . (:foreground "#26A69A"))
-            ("FINISHED" . (:foreground "#7E57C2"))))
+            ("WARTEN" . (:foreground "#42A5F5" :weight bold))
+            ("FERTIG" . (:foreground "#388E3C" :weight bold))
+            ("ABGEBROCHEN" . (:foreground "#26C6DA" :weight bold))
+            ("PROJEKT" . (:foreground "#FF8F00"))
+            ("BEENDET" . (:foreground "#D4E157"))))
     (global-set-key (kbd "C-c l") 'org-store-link)
     (global-set-key (kbd "C-c a") 'org-agenda)
     (global-set-key (kbd "C-c c") 'org-capture)
     (setq org-agenda-custom-commands
-          '(("c" . "Calendar")
-            ("ct" agenda "Agenda today"
+          '(("k" . "Kalender")
+            ("kh" agenda "Agenda heute"
              ((org-agenda-span 'day)))
-            ("cw" agenda "Agenda week"
+            ("kw" agenda "Agenda Woche"
              ((org-agenda-span 'week)))
-            ("l" . "Lists")
+            ("kz" agenda "Agenda zwei Wochen"
+             ((org-agenda-span 'fortnight)))
+            ("l" . "Listen")
             ("lt" todo "TODO")
-            ("ln" todo "NEXT")
-            ("lp" todo "PROJECT")
-            ("lw" todo "WAITING")
+            ("lp" todo "PROJEKT")
+            ("lw" todo "WARTEN")
             ))
     (unless (boundp 'org-latex-packages-alist)
       (setq org-latex-packages-alist nil))
@@ -80,6 +80,12 @@
                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                    ("\\paragraph{%s}" . "\\paragraph*{%s}")))
     (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
+    (setq calendar-week-start-day 1
+          calendar-day-name-array ["Sonntag" "Montag" "Dienstag" "Mittwoch"
+                                   "Donnerstag" "Freitag" "Samstag"]
+          calendar-month-name-array ["Jänner" "Feber" "März" "April" "Mai"
+                                     "Juni" "Juli" "August" "September"
+                                     "Oktober" "November" "Dezember"])
     ))
 
 
