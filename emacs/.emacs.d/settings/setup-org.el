@@ -176,6 +176,7 @@
                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                    ("\\paragraph{%s}" . "\\paragraph*{%s}")))
     (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
+    (calendar-set-date-style :iso)
     (setq calendar-week-start-day 1
           calendar-day-name-array ["Sonntag" "Montag" "Dienstag" "Mittwoch"
                                    "Donnerstag" "Freitag" "Samstag"]
