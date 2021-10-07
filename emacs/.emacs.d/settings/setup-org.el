@@ -12,7 +12,7 @@
     (setq org-directory "~/Org")
     (setq org-agenda-files (mapcar 'my/prepend-org-directory [
                              "/inbox.org"
-                             "/projekte.org"
+                             "/gtd.org"
                              "/media.org"
                              "/kalender.org"
                              "/kontakte.org"]))
@@ -38,7 +38,7 @@
           '(("TODO" . (:foreground "#EF5350" :weight bold))
             ("WARTEN" . (:foreground "#42A5F5" :weight bold))
             ("FERTIG" . (:foreground "#388E3C" :weight bold))
-            ("ABGEBROCHEN" . (:foreground "#26C6DA" :weight bold))
+            ("ABGEBROCHEN" . (:foreground "#4A148C" :weight bold))
             ("PROJEKT" . (:foreground "#FF8F00"))
             ("BEENDET" . (:foreground "#D4E157"))))
     (global-set-key (kbd "C-c l") 'org-store-link)
@@ -65,6 +65,20 @@
              '("AUTO" "polyglossia" t ("xelatex" "lualatex")))
     (unless (boundp 'org-latex-classes)
       (setq org-latex-classes nil))
+    (add-to-list 'org-latex-classes
+                 '("article"
+                   "\\documentclass[paper=a4,fontsize=11pt,BCOR=0mm,DIV=calc]{scrartcl}
+                    \\usepackage{
+                    amsmath,
+                    amssymb,
+                    microtype,
+                    }
+                        [PACKAGES]
+                        [EXTRA]"
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                   ("\\paragraph{%s}" . "\\paragraph*{%s}")))
     (add-to-list 'org-latex-classes
                  '("scrartcl"
                    "\\documentclass[paper=a4,fontsize=11pt,BCOR=0mm,DIV=calc]{scrartcl}

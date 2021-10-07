@@ -73,5 +73,6 @@
 ;; https://emacs.stackexchange.com/a/8031
 (setq line-move-visual t)
 
+(setq initial-major-mode 'org-mode)
 
 (provide 'setup-editor)
