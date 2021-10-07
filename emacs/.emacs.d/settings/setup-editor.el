@@ -16,7 +16,7 @@
   :config
   (setq whitespace-line-column nil ;; use `fill-column' instead
         whitespace-action '(auto-cleanup untabify)
-        whitespace-style '(face trailing tabs lines empty indentation tab-mark))
+        whitespace-style '(face trailing tabs empty indentation tab-mark))
   :init
   (add-hook 'find-file-hook #'whitespace-mode))
 
