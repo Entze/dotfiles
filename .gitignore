@@ -5,6 +5,7 @@ emacs/.emacs.d/custom.el
 emacs/.emacs.d/elpa/
 emacs/.emacs.d/network-security.data
 emacs/.emacs.d/session.*
+emacs/.emacs.d/.dap-breakpoints
 ssh/.ssh/id__rsa
 ssh/.ssh/id_rsa.pub
 ssh/.ssh/known_hosts
