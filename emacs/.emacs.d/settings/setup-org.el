@@ -54,11 +54,20 @@
              ((org-agenda-span 'week)))
             ("kz" agenda "Agenda zwei Wochen"
              ((org-agenda-span 'fortnight)))
+            ("r" . "Rückblick")
+            ("rw" agenda "Wochenrückblick"
+               ((org-agenda-start-day "-14d")
+                (org-agenda-span 14)
+                (org-agenda-start-on-weekday 1)
+                (org-agenda-start-with-log-mode '(closed))
+                (org-agenda-skip-function nil)))
             ("l" . "Listen")
             ("lt" todo "TODO")
             ("lp" todo "PROJEKT")
-            ("lw" todo "WARTEN")
+            ("lw" todo "WARTENAUF")
             ))
+    (setq org-stuck-projects
+      '("/PROJEKT-BEENDET" ("TODO" "WARTENAUF") nil ""))
     (unless (boundp 'org-latex-packages-alist)
       (setq org-latex-packages-alist nil))
     (add-to-list 'org-latex-packages-alist
