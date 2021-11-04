@@ -186,14 +186,14 @@ do_starship() {
   trace "Change directory to ~/Downloads"
   cd "$HOME/Downloads"
 
-  trace "Download Starship installer with $DOWNLOADER"
+  trace "Download starship-installer with $DOWNLOADER"
   "$DOWNLOADER" "$DOWNLOADER_FLAG" starship.sh "https://starship.rs/install.sh"
 
 
-  trace "Make starship installer executable"
+  trace "Make starship-installer executable"
   chmod +x starship.sh
 
-  trace "Run starship installer"
+  trace "Run starship-installer"
   ./starship.sh -y -b "$HOME/.local/bin"
 
 }
