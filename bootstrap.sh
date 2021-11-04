@@ -151,6 +151,18 @@ do_ghcup() {
   source "$HOME/.local/share/ghcup/env"
   export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 
+  trace "Install ghc via ghcup"
+  ghcup install ghc
+
+  trace "Install cabal via ghcup"
+  ghcup install cabal
+
+  trace "Install stack via ghcup"
+  ghcup install stack
+
+  trace "Install hls via ghcup"
+  ghcup install hls
+
 }
 
 
