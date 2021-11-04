@@ -160,6 +160,9 @@ do_ghcup() {
   trace "Install stack via ghcup"
   ghcup install stack
 
+  stack config set install-ghc false --global
+  stack config set system-ghc  true  --global
+
   trace "Install hls via ghcup"
   ghcup install hls
 
@@ -298,6 +301,7 @@ do_agda() {
 
   trace "Install Agda"
   cabal v2-update
+  cabal v2-install alex happy
   cabal v2-install --lib Agda ieee754
 
   trace "Change directory to ~/Downloads/"

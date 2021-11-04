@@ -6,3 +6,5 @@ fd-find
 util-linux
 npm
 wget2
+zlib1g-dev
+libncurses5-dev
