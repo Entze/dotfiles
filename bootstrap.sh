@@ -350,12 +350,16 @@ do_ubuntu() {
 
   debug "Do installation steps for ubuntu"
 
+  VERSION="$(grep -F "VERSION_ID" /etc/os-release | sed -E "s/^VERSION_ID=\"([0-9]{2})\.([0-9]{2})\"/\\1\\2/")"
+
+
   if [ "$SKIP_PACKAGES" != "true" ]
   then
+  VERSIONDEPS=ubuntu."$VERSION".packages
   trace "Update archive"
   sudo apt-get update
   trace "Install packages"
-  xargs -a <(awk '! /^ *(#|$)/' <(sort --unique ubuntu.packages common.packages)) -r -- sudo apt-get install -y
+  xargs -a <(awk '! /^ *(#|$)/' <(sort --unique ubuntu.packages common.packages "$VERSIONDEPS")) -r -- sudo apt-get install -y
   fi
 
   DOWNLOADER="aria2c"

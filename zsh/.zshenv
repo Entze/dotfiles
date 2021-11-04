@@ -17,6 +17,8 @@ export PATH="$HOME/.cargo/bin:$NPM_PACKAGES/bin:$HOME/.cabal/bin:$HOME/.ghcup/bi
 # Otherwise, fall back to `manpath` so we can inherit from `/etc/manpath`.
 export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
+export GHCUP_USE_XDG_DIRS=1
+
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
 export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
