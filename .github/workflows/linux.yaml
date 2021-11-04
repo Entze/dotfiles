@@ -9,6 +9,7 @@ on:
       - "vim/**"
       - "zsh/**"
       - "emacs/**"
+      - "*.packages"
     tags:
   workflow_dispatch:
 
