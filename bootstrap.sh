@@ -146,6 +146,10 @@ do_ghcup() {
   trace "Run ghcup-installer"
   ./ghcup.sh
 
+  trace "Make ghcup targets visible for session"
+  # shellcheck disable=SC1090
+  source "$HOME/.local/share/ghcup/env"
+
 }
 
 
