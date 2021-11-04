@@ -26,6 +26,7 @@ export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
 
 if [[ -r "$HOME"/.github/ENV ]]
 then
+   # shellcheck disable=SC1090
    source "$HOME"/.github/ENV
 fi
 
