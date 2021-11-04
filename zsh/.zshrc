@@ -159,7 +159,7 @@ then
     eval "$__conda_setup"
   else
     if [ -f "$HOME/.miniconda3/etc/profile.d/conda.sh" ]; then
-        # shellcheck disable=SC1090
+        # shellcheck disable=SC1090,SC1091
       . "$HOME/.miniconda3/etc/profile.d/conda.sh"
     else
       export PATH="$HOME/.miniconda3/bin:$PATH"
