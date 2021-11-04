@@ -6,4 +6,4 @@ libgmp-dev
 libgmp10
 libncurses-dev
 libncurses5
-libtinfo5cabal
+libtinfo5
