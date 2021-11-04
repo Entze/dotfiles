@@ -21,7 +21,7 @@
     (setq org-capture-templates `(
                                   ("i" "Inbox" entry
                                    (file ,(concat org-directory "/inbox.org"))
-                                   "* %i%?"))
+                                   "* %i%?")))
     (setq org-refile-targets `((nil :maxlevel . 1)
                                (,(concat org-directory "/gtd.org") :maxlevel . 1)
                                (,(concat org-directory "/media.org") :maxlevel . 1)
