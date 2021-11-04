@@ -11,9 +11,7 @@ export EDITOR="$VISUAL"
 
 NPM_PACKAGES="$HOME"/.npm-packages
 
-export PYENV_ROOT="$HOME"/Apps/pyenv
-
-export PATH="$HOME/.cargo/bin:$NPM_PACKAGES/bin:$PYENV_ROOT/bin:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:$HOME/Apps/.bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
+export PATH="$HOME/.cargo/bin:$NPM_PACKAGES/bin:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:$HOME/Apps/.bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
 
 # Preserve MANPATH if you already defined it somewhere in your config.
 # Otherwise, fall back to `manpath` so we can inherit from `/etc/manpath`.

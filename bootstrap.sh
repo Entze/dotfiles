@@ -102,6 +102,24 @@ die() {
 
 }
 
+do_miniconda () {
+
+  debug "Install miniconda"
+
+  trace "Change directory to ~/Downloads"
+  cd "$HOME/Downloads"
+
+  trace "Download miniconda-installer with $DOWNLOADER"
+  "$DOWNLOADER" "$DOWNLOADER_FLAG" "miniconda.sh" "https://repo.anaconda.com/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh"
+
+  trace "Make miniconda-installer executable"
+  chmod +x miniconda.sh
+
+  trace "Run miniconda-installer"
+  ./miniconda.sh -b -p "$HOME/.miniconda3/"
+
+}
+
 do_ghcup() {
 
   debug "Install ghcup"
@@ -122,7 +140,11 @@ do_ghcup() {
   trace "Download ghcup-installer with $DOWNLOADER"
   "$DOWNLOADER" "$DOWNLOADER_FLAG" "ghcup.sh" "https://get-ghcup.haskell.org/"
 
-  sh ghcup.sh
+  trace "Make ghcup-installer executable"
+  chmod +x ghcup.sh
+
+  trace "Run ghcup-installer"
+  ./ghcup.sh
 
 }
 
@@ -292,26 +314,29 @@ do_agda() {
 }
 
 
+
 do_post_distro() {
 
   info "Execute special (post) installations for programs:"
 
-  info "(0/7) npm"
+  info "(0/8) npm"
   do_npm
-  info "(1/7) diff-so-fancy"
+  info "(1/8) diff-so-fancy"
   do_diff_so_fancy
-  info "(2/7) cod"
+  info "(2/8) cod"
   do_cod
-  info "(3/7) starship"
+  info "(3/8) starship"
   do_starship
-  info "(4/7) znap"
+  info "(4/8) znap"
   do_znap
-  info "(5/7) ghcup"
+  info "(5/8) ghcup"
   do_ghcup
-  info "(6/7) agda"
+  info "(6/8) agda"
   do_agda
+  info "(7/8) miniconda"
+  do_miniconda
 
-  info "(7/7) done."
+  info "(8/8) done."
 
 }
 
