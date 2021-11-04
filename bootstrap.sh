@@ -154,6 +154,15 @@ do_ghcup() {
   trace "Install ghc via ghcup"
   ghcup install ghc
 
+  trace "Install ghc 8.10.7 via ghcup"
+  ghcup install ghc 8.10.7
+
+  trace "Install ghc 9.0.1 via ghcup"
+  ghcup install ghc 9.0.1
+
+  trace "Install ghc 9.2.1 via ghcup"
+  ghcup install ghc 9.2.1
+
   trace "Install cabal via ghcup"
   ghcup install cabal
 
@@ -301,8 +310,8 @@ do_agda() {
 
   trace "Install Agda"
   cabal v2-update
-  cabal v2-install alex happy
-  cabal v2-install --lib Agda ieee754
+  cabal v2-install --with-compiler 9.0.1 alex happy
+  cabal v2-install --with-compiler 9.0.1 --lib Agda ieee754
 
   trace "Change directory to ~/Downloads/"
   cd "$HOME/Downloads"
