@@ -297,8 +297,8 @@ do_agda() {
   debug "Install Agda and its standard library"
 
   trace "Install Agda"
-  cabal update
-  cabal install Agda
+  cabal v2-update
+  cabal v2-install --lib Agda ieee754
 
   trace "Change directory to ~/Downloads/"
   cd "$HOME/Downloads"
