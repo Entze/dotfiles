@@ -18,18 +18,18 @@ DOWNLOADER="aria2c"
 DOWNLOADER_FLAG="-o"
 if ! which "$DOWNLOADER" > /dev/null 2>&1
 then
-    DOWNLOADER="wget2"
+  DOWNLOADER="wget2"
+  DOWNLOADER_FLAG="-O"
+  if ! which "$DOWNLOADER" > /dev/null 2>&1
+  then
+    DOWNLOADER="wget"
     DOWNLOADER_FLAG="-O"
     if ! which "$DOWNLOADER" > /dev/null 2>&1
     then
-        DOWNLOADER="wget"
-        DOWNLOADER_FLAG="-O"
-        if ! which "$DOWNLOADER" > /dev/null 2>&1
-        then
-            DOWNLOADER="curl"
-            DOWNLOADER_FLAG="-o"
-        fi
+      DOWNLOADER="curl"
+      DOWNLOADER_FLAG="-o"
     fi
+  fi
 fi
 
 
@@ -37,7 +37,7 @@ trace() {
 
   if [ "$VERBOSITY" -ge 2 ]
   then
-    printf "%b?%b %s\n" "${GREEN}" "${NO_COLOR}" "$@"
+  printf "%b?%b %s\n" "${GREEN}" "${NO_COLOR}" "$@"
   fi
 
 }
@@ -46,7 +46,7 @@ debug() {
 
   if [ "$VERBOSITY" -ge 1 ]
   then
-    printf "%b:%b %s\n" "${BOLD}${GREEN}" "${NO_COLOR}" "$@"
+  printf "%b:%b %s\n" "${BOLD}${GREEN}" "${NO_COLOR}" "$@"
   fi
 
 }
@@ -55,7 +55,7 @@ info() {
 
   if [ "$VERBOSITY" -ge 0 ]
   then
-    printf ">%b %s\n" "${NO_COLOR}" "$@"
+  printf ">%b %s\n" "${NO_COLOR}" "$@"
   fi
 
 }
@@ -64,7 +64,7 @@ warn() {
 
   if [ "$VERBOSITY" -ge -1 ]
   then
-    printf "%b! %s%b\n" "${YELLOW}" "$@" "${NO_COLOR}"
+  printf "%b! %s%b\n" "${YELLOW}" "$@" "${NO_COLOR}"
   fi
 
 }
@@ -73,7 +73,7 @@ error() {
 
   if [ "$VERBOSITY" -ge -2 ]
   then
-    printf "%bx %s%b\n" "${RED}" "$@" "${NO_COLOR}" >&2
+  printf "%bx %s%b\n" "${RED}" "$@" "${NO_COLOR}" >&2
   fi
 
 }
@@ -82,14 +82,14 @@ sudocmd() {
 
   reason="$1"; shift
   if command -v sudo >/dev/null; then
-    printf "\nAbout to use 'sudo' to run the following command as root:
-      "
-    printf "%s " "$@"
-    printf "\n in order to %s.\n\n" "$reason"
-    # -k: Disable cached credentials (force prompt for password).
-    sudo -k "$@"
+  printf "\nAbout to use 'sudo' to run the following command as root:
+    "
+  printf "%s " "$@"
+  printf "\n in order to %s.\n\n" "$reason"
+  # -k: Disable cached credentials (force prompt for password).
+  sudo -k "$@"
   else
-    "$@"
+  "$@"
   fi
 
 }
@@ -102,24 +102,49 @@ die() {
 
 }
 
+do_ghcup() {
+
+  debug "Install ghcup"
+
+  export BOOTSTRAP_HASKELL_NONINTERACTIVE=1
+  export BOOTSTRAP_HASKELL_NO_UPGRADE=0
+  export BOOTSTRAP_HASKELL_MINIMAL=0
+  export GHCUP_USE_XDG_DIRS=1
+  export BOOTSTRAP_HASKELL_VERBOSE=1
+  export BOOTSTRAP_HASKELL_INSTALL_STACK=1
+  export BOOTSTRAP_HASKELL_INSTALL_HLS=1
+  export BOOTSTRAP_HASKELL_ADJUST_BASHRC=0
+  export BOOTSTRAP_HASKELL_ADJUST_CABAL_CONFIG=0
+
+  trace "Change directory to ~/Downloads"
+  cd "$HOME/Downloads"
+
+  trace "Download ghcup-installer with $DOWNLOADER"
+  "$DOWNLOADER" "$DOWNLOADER_FLAG" "ghcup.sh" "https://get-ghcup.haskell.org/"
+
+  sh ghcup.sh
+
+}
+
+
 do_stack() {
 
-    debug "Install stack"
+  debug "Install stack"
 
-    trace "Install the dependencies of stack"
-    sudo apt-get install g++ gcc libc6-dev libffi-dev libgmp-dev make xz-utils zlib1g-dev git gnupg netbase
+  trace "Install the dependencies of stack"
+  sudo apt-get install g++ gcc libc6-dev libffi-dev libgmp-dev make xz-utils zlib1g-dev git gnupg netbase
 
-    trace "Change directory to ~/Downloads"
-    cd "$HOME/Downloads"
+  trace "Change directory to ~/Downloads"
+  cd "$HOME/Downloads"
 
-    trace "Download stack with $DOWNLOADER"
-    "$DOWNLOADER" "$DOWNLOADER_FLAG" "stack-linux-x86_64.tar.gz" "https://get.haskellstack.org/stable/linux-x86_64.tar.gz"
+  trace "Download stack with $DOWNLOADER"
+  "$DOWNLOADER" "$DOWNLOADER_FLAG" "stack-linux-x86_64.tar.gz" "https://get.haskellstack.org/stable/linux-x86_64.tar.gz"
 
-    trace "Extract stack"
-    tar --extract --file "stack-linux-x86_64.tar.gz"
+  trace "Extract stack"
+  tar --extract --file "stack-linux-x86_64.tar.gz"
 
-    trace "Move stack to ~/.local/bin"
-    find . -type f -iname "stack" | grep -E "stack-[0-9]+\.[0-9]+\.[0-9]+-linux-x86_64" | sort | xargs -L 1 mv -t "$HOME/.local/bin/."
+  trace "Move stack to ~/.local/bin"
+  find . -type f -iname "stack" | grep -E "stack-[0-9]+\.[0-9]+\.[0-9]+-linux-x86_64" | sort | xargs -L 1 mv -t "$HOME/.local/bin/."
 
 
 }
@@ -215,56 +240,53 @@ do_emacs_on_linux() {
   trace "Change directory to ~/Apps/haskell-language-server"
   cd "$HOME/Apps/haskell-language-server"
 
-  trace "Extract Haskell Language Server"
-  tar --extract --file "$HOME/Downloads/haskell-language-server-Linux-1.2.0.tar.gz"
 
-  trace "Symlink haskell-language-server versions to ~/.local/bin/"
   if which fdfind > /dev/null 2>&1
   then
-      fdfind --type file --exec ln -s "$HOME/Apps/haskell-language-server/{/}" "$HOME/.local/bin/{/}" \;
+    fdfind --type file --exec ln -s "$HOME/Apps/haskell-language-server/{/}" "$HOME/.local/bin/{/}" \;
   elif which fd > /dev/null 2>&1
   then
-      fd --type file --exec ln -s "$HOME/Apps/haskell-language-server/{/}" "$HOME/.local/bin/{/}" \;
+    fd --type file --exec ln -s "$HOME/Apps/haskell-language-server/{/}" "$HOME/.local/bin/{/}" \;
   else
-      find . -type f -exec ln -s "$HOME/Apps/haskell-language-server/{}" "$HOME/.local/bin/{}" \;
+    find . -type f -exec ln -s "$HOME/Apps/haskell-language-server/{}" "$HOME/.local/bin/{}" \;
   fi
 
 }
 
 do_agda() {
 
-    debug "Install Agda and its standard library"
+  debug "Install Agda and its standard library"
 
-    trace "Install Agda"
-    cabal update
-    cabal install Agda
+  trace "Install Agda"
+  cabal update
+  cabal install Agda
 
-    trace "Change directory to ~/Downloads/"
-    cd "$HOME/Downloads"
+  trace "Change directory to ~/Downloads/"
+  cd "$HOME/Downloads"
 
-    trace "Download agda-stdlib v1.7 with $DOWNLOADER"
-    "$DOWNLOADER" "$DOWNLOADER_FLAG" "agda-stdlib.tar" "https://github.com/agda/agda-stdlib/archive/v1.7.tar.gz"
+  trace "Download agda-stdlib v1.7 with $DOWNLOADER"
+  "$DOWNLOADER" "$DOWNLOADER_FLAG" "agda-stdlib.tar" "https://github.com/agda/agda-stdlib/archive/v1.7.tar.gz"
 
-    trace "Extract agda-stdlib"
-    tar -zxvf "agda-stdlib.tar"
+  trace "Extract agda-stdlib"
+  tar -zxvf "agda-stdlib.tar"
 
-    trace "Create ~/Apps/Agda/"
-    mkdir -p "$HOME/Apps/Agda/"
+  trace "Create ~/Apps/Agda/"
+  mkdir -p "$HOME/Apps/Agda/"
 
-    trace "Move agda-stdlib to ~/Apps/Agda/."
-    mv "agda-stdlib-1.7" "$HOME/Apps/Agda/."
+  trace "Move agda-stdlib to ~/Apps/Agda/."
+  mv "agda-stdlib-1.7" "$HOME/Apps/Agda/."
 
-    trace "Change directory to ~/Apps/Agda/agda-stdlib-1.7"
-    cd "$HOME/Apps/Agda/agda-stdlib-1.7"
+  trace "Change directory to ~/Apps/Agda/agda-stdlib-1.7"
+  cd "$HOME/Apps/Agda/agda-stdlib-1.7"
 
-    trace "Install agda-stdlib"
-    cabal install
+  trace "Install agda-stdlib"
+  cabal install
 
-    trace "Create ~/.agda"
-    mkdir -p "$HOME/.agda"
+  trace "Create ~/.agda"
+  mkdir -p "$HOME/.agda"
 
-    trace "Create ~/.agda/libraries and populate file"
-    printf "%s/Apps/Agda/agda-stdlib-1.7/standard-library.agda-lib" "$HOME" >> "$HOME/.agda/libraries"
+  trace "Create ~/.agda/libraries and populate file"
+  printf "%s/Apps/Agda/agda-stdlib-1.7/standard-library.agda-lib" "$HOME" >> "$HOME/.agda/libraries"
 
 
 }
@@ -274,24 +296,22 @@ do_post_distro() {
 
   info "Execute special (post) installations for programs:"
 
-  info "(0/8) npm"
+  info "(0/7) npm"
   do_npm
-  info "(1/8) diff-so-fancy"
+  info "(1/7) diff-so-fancy"
   do_diff_so_fancy
-  info "(2/8) cod"
+  info "(2/7) cod"
   do_cod
-  info "(3/8) starship"
+  info "(3/7) starship"
   do_starship
-  info "(4/8) znap"
+  info "(4/7) znap"
   do_znap
-  info "(5/8) emacs"
-  do_emacs_on_linux
-  info "(6/8) stack"
-  do_stack
-  info "(7/8) agda"
+  info "(5/7) ghcup"
+  do_ghcup
+  info "(6/7) agda"
   do_agda
 
-  info "(8/8) done."
+  info "(7/7) done."
 
 }
 
@@ -302,28 +322,28 @@ do_ubuntu() {
 
   if [ "$SKIP_PACKAGES" != "true" ]
   then
-    trace "Update archive"
-    sudo apt-get update
-    trace "Install packages"
-    xargs -a <(awk '! /^ *(#|$)/' <(sort --unique ubuntu.packages common.packages)) -r -- sudo apt-get install -y
+  trace "Update archive"
+  sudo apt-get update
+  trace "Install packages"
+  xargs -a <(awk '! /^ *(#|$)/' <(sort --unique ubuntu.packages common.packages)) -r -- sudo apt-get install -y
   fi
 
   DOWNLOADER="aria2c"
   DOWNLOADER_FLAG="-o"
   if ! which "$DOWNLOADER" > /dev/null 2>&1
   then
-      DOWNLOADER="wget2"
+    DOWNLOADER="wget2"
+    DOWNLOADER_FLAG="-O"
+    if ! which "$DOWNLOADER" > /dev/null 2>&1
+    then
+      DOWNLOADER="wget"
       DOWNLOADER_FLAG="-O"
       if ! which "$DOWNLOADER" > /dev/null 2>&1
       then
-          DOWNLOADER="wget"
-          DOWNLOADER_FLAG="-O"
-          if ! which "$DOWNLOADER" > /dev/null 2>&1
-          then
-              DOWNLOADER="curl"
-              DOWNLOADER_FLAG="-o"
-          fi
+        DOWNLOADER="curl"
+        DOWNLOADER_FLAG="-o"
       fi
+    fi
   fi
   debug "Downloader set to $DOWNLOADER"
 
@@ -337,26 +357,26 @@ do_solus() {
 
   if [ "$SKIP_PACKAGES" != "true" ]
   then
-    trace "Install packages"
-    xargs -a <(awk '! /^ *(#|$)/' <(sort --unique solus.packages common.packages)) -r -- sudo eopkg install -y
+  trace "Install packages"
+  xargs -a <(awk '! /^ *(#|$)/' <(sort --unique solus.packages common.packages)) -r -- sudo eopkg install -y
   fi
 
   DOWNLOADER="aria2c"
   DOWNLOADER_FLAG="-o"
   if ! which "$DOWNLOADER" > /dev/null 2>&1
   then
-      DOWNLOADER="wget2"
+    DOWNLOADER="wget2"
+    DOWNLOADER_FLAG="-O"
+    if ! which "$DOWNLOADER" > /dev/null 2>&1
+    then
+      DOWNLOADER="wget"
       DOWNLOADER_FLAG="-O"
       if ! which "$DOWNLOADER" > /dev/null 2>&1
       then
-          DOWNLOADER="wget"
-          DOWNLOADER_FLAG="-O"
-          if ! which "$DOWNLOADER" > /dev/null 2>&1
-          then
-              DOWNLOADER="curl"
-              DOWNLOADER_FLAG="-o"
-          fi
+        DOWNLOADER="curl"
+        DOWNLOADER_FLAG="-o"
       fi
+    fi
   fi
   debug "Downloader set to $DOWNLOADER"
 
@@ -403,19 +423,19 @@ do_linux() {
   OS_ID=$(grep -E '^ID="?[a-zA-Z]*"?$' /etc/os-release | sed -E 's/(^ID="?)([a-zA-Z]*)("?$)/\2/')
   trace "Found linux: $OS_ID"
   case "$OS_ID" in
-    "solus")
-      debug "Install for solus"
-      do_common
-      do_solus
-      do_post_distro
-      ;;
-    "ubuntu")
-      debug "Install for ubuntu"
-      do_common
-      do_ubuntu
-      do_post_distro
-      ;;
-    *) die "Unsupported distribution: $OS_ID"
+  "solus")
+    debug "Install for solus"
+    do_common
+    do_solus
+    do_post_distro
+    ;;
+  "ubuntu")
+    debug "Install for ubuntu"
+    do_common
+    do_ubuntu
+    do_post_distro
+    ;;
+  *) die "Unsupported distribution: $OS_ID"
   esac
 
 }
@@ -425,11 +445,11 @@ do_os() {
   OS_KIND="$(uname)"
   trace "Found os: $OS_KIND"
   case "$OS_KIND" in
-    "Linux")
-      debug "Install for linux"
-      do_linux
-      ;;
-    *) die "Unsupported os: $OS_KIND"
+  "Linux")
+    debug "Install for linux"
+    do_linux
+    ;;
+  *) die "Unsupported os: $OS_KIND"
   esac
 
 }
@@ -441,14 +461,14 @@ SKIP_PACKAGES=""
 while [ "$#" -gt 0 ]; do
   case "$1" in
 
-    -v|--verbose) VERBOSITY=$((VERBOSITY + 1)); shift 1;;
-    -q|--quiet) VERBOSITY=$((VERBOSITY - 1)); shift 1;;
-    -s|--skip-packages) SKIP_PACKAGES="true"; shift 1;;
+  -v|--verbose) VERBOSITY=$((VERBOSITY + 1)); shift 1;;
+  -q|--quiet) VERBOSITY=$((VERBOSITY - 1)); shift 1;;
+  -s|--skip-packages) SKIP_PACKAGES="true"; shift 1;;
 
-    -v=*|--verbose=*) VERBOSITY="${1#*=}"; shift 1;;
-    -q=*|--quiet=*) VERBOSITY="${1#*=}"; shift 1;;
+  -v=*|--verbose=*) VERBOSITY="${1#*=}"; shift 1;;
+  -q=*|--quiet=*) VERBOSITY="${1#*=}"; shift 1;;
 
-    *) die "Unknown option $1";
+  *) die "Unknown option $1";
   esac
 done
 trace "Parsed argv variables"

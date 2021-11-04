@@ -28,12 +28,12 @@ export HISTSIZE=10000000
 export SAVEHIST=10000000
 
 setopt HIST_VERIFY
-setopt EXTENDED_HISTORY      # Save each command's beginning timestamp and the duration to the history file
+setopt EXTENDED_HISTORY    # Save each command's beginning timestamp and the duration to the history file
 setopt HIST_IGNORE_ALL_DUPS  # Ignore duplicates
-setopt HIST_REDUCE_BLANKS    # Trim Whitespace
-setopt HIST_IGNORE_SPACE     # Don't save in history if first character is a space
-setopt INC_APPEND_HISTORY    # This is default, but set for share_history
-setopt SHARE_HISTORY         # Share history file amongst all Zsh sessions
+setopt HIST_REDUCE_BLANKS  # Trim Whitespace
+setopt HIST_IGNORE_SPACE   # Don't save in history if first character is a space
+setopt INC_APPEND_HISTORY  # This is default, but set for share_history
+setopt SHARE_HISTORY     # Share history file amongst all Zsh sessions
 
 if [[ -r $HOME/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE} ]]
 then
@@ -45,8 +45,8 @@ then
   if [[ -r $HOME/.zshkeybinds ]]
   then
 
-    # shellcheck source=/dev/null
-    source "$HOME"/.zshkeybinds
+  # shellcheck source=/dev/null
+  source "$HOME"/.zshkeybinds
 
   fi
 fi
@@ -63,21 +63,21 @@ sudo-command-line() {
   [[ -z $BUFFER ]] && zle up-history
   if [[ $BUFFER == sudo\ * ]]; then
 
-    LBUFFER="${LBUFFER#sudo }"
+  LBUFFER="${LBUFFER#sudo }"
 
   elif [[ $BUFFER == $EDITOR\ * ]]; then
 
-    LBUFFER="${LBUFFER#$EDITOR }"
-    LBUFFER="sudoedit $LBUFFER"
+  LBUFFER="${LBUFFER#$EDITOR }"
+  LBUFFER="sudoedit $LBUFFER"
 
   elif [[ $BUFFER == sudoedit\ * ]]; then
 
-    LBUFFER="${LBUFFER#sudoedit }"
-    LBUFFER="$EDITOR $LBUFFER"
+  LBUFFER="${LBUFFER#sudoedit }"
+  LBUFFER="$EDITOR $LBUFFER"
 
   else
 
-    LBUFFER="sudo $LBUFFER"
+  LBUFFER="sudo $LBUFFER"
 
   fi
 }
@@ -102,9 +102,9 @@ fi
 
 builtin zstyle ':completion:*:corrections'  format ' %F{green}-- %d (errors: %e) --%f'
 builtin zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
-builtin zstyle ':completion:*:messages'     format ' %F{purple} -- %d --%f'
-builtin zstyle ':completion:*:warnings'     format ' %F{red}-- no matches found --%f'
-builtin zstyle ':completion:*'              format ' %F{yellow}-- %d --%f'
+builtin zstyle ':completion:*:messages'   format ' %F{purple} -- %d --%f'
+builtin zstyle ':completion:*:warnings'   format ' %F{red}-- no matches found --%f'
+builtin zstyle ':completion:*'        format ' %F{yellow}-- %d --%f'
 
 # case insensitive matching
 builtin zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
@@ -139,15 +139,35 @@ then
   if [ $ZNAP_FOUND = "true" ]
   then
 
-    znap eval starship "starship init zsh --print-full-init"
-    znap prompt
+  znap eval starship "starship init zsh --print-full-init"
+  znap prompt
 
   else
 
-    eval "$(starship init zsh)"
+  eval "$(starship init zsh)"
 
   fi
 
 fi
+
+
+if [[ -r "$HOME"/.miniconda3 ]]
+then
+  # >>> conda initialize >>>
+  # !! Contents within this block are managed by 'conda init' !!
+  __conda_setup="$('$HOME/.miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+  if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+  else
+    if [ -f "$HOME/.miniconda3/etc/profile.d/conda.sh" ]; then
+      . "$HOME/.miniconda3/etc/profile.d/conda.sh"
+    else
+      export PATH="$HOME/.miniconda3/bin:$PATH"
+    fi
+  fi
+  unset __conda_setup
+  # <<< conda initialize <<<
+fi
+
 
 unset ZNAP_FOUND
