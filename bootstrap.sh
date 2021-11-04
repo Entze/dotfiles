@@ -332,7 +332,7 @@ do_agda() {
   cd "$HOME/Apps/Agda/agda-stdlib-1.7"
 
   trace "Install agda-stdlib"
-  cabal install
+  cabal v2-install --with-compiler ghc-9.0
 
   trace "Create ~/.agda"
   mkdir -p "$HOME/.agda"
