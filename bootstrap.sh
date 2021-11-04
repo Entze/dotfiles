@@ -147,7 +147,7 @@ do_ghcup() {
   ./ghcup.sh
 
   trace "Make ghcup targets visible for session"
-  # shellcheck disable=SC1090
+  # shellcheck disable=SC1090,SC1091
   source "$HOME/.local/share/ghcup/env"
   export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 
