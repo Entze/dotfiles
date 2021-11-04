@@ -19,19 +19,13 @@
     (setq org-default-notes-file (concat org-directory "/inbox.org"))
     (setq org-archive-location (concat org-directory "/archiv.org::* From %s"))
     (setq org-capture-templates `(
-                                  ("t" "Todo [inbox]" entry
+                                  ("i" "Inbox" entry
                                    (file ,(concat org-directory "/inbox.org"))
-                                   "* TODO %i%?")
-                                  ("K" "Kalender" entry
-                                   (file ,(concat org-directory "/kalender.org"))
-                                   "* %i%? \n %U")
-                                  ("r" "Referenz" entry
-                                   (file ,(concat org-directory "/referenz.org"))
-                                   "* %i%? \n %U")))
+                                   "* %i%?"))
     (setq org-refile-targets `((nil :maxlevel . 1)
                                (,(concat org-directory "/gtd.org") :maxlevel . 1)
                                (,(concat org-directory "/media.org") :maxlevel . 1)
-                               (,(concat org-directory "/kalender.org") :maxlevel . 1)
+                               (,(concat org-directory "/kalender.org") :maxlevel . 2)
                                (,(concat org-directory "/irgendwann.org") :maxlevel . 1)
                                (,(concat org-directory "/referenz.org") :maxlevel . 1)
                                ))
