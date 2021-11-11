@@ -55,7 +55,7 @@ format = "[$duration]($style)"
 disabled = false
 
 [conda]
-disabled = true
+disabled = false
 
 [directory]
 format = "[$path]($style)[$read_only]($read_only_style) "
