@@ -156,7 +156,6 @@ do_ghcup() {
   trace "Make ghcup targets visible for session"
   # shellcheck disable=SC1090,SC1091
   source "$HOME/.local/share/ghcup/env"
-  export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 
   trace "Install ghc via ghcup"
   ghcup install ghc
@@ -268,11 +267,6 @@ do_npm() {
 
   trace "Configure npm"
   npm config set prefix "$HOME/.npm-packages"
-  NPM_PACKAGES="${HOME}/.npm-packages"
-
-  trace "Export variables for the remainder of this session"
-  export PATH="$PATH:$NPM_PACKAGES/bin"
-  export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
 }
 
@@ -479,7 +473,9 @@ do_common() {
   mkdir -p "$HOME/Downloads"
 
   trace "Export necessary variables like PATH for this session"
-  export PATH="$PATH:$HOME/.local/bin:$HOME/Apps/.bin:$HOME/.cargo/bin"
+  export NPM_PACKAGES="$HOME/.npm-packages"
+  export PATH="$HOME/.local/bin:$HOME/Apps/.bin:$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/.ghcup/bin:$NPM_PACKAGES/bin:$PATH"
+  export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
   export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
   export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
