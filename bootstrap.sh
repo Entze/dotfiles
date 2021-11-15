@@ -42,6 +42,7 @@ trace() {
 
 }
 
+
 debug() {
 
   if [ "$VERBOSITY" -ge 1 ]
@@ -50,6 +51,7 @@ debug() {
   fi
 
 }
+
 
 info() {
 
@@ -60,6 +62,7 @@ info() {
 
 }
 
+
 warn() {
 
   if [ "$VERBOSITY" -ge -1 ]
@@ -69,6 +72,7 @@ warn() {
 
 }
 
+
 error() {
 
   if [ "$VERBOSITY" -ge -2 ]
@@ -77,6 +81,7 @@ error() {
   fi
 
 }
+
 
 sudocmd() {
 
@@ -93,6 +98,7 @@ sudocmd() {
   fi
 
 }
+
 
 # print a message to stderr and exit with error code
 die() {
@@ -119,6 +125,7 @@ do_miniconda () {
   ./miniconda.sh -b -p "$HOME/.miniconda3/"
 
 }
+
 
 do_ghcup() {
 
@@ -197,8 +204,8 @@ do_stack() {
   trace "Move stack to ~/.local/bin"
   find . -type f -iname "stack" | grep -E "stack-[0-9]+\.[0-9]+\.[0-9]+-linux-x86_64" | sort | xargs -L 1 mv -t "$HOME/.local/bin/."
 
-
 }
+
 
 do_cod() {
 
@@ -218,6 +225,7 @@ do_cod() {
 
 }
 
+
 do_znap() {
 
   debug "Install znap"
@@ -229,6 +237,7 @@ do_znap() {
   git clone --depth 1 "https://github.com/marlonrichert/zsh-snap.git" "$HOME/Apps/zsh-plugins/zsh-snap"
 
 }
+
 
 do_starship() {
 
@@ -248,6 +257,7 @@ do_starship() {
   ./starship.sh -y -b "$HOME/.local/bin"
 
 }
+
 
 do_npm() {
 
@@ -274,6 +284,7 @@ do_diff_so_fancy() {
   npm install -g diff-so-fancy
 
 }
+
 
 do_emacs_on_linux() {
 
@@ -303,6 +314,7 @@ do_emacs_on_linux() {
   fi
 
 }
+
 
 do_agda() {
 
@@ -342,7 +354,6 @@ do_agda() {
 
 
 }
-
 
 
 do_post_distro() {
