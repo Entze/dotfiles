@@ -108,6 +108,94 @@ die() {
 
 }
 
+
+check_installed () {
+
+  CMD="$1"
+
+  trace "Checking if $CMD is already installed"
+
+  if CMDPATH="$(type -P "$CMD")"
+  then
+    info "Found $CMD in $CMDPATH, skipping install."
+  fi
+  return "$?"
+}
+
+
+download () {
+
+  OUTPUT_NAME="$1"
+  shift
+
+  LINK="$1"
+  shift
+
+  HASH_TYPE="$1"
+  shift
+
+  HASH="$1"
+  shift
+
+  IS_EXTRACT="$1"
+  shift
+
+  MAKE_EXECUTABLE="$1"
+
+  trace "Change directory to ~/Downloads"
+  cd "$HOME/Downloads"
+
+  while [ ! -f "$OUTPUT_NAME" ] || ! check_hash "$OUTPUT_NAME" "$HASH_TYPE" "$HASH"
+  do
+      trace "Removing $OUTPUT_NAME, if it exists"
+      rm -f "$OUTPUT_NAME"
+
+      trace "Download $OUTPUT_NAME with $DOWNLOADER"
+      "$DOWNLOADER" "$DOWNLOADER_FLAG" "$OUTPUT_NAME" "$LINK"
+
+  done
+
+  if [ "$IS_EXTRACT" == "true" ]
+  then
+      trace "Extracting $OUTPUT_NAME"
+      tar -zxvf "$OUTPUT_NAME"
+  fi
+
+  if [ "$MAKE_EXECUTABLE" == "true" ]
+  then
+      trace "Making $OUTPUT_NAME executable"
+      chmod u+x "$OUTPUT_NAME"
+  fi
+
+}
+
+
+check_hash () {
+
+    FILE="$1"
+    HASH_TYPE="$2"
+    HASH="$3"
+
+    trace "Checking if $FILE matches its $HASH_TYPE hash $HASH"
+
+    if [ "$HASH_TYPE" == "SHA1" ]
+    then
+        printf "%s\t%s\n" "$HASH" "$FILE" | sha1sum -c
+    elif [ "$HASH_TYPE" == "SHA256" ]
+    then
+        printf "%s\t%s" "$HASH" "$FILE" | sha256sum -c
+    elif [ "$HASH_TYPE" == "MD5" ]
+    then
+        printf "%s\t%s" "$HASH" "$FILE" | md5sum -c
+    else
+        warn "$HASH_TYPE not supported"
+        die
+    fi
+
+    return "$?"
+}
+
+
 do_miniconda () {
 
   debug "Install miniconda"
