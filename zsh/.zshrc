@@ -35,11 +35,13 @@ setopt HIST_IGNORE_SPACE   # Don't save in history if first character is a space
 setopt INC_APPEND_HISTORY  # This is default, but set for share_history
 setopt SHARE_HISTORY     # Share history file amongst all Zsh sessions
 
-if [[ -r $HOME/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE} ]]
+DISPLAY_T=${DISPLAY:t}
+
+if [[ -r $HOME/.zkbd/$TERM-${$DISPLAY_T:-$VENDOR-$OSTYPE} ]]
 then
 
   # shellcheck source=/dev/null
-  source "$HOME"/.zkbd/"$TERM"-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
+  source "$HOME"/.zkbd/"$TERM"-${$DISPLAY_T:-$VENDOR-$OSTYPE}
   # shellcheck disable=SC2154
   bindkey -r "${key[Insert]}"
   if [[ -r $HOME/.zshkeybinds ]]
