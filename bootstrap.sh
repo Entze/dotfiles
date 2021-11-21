@@ -117,7 +117,7 @@ check_installed () {
 
   if CMDPATH="$(type -P "$CMD")"
   then
-    info "Found $CMD in $CMDPATH, skipping install."
+    info "Found $CMD in $CMDPATH, skipping install"
   fi
   return "$?"
 }
@@ -182,12 +182,10 @@ do_miniconda () {
 
   debug "Install miniconda"
 
-  if INSTALLED="$(type -P conda)"
+  if check_installed conda
   then
-      info "conda already installed in $INSTALLED"
-      return 0
+     return 0
   fi
-
 
   download "miniconda.sh" "https://repo.anaconda.com/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh" "SHA256" "1ea2f885b4dbc3098662845560bc64271eb17085387a70c2ba3f29fff6f8d52f"
 
@@ -204,12 +202,8 @@ do_ghcup() {
 
   debug "Install ghcup"
 
-  if INSTALLED="$(type -P ghcup)"
+  if ! check_installed ghcup
   then
-
-      info "ghcup already installed in $INSTALLED"
-
-  else
 
   export BOOTSTRAP_HASKELL_NONINTERACTIVE=1
   export BOOTSTRAP_HASKELL_NO_UPGRADE=0
@@ -271,9 +265,8 @@ do_cod() {
 
   debug "Install cod"
 
-  if INSTALLED="$(type -P cod)"
+  if check_installed cod
   then
-      info "cod already installed in $INSTALLED"
       return 0
   fi
 
@@ -295,9 +288,8 @@ do_znap() {
 
   debug "Install znap"
 
-  if INSTALLED="$(type -P znap)"
+  if check_installed znap
   then
-      info "znap already installed in $INSTALLED"
       return 0
   fi
 
@@ -314,9 +306,8 @@ do_starship() {
 
   debug "Install starship"
 
-  if INSTALLED="$(type -P starship)"
+  if check_installed starship
   then
-      info "starship already installed in $INSTALLED"
       return 0
   fi
 
@@ -361,9 +352,8 @@ do_agda() {
 
   debug "Install Agda and its standard library"
 
-  if INSTALLED="$(type -P agda)"
+  if check_installed agda
   then
-      info "agda already installed in $INSTALLED"
       return 0
   fi
 
