@@ -126,21 +126,12 @@ check_installed () {
 download () {
 
   OUTPUT_NAME="$1"
-  shift
 
-  LINK="$1"
-  shift
+  LINK="$2"
 
-  HASH_TYPE="$1"
-  shift
+  HASH_TYPE="$3"
 
-  HASH="$1"
-  shift
-
-  IS_EXTRACT="$1"
-  shift
-
-  MAKE_EXECUTABLE="$1"
+  HASH="$4"
 
   trace "Change directory to ~/Downloads"
   cd "$HOME/Downloads"
@@ -154,18 +145,6 @@ download () {
       "$DOWNLOADER" "$DOWNLOADER_FLAG" "$OUTPUT_NAME" "$LINK"
 
   done
-
-  if [ "$IS_EXTRACT" == "true" ]
-  then
-      trace "Extracting $OUTPUT_NAME"
-      tar -zxvf "$OUTPUT_NAME"
-  fi
-
-  if [ "$MAKE_EXECUTABLE" == "true" ]
-  then
-      trace "Making $OUTPUT_NAME executable"
-      chmod u+x "$OUTPUT_NAME"
-  fi
 
 }
 
@@ -187,6 +166,9 @@ check_hash () {
     elif [ "$HASH_TYPE" == "MD5" ]
     then
         printf "%s\t%s" "$HASH" "$FILE" | md5sum -c
+    elif [ "$HASH_TYPE" == "NONE" ]
+    then
+         return 0
     else
         warn "$HASH_TYPE not supported"
         die
@@ -200,14 +182,10 @@ do_miniconda () {
 
   debug "Install miniconda"
 
-  trace "Change directory to ~/Downloads"
-  cd "$HOME/Downloads"
+  download "miniconda.sh" "https://repo.anaconda.com/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh" "SHA256" "1ea2f885b4dbc3098662845560bc64271eb17085387a70c2ba3f29fff6f8d52f" false true
 
-  trace "Download miniconda-installer with $DOWNLOADER"
-  "$DOWNLOADER" "$DOWNLOADER_FLAG" "miniconda.sh" "https://repo.anaconda.com/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh"
-
-  trace "Make miniconda-installer executable"
-  chmod +x miniconda.sh
+  trace "Making miniconda.sh executable"
+  chmod u+x "$OUTPUT_NAME"
 
   trace "Run miniconda-installer"
   ./miniconda.sh -b -p "$HOME/.miniconda3/"
