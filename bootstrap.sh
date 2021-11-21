@@ -114,11 +114,11 @@ check_installed () {
   CMD="$1"
 
   trace "Checking if $CMD is already installed"
-  IS_INSTALLED=0
+  IS_INSTALLED=1
 
   if CMDPATH="$(type -P "$CMD")"
   then
-    IS_INSTALLED="$?"
+    IS_INSTALLED=0
     info "Found $CMD in $CMDPATH, skipping install"
   fi
   return "$IS_INSTALLED"
