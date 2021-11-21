@@ -37,11 +37,11 @@ setopt SHARE_HISTORY     # Share history file amongst all Zsh sessions
 
 DISPLAY_T=${DISPLAY:t}
 
-if [[ -r $HOME/.zkbd/$TERM-${$DISPLAY_T:-$VENDOR-$OSTYPE} ]]
+if [[ -r $HOME/.zkbd/$TERM-${DISPLAY_T:-$VENDOR-$OSTYPE} ]]
 then
 
   # shellcheck source=/dev/null
-  source "$HOME"/.zkbd/"$TERM"-${$DISPLAY_T:-$VENDOR-$OSTYPE}
+  source "$HOME"/.zkbd/"$TERM"-${DISPLAY_T:-$VENDOR-$OSTYPE}
   # shellcheck disable=SC2154
   bindkey -r "${key[Insert]}"
   if [[ -r $HOME/.zshkeybinds ]]
