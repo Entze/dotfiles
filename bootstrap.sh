@@ -358,7 +358,7 @@ do_agda() {
   cabal v2-install alex happy
   cabal v2-install --with-compiler ghc-9.0 --lib Agda ieee754
 
-  downloader "agda-stdlib.tar" "https://github.com/agda/agda-stdlib/archive/v1.7.tar.gz" "NONE" ""
+  download "agda-stdlib.tar" "https://github.com/agda/agda-stdlib/archive/v1.7.tar.gz" "NONE" ""
 
   trace "Extract agda-stdlib"
   tar -zxvf "agda-stdlib.tar"
