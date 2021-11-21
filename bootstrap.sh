@@ -245,7 +245,9 @@ do_ghcup() {
   trace "Install ghc 9.2 via ghcup"
   ghcup install ghc 9.2
 
-  ghcup set ghc 9.0
+  SELECT="$(ghc-9.0 --version | grep -Eo "[0-9]+.[0-9]+.[0-9]+")"
+
+  ghcup set ghc "$SELECT"
 
   trace "Install cabal via ghcup"
   ghcup install cabal
