@@ -182,10 +182,10 @@ do_miniconda () {
 
   debug "Install miniconda"
 
-  download "miniconda.sh" "https://repo.anaconda.com/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh" "SHA256" "1ea2f885b4dbc3098662845560bc64271eb17085387a70c2ba3f29fff6f8d52f" false true
+  download "miniconda.sh" "https://repo.anaconda.com/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh" "SHA256" "1ea2f885b4dbc3098662845560bc64271eb17085387a70c2ba3f29fff6f8d52f"
 
   trace "Making miniconda.sh executable"
-  chmod u+x "$OUTPUT_NAME"
+  chmod u+x miniconda.sh
 
   trace "Run miniconda-installer"
   ./miniconda.sh -b -p "$HOME/.miniconda3/"
@@ -210,11 +210,10 @@ do_ghcup() {
   trace "Change directory to ~/Downloads"
   cd "$HOME/Downloads"
 
-  trace "Download ghcup-installer with $DOWNLOADER"
-  "$DOWNLOADER" "$DOWNLOADER_FLAG" "ghcup.sh" "https://get-ghcup.haskell.org/"
+  download "ghcup.sh" "https://get-ghcup.haskell.org" "NONE" ""
 
   trace "Make ghcup-installer executable"
-  chmod +x ghcup.sh
+  chmod u+x ghcup.sh
 
   trace "Run ghcup-installer"
   ./ghcup.sh
@@ -222,6 +221,8 @@ do_ghcup() {
   trace "Make ghcup targets visible for session"
   # shellcheck disable=SC1090,SC1091
   source "$HOME/.local/share/ghcup/env"
+
+  ghcup upgrade
 
   trace "Install ghc via ghcup"
   ghcup install ghc
@@ -279,8 +280,7 @@ do_cod() {
   trace "Change directory to ~/Downloads"
   cd "$HOME/Downloads"
 
-  trace "Download cod with $DOWNLOADER"
-  "$DOWNLOADER" "$DOWNLOADER_FLAG" "cod-linux-amd64.tgz" "https://github.com/dim-an/cod/releases/latest/download/cod-linux-amd64.tgz"
+  download "cod-linux-amd64.tgz" "https://github.com/dim-an/cod/releases/latest/download/cod-linux-amd64.tgz" "NONE" ""
 
   trace "Extract cod"
   tar --extract --file "cod-linux-amd64.tgz"
@@ -311,12 +311,11 @@ do_starship() {
   trace "Change directory to ~/Downloads"
   cd "$HOME/Downloads"
 
-  trace "Download starship-installer with $DOWNLOADER"
-  "$DOWNLOADER" "$DOWNLOADER_FLAG" starship.sh "https://starship.rs/install.sh"
+  download "starship.sh" "https://starship.rs/install.sh" "NONE" ""
 
 
   trace "Make starship-installer executable"
-  chmod +x starship.sh
+  chmod u+x starship.sh
 
   trace "Run starship-installer"
   ./starship.sh -y -b "$HOME/.local/bin"
@@ -388,8 +387,7 @@ do_agda() {
   trace "Change directory to ~/Downloads/"
   cd "$HOME/Downloads"
 
-  trace "Download agda-stdlib v1.7 with $DOWNLOADER"
-  "$DOWNLOADER" "$DOWNLOADER_FLAG" "agda-stdlib.tar" "https://github.com/agda/agda-stdlib/archive/v1.7.tar.gz"
+  downloader "agda-stdlib.tar" "https://github.com/agda/agda-stdlib/archive/v1.7.tar.gz" "NONE" ""
 
   trace "Extract agda-stdlib"
   tar -zxvf "agda-stdlib.tar"
