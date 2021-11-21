@@ -228,11 +228,11 @@ do_ghcup() {
   trace "Run ghcup-installer"
   ./ghcup.sh
 
-  fi
-
   trace "Make ghcup targets visible for session"
   # shellcheck disable=SC1090,SC1091
   source "$HOME/.local/share/ghcup/env"
+
+  fi
 
   ghcup upgrade
 
