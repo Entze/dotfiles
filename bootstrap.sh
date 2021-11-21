@@ -217,9 +217,6 @@ do_ghcup() {
   export BOOTSTRAP_HASKELL_ADJUST_BASHRC=0
   export BOOTSTRAP_HASKELL_ADJUST_CABAL_CONFIG=0
 
-  trace "Change directory to ~/Downloads"
-  cd "$HOME/Downloads"
-
   download "ghcup.sh" "https://get-ghcup.haskell.org" "NONE" ""
 
   trace "Make ghcup-installer executable"
@@ -248,6 +245,8 @@ do_ghcup() {
   trace "Install ghc 9.2 via ghcup"
   ghcup install ghc 9.2
 
+  ghcup set ghc 9.0
+
   trace "Install cabal via ghcup"
   ghcup install cabal
 
@@ -271,9 +270,6 @@ do_cod() {
   then
       return 0
   fi
-
-  trace "Change directory to ~/Downloads"
-  cd "$HOME/Downloads"
 
   download "cod-linux-amd64.tgz" "https://github.com/dim-an/cod/releases/latest/download/cod-linux-amd64.tgz" "NONE" ""
 
@@ -313,11 +309,7 @@ do_starship() {
       return 0
   fi
 
-  trace "Change directory to ~/Downloads"
-  cd "$HOME/Downloads"
-
   download "starship.sh" "https://starship.rs/install.sh" "NONE" ""
-
 
   trace "Make starship-installer executable"
   chmod u+x starship.sh
@@ -363,9 +355,6 @@ do_agda() {
   cabal v2-update
   cabal v2-install alex happy
   cabal v2-install --with-compiler ghc-9.0 --lib Agda ieee754
-
-  trace "Change directory to ~/Downloads/"
-  cd "$HOME/Downloads"
 
   downloader "agda-stdlib.tar" "https://github.com/agda/agda-stdlib/archive/v1.7.tar.gz" "NONE" ""
 
