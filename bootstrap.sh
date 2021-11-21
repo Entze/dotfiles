@@ -182,6 +182,13 @@ do_miniconda () {
 
   debug "Install miniconda"
 
+  if INSTALLED="$(type -P conda)"
+  then
+      info "conda already installed in $INSTALLED"
+      return 0
+  fi
+
+
   download "miniconda.sh" "https://repo.anaconda.com/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh" "SHA256" "1ea2f885b4dbc3098662845560bc64271eb17085387a70c2ba3f29fff6f8d52f"
 
   trace "Making miniconda.sh executable"
@@ -196,6 +203,13 @@ do_miniconda () {
 do_ghcup() {
 
   debug "Install ghcup"
+
+  if INSTALLED="$(type -P ghcup)"
+  then
+
+      info "ghcup already installed in $INSTALLED"
+
+  else
 
   export BOOTSTRAP_HASKELL_NONINTERACTIVE=1
   export BOOTSTRAP_HASKELL_NO_UPGRADE=0
@@ -217,6 +231,8 @@ do_ghcup() {
 
   trace "Run ghcup-installer"
   ./ghcup.sh
+
+  fi
 
   trace "Make ghcup targets visible for session"
   # shellcheck disable=SC1090,SC1091
@@ -251,31 +267,15 @@ do_ghcup() {
 }
 
 
-do_stack() {
-
-  debug "Install stack"
-
-  trace "Install the dependencies of stack"
-  sudo apt-get install g++ gcc libc6-dev libffi-dev libgmp-dev make xz-utils zlib1g-dev git gnupg netbase
-
-  trace "Change directory to ~/Downloads"
-  cd "$HOME/Downloads"
-
-  trace "Download stack with $DOWNLOADER"
-  "$DOWNLOADER" "$DOWNLOADER_FLAG" "stack-linux-x86_64.tar.gz" "https://get.haskellstack.org/stable/linux-x86_64.tar.gz"
-
-  trace "Extract stack"
-  tar --extract --file "stack-linux-x86_64.tar.gz"
-
-  trace "Move stack to ~/.local/bin"
-  find . -type f -iname "stack" | grep -E "stack-[0-9]+\.[0-9]+\.[0-9]+-linux-x86_64" | sort | xargs -L 1 mv -t "$HOME/.local/bin/."
-
-}
-
-
 do_cod() {
 
   debug "Install cod"
+
+  if INSTALLED="$(type -P cod)"
+  then
+      info "cod already installed in $INSTALLED"
+      return 0
+  fi
 
   trace "Change directory to ~/Downloads"
   cd "$HOME/Downloads"
@@ -295,6 +295,12 @@ do_znap() {
 
   debug "Install znap"
 
+  if INSTALLED="$(type -P znap)"
+  then
+      info "znap already installed in $INSTALLED"
+      return 0
+  fi
+
   trace "Create ~/Apps/zsh-plugins/"
   mkdir -p "$HOME/Apps/zsh-plugins/"
 
@@ -307,6 +313,12 @@ do_znap() {
 do_starship() {
 
   debug "Install starship"
+
+  if INSTALLED="$(type -P starship)"
+  then
+      info "starship already installed in $INSTALLED"
+      return 0
+  fi
 
   trace "Change directory to ~/Downloads"
   cd "$HOME/Downloads"
@@ -345,39 +357,15 @@ do_diff_so_fancy() {
 }
 
 
-do_emacs_on_linux() {
-
-  debug "Install emacs, specifically for linux"
-
-  trace "Change directory to ~/Downloads"
-  cd "$HOME/Downloads"
-
-  trace "Download Haskell Language Server with $DOWNLOADER"
-  "$DOWNLOADER" "$DOWNLOADER_FLAG" "haskell-language-server-Linux-1.2.0.tar.gz" "https://github.com/haskell/haskell-language-server/releases/download/1.2.0/haskell-language-server-Linux-1.2.0.tar.gz"
-
-  trace "Create $HOME/Apps/haskell-language-server"
-  mkdir -p "$HOME/Apps/haskell-language-server"
-
-  trace "Change directory to ~/Apps/haskell-language-server"
-  cd "$HOME/Apps/haskell-language-server"
-
-
-  if which fdfind > /dev/null 2>&1
-  then
-    fdfind --type file --exec ln -s "$HOME/Apps/haskell-language-server/{/}" "$HOME/.local/bin/{/}" \;
-  elif which fd > /dev/null 2>&1
-  then
-    fd --type file --exec ln -s "$HOME/Apps/haskell-language-server/{/}" "$HOME/.local/bin/{/}" \;
-  else
-    find . -type f -exec ln -s "$HOME/Apps/haskell-language-server/{}" "$HOME/.local/bin/{}" \;
-  fi
-
-}
-
-
 do_agda() {
 
   debug "Install Agda and its standard library"
+
+  if INSTALLED="$(type -P agda)"
+  then
+      info "agda already installed in $INSTALLED"
+      return 0
+  fi
 
   trace "Install Agda"
   cabal v2-update
