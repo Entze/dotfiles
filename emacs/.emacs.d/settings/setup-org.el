@@ -197,4 +197,8 @@
     (setq htmlize-html-charset "utf-8"))
   )
 
+(use-package org-vcard
+  :pin "melpa-unstable"
+  :after org)
+
 (provide 'setup-org)

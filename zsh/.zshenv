@@ -10,6 +10,7 @@ fi
 export EDITOR="$VISUAL"
 
 NPM_PACKAGES="$HOME"/.npm-packages
+export PIP_REQUIRE_VIRTUALENV=true
 
 export PATH="$HOME/.cargo/bin:$NPM_PACKAGES/bin:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:$HOME/Apps/.bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
 
