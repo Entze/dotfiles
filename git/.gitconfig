@@ -1,37 +1,37 @@
 [user]
-	name = Lukas Grassauer
-	email = lukas@grassauer.eu
-	signingkey = 0C8EC34972FF4180
+        name = Lukas Grassauer
+        email = lukas@grassauer.eu
+        signingkey = 0C8EC34972FF4180
 [push]
-	default = simple
+        default = simple
 [alias]
-	fresh = "!git pull --stat --ff-only || git pull --stat --rebase"
-	last = log -1 HEAD
-	co = checkout
-	st = status
+        fresh = "!git pull --stat --ff-only || git pull --stat --rebase"
+        last = log -1 HEAD
+        co = checkout
+        st = status
 [merge]
-	tool = meld
+        tool = meld
 [core]
-	editor = "vim -c 'norm! gg'"
-	excludesfile = /home/lukas/.gitignore_global
-	pager = diff-so-fancy | less --tabs=1,5 -R -F -+X
+        editor = "vim -c 'norm! gg'"
+        excludesfile = /home/lukas/.gitignore_global
+        pager = npx diff-so-fancy | less --tabs=1,5 -R -F -+X
 [rebase]
-	autoStash = true
+        autoStash = true
 [pager]
-	diff
+        diff
 [color]
-	ui = true
+        ui = true
 [color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
+        oldNormal = red bold
+        oldHighlight = red bold 52
+        newNormal = green bold
+        newHighlight = green bold 22
 [color "diff"]
-	meta = 11
-	frag = magenta bold
-	commit = yellow bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
+        meta = 11
+        frag = magenta bold
+        commit = yellow bold
+        old = red bold
+        new = green bold
+        whitespace = red reverse
 [init]
-	defaultBranch = main
+        defaultBranch = main

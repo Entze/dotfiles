@@ -32,6 +32,8 @@ then
   fi
 fi
 
+SKIP_NVM="${SKIP_NVM:-$(check_installed nvm)}"
+
 
 trace() {
 
@@ -120,6 +122,10 @@ check_installed () {
   then
     IS_INSTALLED=0
     info "Found $CMD in $CMDPATH, skipping install"
+  elif FUNC="$(command -v "$CMD")"
+  then
+    IS_INSTALLED=0
+    info "Found $CMD as $FUNC, skipping install"
   fi
   return "$IS_INSTALLED"
 }
@@ -322,28 +328,6 @@ do_starship() {
 }
 
 
-do_npm() {
-
-  debug "Make npm not require sudo"
-
-  trace "Create $HOME/.npm-packages"
-  mkdir -p "$HOME/.npm-packages"
-
-  trace "Configure npm"
-  npm config set prefix "$HOME/.npm-packages"
-
-}
-
-do_diff_so_fancy() {
-
-  debug "Install diff-so-fancy"
-
-  trace "Run npm installation for diff-so-fancy"
-  npm install -g diff-so-fancy
-
-}
-
-
 do_agda() {
 
   debug "Install Agda and its standard library"
@@ -384,29 +368,69 @@ do_agda() {
 
 }
 
+do_nvm() {
+
+    debug "Install NVM"
+
+    if "$SKIP_NVM" != "false"
+    then
+       return 0
+    fi
+
+    trace "Clone nvm into ~/.nvm"
+    git clone "https://github.com/nvm-sh/nvm.git" "$HOME/.nvm"
+
+    trace "Change directory to ~/.nvm"
+    cd "$HOME/.nvm"
+
+    trace "Determine latest version of nvm"
+    NVM_LATEST="$(git describe --abbrev=0 --tags --match "v[0-9]*" "$(git rev-list --tags --max-count=1)")"
+
+    trace "Checkout version $NVM_LATEST"
+    git checkout "$NVM_LATEST"
+
+
+    trace "Change directory to ~"
+    cd "$HOME"
+
+    trace "Make nvm.sh and bash_completion executable"
+    chmod +x "$NVM_DIR/nvm.sh"
+    chmod +x "$NVM_DIR/bash_completion"
+
+    trace "Activate nvm"
+    # shellcheck disable=SC1090
+    . "$NVM_DIR/nvm.sh"
+
+    trace "Install lastest node and npm"
+
+    nvm install node
+    nvm use node
+
+    nvm install --latest-npm
+
+}
+
 
 do_post_distro() {
 
   info "Execute special (post) installations for programs:"
 
-  info "(0/8) npm"
-  do_npm
-  info "(1/8) diff-so-fancy"
-  do_diff_so_fancy
-  info "(2/8) cod"
+  info "(0/7) nvm"
+  do_nvm
+  info "(1/7) cod"
   do_cod
-  info "(3/8) starship"
+  info "(2/7) starship"
   do_starship
-  info "(4/8) znap"
+  info "(3/7) znap"
   do_znap
-  info "(5/8) ghcup"
+  info "(4/7) ghcup"
   do_ghcup
-  info "(6/8) agda"
+  info "(5/7) agda"
   do_agda
-  info "(7/8) miniconda"
+  info "(6/7) miniconda"
   do_miniconda
 
-  info "(8/8) done."
+  info "(7/7) done."
 
 }
 
@@ -508,14 +532,15 @@ do_common() {
   mkdir -p "$HOME/Downloads"
 
   trace "Export necessary variables like PATH for this session"
-  export NPM_PACKAGES="$HOME/.npm-packages"
+  export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+  export NPM_PACKAGES="${NPM_PACKAGE:-$HOME/.npm-packages}"
   export PATH="$HOME/.local/bin:$HOME/Apps/.bin:$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/.ghcup/bin:$NPM_PACKAGES/bin:$PATH"
   export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
-  export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
-  export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
-  export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
-  export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
+  export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+  export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+  export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+  export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 
 }
 
@@ -565,6 +590,8 @@ while [ "$#" -gt 0 ]; do
   -v|--verbose) VERBOSITY=$((VERBOSITY + 1)); shift 1;;
   -q|--quiet) VERBOSITY=$((VERBOSITY - 1)); shift 1;;
   -s|--skip-packages) SKIP_PACKAGES="true"; shift 1;;
+  --no-nvm) SKIP_NVM="true"; shift 1;;
+  --nvm) SKIP_NVM="false"; shift 1;;
 
   -v=*|--verbose=*) VERBOSITY="${1#*=}"; shift 1;;
   -q=*|--quiet=*) VERBOSITY="${1#*=}"; shift 1;;

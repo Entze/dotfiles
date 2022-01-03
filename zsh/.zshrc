@@ -171,5 +171,21 @@ then
   # <<< conda initialize <<<
 fi
 
+if [[ -x "$NVM_DIR"/nvm.sh ]]
+then
+
+    # shellcheck disable=SC1090
+    . "$NVM_DIR"/nvm.sh
+
+fi
+
+if [[ -x "$NVM_DIR"/bash_completion ]]
+then
+
+    # shellcheck disable=SC1090
+    . "$NVM_DIR"/bash_completion
+
+fi
+
 
 unset ZNAP_FOUND
