@@ -356,7 +356,6 @@ do_nvm() {
   trace "Install lastest node and npm"
 
   nvm install node
-  nvm use node
 
   nvm install --latest-npm
 
