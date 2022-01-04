@@ -93,6 +93,9 @@ die() {
 }
 
 
+trace "Loaded log functions"
+
+
 check_installed () {
 
   CMD="$1"
@@ -169,7 +172,8 @@ check_hash () {
 }
 
 
-SKIP_AGDA="${SKIP_AGDA:-$(check_installed agda)}"
+trace "Loaded download helpers"
+
 
 do_agda() {
 
@@ -211,8 +215,6 @@ do_agda() {
 
 }
 
-
-SKIP_GHCUP="${SKIP_GHCUP:-$(check_installed ghcup)}"
 
 do_ghcup() {
 
@@ -278,8 +280,6 @@ do_ghcup() {
 }
 
 
-SKIP_NVM="${SKIP_NVM:-$(check_installed nvm)}"
-
 do_nvm() {
 
   debug "Install NVM"
@@ -336,8 +336,6 @@ do_nvm() {
 }
 
 
-SKIP_PYENV="${SKIP_PYENV:-$(check_installed pyenv)}"
-
 do_pyenv() {
 
   if "$SKIP_PYENV"
@@ -353,8 +351,6 @@ do_pyenv() {
 
 }
 
-
-SKIP_ZINIT="${SKIP_ZINIT:-$(check_installed zinit)}"
 
 do_zinit() {
 
@@ -394,6 +390,24 @@ do_post_distro() {
     fi
   fi
   debug "Downloader set to $DOWNLOADER"
+
+  info "Determine what to install"
+
+  SKIP_AGDA_DEFAULT="$(check_installed agda)"
+  SKIP_AGDA="${SKIP_AGDA:-${SKIP_AGDA_DEFAULT}}"
+
+  SKIP_GHCUP_DEFAULT="$(check_installed ghcup)"
+  SKIP_GHCUP="${SKIP_GHCUP:-${SKIP_GHCUP_DEFAULT}}"
+
+
+  SKIP_NVM_DEFAULT="$(check_installed nvm)"
+  SKIP_NVM="${SKIP_NVM:-${SKIP_NVM_DEFAULT}}"
+
+  SKIP_PYENV_DEFAULT="$(check_installed pyenv)"
+  SKIP_PYENV="${SKIP_PYENV:-${SKIP_PYENV_DEFAULT}}"
+
+  SKIP_ZINIT_DEFAULT="$(check_installed zinit)"
+  SKIP_ZINIT="${SKIP_ZINIT:-${SKIP_ZINIT_DEFAULT}}"
 
   info "Execute special (post) installations for programs:"
 
@@ -526,6 +540,9 @@ do_os() {
   esac
 
 }
+
+
+trace "Loaded script"
 
 
 # parse argv variables
