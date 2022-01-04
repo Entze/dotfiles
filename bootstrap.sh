@@ -221,14 +221,14 @@ do_agda() {
   trace "Extract agda-stdlib"
   tar -zxvf "agda-stdlib.tar"
 
-  trace "Create $AGDA_ROOT"
-  mkdir -p "$XDG_DATA_HOME/Agda/"
+  trace "Create $AGDA_STDLIB_ROOT"
+  mkdir -p "$AGDA_STDLIB_ROOT"
 
-  trace "Move agda-stdlib to $XDG_DATA_HOME/Agda/."
-  mv "agda-stdlib-1.7" "$XDG_DATA_HOME/Agda/."
+  trace "Move agda-stdlib to $AGDA_STDLIB_ROOT"
+  mv "agda-stdlib-1.7" "$AGDA_STDLIB_ROOT/."
 
-  trace "Change directory to $XDG_DATA_HOME/Agda/agda-stdlib-1.7"
-  cd "$XDG_DATA_HOME/Agda/agda-stdlib-1.7"
+  trace "Change directory to $AGDA_STDLIB_ROOT/agda-stdlib-1.7"
+  cd "$AGDA_STDLIB_ROOT/agda-stdlib-1.7"
 
   trace "Install agda-stdlib"
   cabal v2-install --with-compiler ghc-9.0
@@ -237,7 +237,7 @@ do_agda() {
   mkdir -p "$HOME/.agda"
 
   trace "Create ~/.agda/libraries and populate file"
-  printf "%s/Agda/agda-stdlib-1.7/standard-library.agda-lib" "$XDG_DATA_HOME" >> "$HOME/.agda/libraries"
+  printf "%s/agda-stdlib-1.7/standard-library.agda-lib" "$AGDA_STDLIB_ROOT" >> "$HOME/.agda/libraries"
 
 
 }
@@ -542,7 +542,7 @@ do_common() {
   export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 
   export AGDA_STDLIB_ROOT="${AGDA_STDLIB_ROOT:-${XDG_DATA_HOME}/agda}"
-  export AGDA_STDLIB_DIR="${AGDA_STDLIB_DIR:-${AGDA_STDLIB_ROOT}/agda-stlib}"
+  export AGDA_STDLIB_DIR="${AGDA_STDLIB_DIR:-${AGDA_STDLIB_ROOT}/agda-stlib-1.7}"
   export NVM_ROOT="${NVM_ROOT:-${XDG_DATA_HOME}/nvm}"
   export NVM_DIR="${NVM_DIR:-${NVM_ROOT}/nvm.git}"
   export PYENV_ROOT="${PYENV_ROOT:-${XDG_DATA_HOME}/pyenv}"
