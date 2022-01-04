@@ -14,25 +14,7 @@ NO_COLOR="$(tput sgr0 2>/dev/null || echo '')"
 
 THIS_PWD="$(pwd)"
 
-DOWNLOADER="aria2c"
-DOWNLOADER_FLAG="-o"
-if ! which "$DOWNLOADER" > /dev/null 2>&1
-then
-  DOWNLOADER="wget2"
-  DOWNLOADER_FLAG="-O"
-  if ! which "$DOWNLOADER" > /dev/null 2>&1
-  then
-    DOWNLOADER="wget"
-    DOWNLOADER_FLAG="-O"
-    if ! which "$DOWNLOADER" > /dev/null 2>&1
-    then
-      DOWNLOADER="curl"
-      DOWNLOADER_FLAG="-o"
-    fi
-  fi
-fi
 
-SKIP_NVM="${SKIP_NVM:-$(check_installed nvm)}"
 
 
 trace() {
@@ -89,14 +71,14 @@ sudocmd() {
 
   reason="$1"; shift
   if command -v sudo >/dev/null; then
-  printf "\nAbout to use 'sudo' to run the following command as root:
-    "
-  printf "%s " "$@"
-  printf "\n in order to %s.\n\n" "$reason"
-  # -k: Disable cached credentials (force prompt for password).
-  sudo -k "$@"
+    printf "\nAbout to use 'sudo' to run the following command as root:
+      "
+    printf "%s " "$@"
+    printf "\n in order to %s.\n\n" "$reason"
+    # -k: Disable cached credentials (force prompt for password).
+    sudo -k "$@"
   else
-  "$@"
+    "$@"
   fi
 
 }
@@ -128,6 +110,7 @@ check_installed () {
     info "Found $CMD as $FUNC, skipping install"
   fi
   return "$IS_INSTALLED"
+
 }
 
 
@@ -146,11 +129,11 @@ download () {
 
   while [ ! -f "$OUTPUT_NAME" ] || ! check_hash "$OUTPUT_NAME" "$HASH_TYPE" "$HASH"
   do
-      trace "Removing $OUTPUT_NAME, if it exists"
-      rm -f "$OUTPUT_NAME"
+    trace "Removing $OUTPUT_NAME, if it exists"
+    rm -f "$OUTPUT_NAME"
 
-      trace "Download $OUTPUT_NAME with $DOWNLOADER"
-      "$DOWNLOADER" "$DOWNLOADER_FLAG" "$OUTPUT_NAME" "$LINK"
+    trace "Download $OUTPUT_NAME with $DOWNLOADER"
+    "$DOWNLOADER" "$DOWNLOADER_FLAG" "$OUTPUT_NAME" "$LINK"
 
   done
 
@@ -159,40 +142,42 @@ download () {
 
 check_hash () {
 
-    FILE="$1"
-    HASH_TYPE="$2"
-    HASH="$3"
+  FILE="$1"
+  HASH_TYPE="$2"
+  HASH="$3"
 
-    trace "Checking if $FILE matches its $HASH_TYPE hash $HASH"
+  trace "Checking if $FILE matches its $HASH_TYPE hash $HASH"
 
-    if [ "$HASH_TYPE" == "SHA1" ]
-    then
-        printf "%s\t%s\n" "$HASH" "$FILE" | sha1sum -c
-    elif [ "$HASH_TYPE" == "SHA256" ]
-    then
-        printf "%s\t%s" "$HASH" "$FILE" | sha256sum -c
-    elif [ "$HASH_TYPE" == "MD5" ]
-    then
-        printf "%s\t%s" "$HASH" "$FILE" | md5sum -c
-    elif [ "$HASH_TYPE" == "NONE" ]
-    then
-         return 0
-    else
-        warn "$HASH_TYPE not supported"
-        die
-    fi
+  if [ "$HASH_TYPE" == "SHA1" ]
+  then
+      printf "%s\t%s\n" "$HASH" "$FILE" | sha1sum -c
+  elif [ "$HASH_TYPE" == "SHA256" ]
+  then
+      printf "%s\t%s" "$HASH" "$FILE" | sha256sum -c
+  elif [ "$HASH_TYPE" == "MD5" ]
+  then
+      printf "%s\t%s" "$HASH" "$FILE" | md5sum -c
+  elif [ "$HASH_TYPE" == "NONE" ]
+  then
+       return 0
+  else
+      warn "$HASH_TYPE not supported"
+      die
+  fi
 
-    return "$?"
+  return "$?"
 }
 
+
+SKIP_MINICONDA="${SKIP_MINICONDA:-$(check_installed conda)}"
 
 do_miniconda () {
 
   debug "Install miniconda"
 
-  if check_installed conda
+  if "$SKIP_MINICONDA"
   then
-     return 0
+    return 0
   fi
 
   download "miniconda.sh" "https://repo.anaconda.com/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh" "SHA256" "1ea2f885b4dbc3098662845560bc64271eb17085387a70c2ba3f29fff6f8d52f"
@@ -206,34 +191,36 @@ do_miniconda () {
 }
 
 
+SKIP_GHCUP="${SKIP_GHCUP:-$(check_installed ghcup)}"
+
 do_ghcup() {
 
   debug "Install ghcup"
 
-  if ! check_installed ghcup
+  if ! "$SKIP_GHCUP"
   then
 
-  export BOOTSTRAP_HASKELL_NONINTERACTIVE=1
-  export BOOTSTRAP_HASKELL_NO_UPGRADE=0
-  export BOOTSTRAP_HASKELL_MINIMAL=0
-  export GHCUP_USE_XDG_DIRS=1
-  export BOOTSTRAP_HASKELL_VERBOSE=1
-  export BOOTSTRAP_HASKELL_INSTALL_STACK=1
-  export BOOTSTRAP_HASKELL_INSTALL_HLS=1
-  export BOOTSTRAP_HASKELL_ADJUST_BASHRC=0
-  export BOOTSTRAP_HASKELL_ADJUST_CABAL_CONFIG=0
+    export BOOTSTRAP_HASKELL_NONINTERACTIVE=1
+    export BOOTSTRAP_HASKELL_NO_UPGRADE=0
+    export BOOTSTRAP_HASKELL_MINIMAL=0
+    export GHCUP_USE_XDG_DIRS=1
+    export BOOTSTRAP_HASKELL_VERBOSE=1
+    export BOOTSTRAP_HASKELL_INSTALL_STACK=1
+    export BOOTSTRAP_HASKELL_INSTALL_HLS=1
+    export BOOTSTRAP_HASKELL_ADJUST_BASHRC=0
+    export BOOTSTRAP_HASKELL_ADJUST_CABAL_CONFIG=0
 
-  download "ghcup.sh" "https://get-ghcup.haskell.org" "NONE" ""
+    download "ghcup.sh" "https://get-ghcup.haskell.org" "NONE" ""
 
-  trace "Make ghcup-installer executable"
-  chmod u+x ghcup.sh
+    trace "Make ghcup-installer executable"
+    chmod u+x ghcup.sh
 
-  trace "Run ghcup-installer"
-  ./ghcup.sh
+    trace "Run ghcup-installer"
+    ./ghcup.sh
 
-  trace "Make ghcup targets visible for session"
-  # shellcheck disable=SC1090,SC1091
-  source "$HOME/.local/share/ghcup/env"
+    trace "Make ghcup targets visible for session"
+    # shellcheck disable=SC1090,SC1091
+    source "$HOME/.local/share/ghcup/env"
 
   fi
 
@@ -270,13 +257,15 @@ do_ghcup() {
 }
 
 
+SKIP_COD="${SKIP_COD:-$(check_installed cod)}"
+
 do_cod() {
 
   debug "Install cod"
 
-  if check_installed cod
+  if "$SKIP_COD"
   then
-      return 0
+    return 0
   fi
 
   download "cod-linux-amd64.tgz" "https://github.com/dim-an/cod/releases/latest/download/cod-linux-amd64.tgz" "NONE" ""
@@ -290,31 +279,15 @@ do_cod() {
 }
 
 
-do_znap() {
-
-  debug "Install znap"
-
-  if check_installed znap
-  then
-      return 0
-  fi
-
-  trace "Create ~/Apps/zsh-plugins/"
-  mkdir -p "$HOME/Apps/zsh-plugins/"
-
-  trace "Download zsh-snap via git"
-  git clone --depth 1 "https://github.com/marlonrichert/zsh-snap.git" "$HOME/Apps/zsh-plugins/zsh-snap"
-
-}
-
+SKIP_STARSHIP="${SKIP_STARSHIP:-$(check_installed starship)}"
 
 do_starship() {
 
   debug "Install starship"
 
-  if check_installed starship
+  if "$SKIP_STARSHIP"
   then
-      return 0
+    return 0
   fi
 
   download "starship.sh" "https://starship.rs/install.sh" "NONE" ""
@@ -328,13 +301,15 @@ do_starship() {
 }
 
 
+SKIP_AGDA="${SKIP_AGDA:-$(check_installed agda)}"
+
 do_agda() {
 
   debug "Install Agda and its standard library"
 
-  if check_installed agda
+  if "$SKIP_AGDA"
   then
-      return 0
+    return 0
   fi
 
   trace "Install Agda"
@@ -347,14 +322,14 @@ do_agda() {
   trace "Extract agda-stdlib"
   tar -zxvf "agda-stdlib.tar"
 
-  trace "Create ~/Apps/Agda/"
-  mkdir -p "$HOME/Apps/Agda/"
+  trace "Create $AGDA_ROOT"
+  mkdir -p "$XDG_DATA_HOME/Agda/"
 
-  trace "Move agda-stdlib to ~/Apps/Agda/."
-  mv "agda-stdlib-1.7" "$HOME/Apps/Agda/."
+  trace "Move agda-stdlib to $XDG_DATA_HOME/Agda/."
+  mv "agda-stdlib-1.7" "$XDG_DATA_HOME/Agda/."
 
-  trace "Change directory to ~/Apps/Agda/agda-stdlib-1.7"
-  cd "$HOME/Apps/Agda/agda-stdlib-1.7"
+  trace "Change directory to $XDG_DATA_HOME/Agda/agda-stdlib-1.7"
+  cd "$XDG_DATA_HOME/Agda/agda-stdlib-1.7"
 
   trace "Install agda-stdlib"
   cabal v2-install --with-compiler ghc-9.0
@@ -363,55 +338,87 @@ do_agda() {
   mkdir -p "$HOME/.agda"
 
   trace "Create ~/.agda/libraries and populate file"
-  printf "%s/Apps/Agda/agda-stdlib-1.7/standard-library.agda-lib" "$HOME" >> "$HOME/.agda/libraries"
+  printf "%s/Agda/agda-stdlib-1.7/standard-library.agda-lib" "$XDG_DATA_HOME" >> "$HOME/.agda/libraries"
 
 
 }
 
+
+SKIP_NVM="${SKIP_NVM:-$(check_installed nvm)}"
+
 do_nvm() {
 
-    debug "Install NVM"
+  debug "Install NVM"
 
-    if "$SKIP_NVM" != "false"
-    then
-       return 0
-    fi
+  if ! "$SKIP_NVM"
+  then
 
-    trace "Clone nvm into ~/.nvm"
-    git clone "https://github.com/nvm-sh/nvm.git" "$HOME/.nvm"
+      trace "Clone nvm into $NVM_DIR"
+      git clone "https://github.com/nvm-sh/nvm.git" "$NVM_DIR"
 
-    trace "Change directory to ~/.nvm"
-    cd "$HOME/.nvm"
+      trace "Change directory to $NVM_DIR"
+      cd "$NVM_DIR"
 
-    trace "Determine latest version of nvm"
-    NVM_LATEST="$(git describe --abbrev=0 --tags --match "v[0-9]*" "$(git rev-list --tags --max-count=1)")"
+      trace "Determine latest version of nvm"
+      NVM_LATEST="$(git describe --abbrev=0 --tags --match "v[0-9]*" "$(git rev-list --tags --max-count=1)")"
 
-    trace "Checkout version $NVM_LATEST"
-    git checkout "$NVM_LATEST"
+      trace "Checkout version $NVM_LATEST"
+      git checkout "$NVM_LATEST"
 
+  fi
 
-    trace "Change directory to ~"
-    cd "$HOME"
+  trace "Change directory to ~"
+  cd "$HOME"
 
-    trace "Make nvm.sh and bash_completion executable"
-    chmod +x "$NVM_DIR/nvm.sh"
-    chmod +x "$NVM_DIR/bash_completion"
+  if [[ -x "$NVM_DIR/nvm.sh" ]]
+  then
 
-    trace "Activate nvm"
-    # shellcheck disable=SC1090
-    . "$NVM_DIR/nvm.sh"
+      trace "Make nvm.sh executable"
+      chmod +x "$NVM_DIR/nvm.sh"
 
-    trace "Install lastest node and npm"
+  fi
 
-    nvm install node
-    nvm use node
+  if [[ -x "$NVM_DIR/bash_completion" ]]
+  then
 
-    nvm install --latest-npm
+      chmod +x "$NVM_DIR/bash_completion"
+
+  fi
+
+  trace "Activate nvm"
+  # shellcheck disable=SC1090
+  . "$NVM_DIR/nvm.sh"
+
+  trace "Install lastest node and npm"
+
+  nvm install node
+  nvm use node
+
+  nvm install --latest-npm
 
 }
 
 
 do_post_distro() {
+
+  DOWNLOADER="${DOWNLOADER:-aria2c}"
+  DOWNLOADER_FLAG="${DOWNLOADER_FLAG:--o}"
+  if ! which "$DOWNLOADER" > /dev/null 2>&1
+  then
+    DOWNLOADER="wget2"
+    DOWNLOADER_FLAG="-O"
+    if ! which "$DOWNLOADER" > /dev/null 2>&1
+    then
+      DOWNLOADER="wget"
+      DOWNLOADER_FLAG="-O"
+      if ! which "$DOWNLOADER" > /dev/null 2>&1
+      then
+        DOWNLOADER="curl"
+        DOWNLOADER_FLAG="-o"
+      fi
+    fi
+  fi
+  debug "Downloader set to $DOWNLOADER"
 
   info "Execute special (post) installations for programs:"
 
@@ -442,7 +449,7 @@ do_ubuntu() {
   VERSION="$(grep -F "VERSION_ID" /etc/os-release | sed -E "s/^VERSION_ID=\"([0-9]{2})\.([0-9]{2})\"/\\1\\2/")"
 
 
-  if [ "$SKIP_PACKAGES" != "true" ]
+  if "$SKIP_PACKAGES"
   then
   VERSIONDEPS=ubuntu."$VERSION".packages
   trace "Update archive"
@@ -451,26 +458,8 @@ do_ubuntu() {
   xargs -a <(awk '! /^ *(#|$)/' <(sort --unique ubuntu.packages common.packages "$VERSIONDEPS")) -r -- sudo apt-get install -y
   fi
 
-  DOWNLOADER="aria2c"
-  DOWNLOADER_FLAG="-o"
-  if ! which "$DOWNLOADER" > /dev/null 2>&1
-  then
-    DOWNLOADER="wget2"
-    DOWNLOADER_FLAG="-O"
-    if ! which "$DOWNLOADER" > /dev/null 2>&1
-    then
-      DOWNLOADER="wget"
-      DOWNLOADER_FLAG="-O"
-      if ! which "$DOWNLOADER" > /dev/null 2>&1
-      then
-        DOWNLOADER="curl"
-        DOWNLOADER_FLAG="-o"
-      fi
-    fi
-  fi
-  debug "Downloader set to $DOWNLOADER"
-
 }
+
 
 do_solus() {
 
@@ -478,30 +467,11 @@ do_solus() {
 
   sudocmd "install dev-tools" "sudo eopkg install -c system.devel"
 
-  if [ "$SKIP_PACKAGES" != "true" ]
+  if "$SKIP_PACKAGES"
   then
   trace "Install packages"
   xargs -a <(awk '! /^ *(#|$)/' <(sort --unique solus.packages common.packages)) -r -- sudo eopkg install -y
   fi
-
-  DOWNLOADER="aria2c"
-  DOWNLOADER_FLAG="-o"
-  if ! which "$DOWNLOADER" > /dev/null 2>&1
-  then
-    DOWNLOADER="wget2"
-    DOWNLOADER_FLAG="-O"
-    if ! which "$DOWNLOADER" > /dev/null 2>&1
-    then
-      DOWNLOADER="wget"
-      DOWNLOADER_FLAG="-O"
-      if ! which "$DOWNLOADER" > /dev/null 2>&1
-      then
-        DOWNLOADER="curl"
-        DOWNLOADER_FLAG="-o"
-      fi
-    fi
-  fi
-  debug "Downloader set to $DOWNLOADER"
 
 }
 
@@ -512,9 +482,6 @@ do_common() {
 
   trace "Create ~/.local/bin/, if not already present"
   mkdir -p "$HOME/.local/bin/"
-
-  trace "Create ~/Apps/.bin/, if not already present"
-  mkdir -p "$HOME/Apps/.bin/"
 
   trace "Create ~/.config, if not already present"
   mkdir -p "$HOME/.config"
@@ -532,15 +499,17 @@ do_common() {
   mkdir -p "$HOME/Downloads"
 
   trace "Export necessary variables like PATH for this session"
-  export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
-  export NPM_PACKAGES="${NPM_PACKAGE:-$HOME/.npm-packages}"
-  export PATH="$HOME/.local/bin:$HOME/Apps/.bin:$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/.ghcup/bin:$NPM_PACKAGES/bin:$PATH"
+  export NVM_ROOT="${NVM_ROOT:-${XDG_DATA_HOME}/nvm}"
+  export NVM_DIR="${NVM_DIR:-${NVM_ROOT}/nvm.git}"
+  export AGDA_STDLIB_ROOT="${AGDA_STDLIB_ROOT:-${XDG_DATA_HOME}/agda}"
+  export AGDA_STDLIB_DIR="${AGDA_STDLIB_DIR:-${AGDA_STDLIB_ROOT}}"
+  export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
   export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
-  export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
-  export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
-  export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
-  export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
+  export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}"
+  export XDG_CACHE_HOME="${XDG_CACHE_HOME:-${HOME}/.cache}"
+  export XDG_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"
+  export XDG_STATE_HOME="${XDG_STATE_HOME:-${HOME}/.local/state}"
 
 }
 
@@ -550,17 +519,17 @@ do_linux() {
   trace "Found linux: $OS_ID"
   case "$OS_ID" in
   "solus")
-    debug "Install for solus"
-    do_common
-    do_solus
-    do_post_distro
-    ;;
+  debug "Install for solus"
+  do_common
+  do_solus
+  do_post_distro
+  ;;
   "ubuntu")
-    debug "Install for ubuntu"
-    do_common
-    do_ubuntu
-    do_post_distro
-    ;;
+  debug "Install for ubuntu"
+  do_common
+  do_ubuntu
+  do_post_distro
+  ;;
   *) die "Unsupported distribution: $OS_ID"
   esac
 
@@ -572,16 +541,16 @@ do_os() {
   trace "Found os: $OS_KIND"
   case "$OS_KIND" in
   "Linux")
-    debug "Install for linux"
-    do_linux
-    ;;
+  debug "Install for linux"
+  do_linux
+  ;;
   *) die "Unsupported os: $OS_KIND"
   esac
 
 }
 
 VERBOSITY=0
-SKIP_PACKAGES=""
+SKIP_PACKAGES=0
 
 # parse argv variables
 while [ "$#" -gt 0 ]; do
@@ -589,9 +558,21 @@ while [ "$#" -gt 0 ]; do
 
   -v|--verbose) VERBOSITY=$((VERBOSITY + 1)); shift 1;;
   -q|--quiet) VERBOSITY=$((VERBOSITY - 1)); shift 1;;
-  -s|--skip-packages) SKIP_PACKAGES="true"; shift 1;;
-  --no-nvm) SKIP_NVM="true"; shift 1;;
-  --nvm) SKIP_NVM="false"; shift 1;;
+  -s|--skip-packages) SKIP_PACKAGES=1; shift 1;;
+  --no-nvm)       SKIP_NVM=1; shift 1;;
+  --nvm)          SKIP_NVM=0; shift 1;;
+  --no-agda)      SKIP_AGDA=1; shift 1;;
+  --agda)         SKIP_AGDA=0; shift 1;;
+  --no-cod)       SKIP_COD=1; shift 1;;
+  --cod)          SKIP_COD=0; shift 1;;
+  --no-starship)  SKIP_STARSHIP=1; shift 1;;
+  --starship)     SKIP_STARSHIP=0; shift 1;;
+  --no-ghcup)     SKIP_GHCUP=1; shift 1;;
+  --ghcup)        SKIP_GHCUP=0; shift 1;;
+  --no-miniconda) SKIP_MINICONDA=1; shift 1;;
+  --miniconda)    SKIP_MINICONDA=0; shift 1;;
+  --nothing)      SKIP_NVM=1; SKIP_AGDA=1; SKIP_COD=1; SKIP_STARSHIP=1; SKIP_GHCUP=1; SKIP_MINICONDA=1; shift 1;;
+  --all)          SKIP_NVM=0; SKIP_AGDA=0; SKIP_COD=0; SKIP_STARSHIP=0; SKIP_GHCUP=0; SKIP_MINICONDA=0; shift 1;;
 
   -v=*|--verbose=*) VERBOSITY="${1#*=}"; shift 1;;
   -q=*|--quiet=*) VERBOSITY="${1#*=}"; shift 1;;
