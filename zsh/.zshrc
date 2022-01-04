@@ -4,11 +4,13 @@
 PS1="\$ $(pwd): "
 export PS1
 
+# shellcheck source=/dev/null
 source "$ZINIT_HOME"/zinit.zsh
 
 if [[ $OS_ID != "ubuntu" ]]
 then
     autoload -Uz _zinit
+    # shellcheck disable=SC2154
     (( ${+_comps} )) && _comps[zinit]=_zinit
 fi
 
@@ -41,7 +43,7 @@ zinit light zsh-users/zsh-history-substring-search
 zinit ice wait lucid
 zinit light zsh-users/zsh-completions
 
-ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=32
 zinit ice wait lucid
 zinit light zsh-users/zsh-autosuggestions
 
@@ -150,7 +152,7 @@ fi
 if [[ -x "$NVM_DIR"/nvm.sh ]]
 then
 
-    # shellcheck disable=SC1090
+    # shellcheck source=/dev/null
     . "$NVM_DIR"/nvm.sh
 
 fi
@@ -158,7 +160,7 @@ fi
 if [[ -x "$NVM_DIR"/bash_completion ]]
 then
 
-    # shellcheck disable=SC1090
+    # shellcheck source=/dev/null
     . "$NVM_DIR"/bash_completion
 
 fi
