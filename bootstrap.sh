@@ -169,24 +169,45 @@ check_hash () {
 }
 
 
-SKIP_MINICONDA="${SKIP_MINICONDA:-$(check_installed conda)}"
+SKIP_AGDA="${SKIP_AGDA:-$(check_installed agda)}"
 
-do_miniconda () {
+do_agda() {
 
-  debug "Install miniconda"
+  debug "Install Agda and its standard library"
 
-  if "$SKIP_MINICONDA"
+  if "$SKIP_AGDA"
   then
     return 0
   fi
 
-  download "miniconda.sh" "https://repo.anaconda.com/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh" "SHA256" "1ea2f885b4dbc3098662845560bc64271eb17085387a70c2ba3f29fff6f8d52f"
+  trace "Install Agda"
+  cabal v2-update
+  cabal v2-install alex happy
+  cabal v2-install --with-compiler ghc-9.0 --lib Agda ieee754
 
-  trace "Making miniconda.sh executable"
-  chmod u+x miniconda.sh
+  download "agda-stdlib.tar" "https://github.com/agda/agda-stdlib/archive/v1.7.tar.gz" "NONE" ""
 
-  trace "Run miniconda-installer"
-  ./miniconda.sh -b -p "$HOME/.miniconda3/"
+  trace "Extract agda-stdlib"
+  tar -zxvf "agda-stdlib.tar"
+
+  trace "Create $AGDA_ROOT"
+  mkdir -p "$XDG_DATA_HOME/Agda/"
+
+  trace "Move agda-stdlib to $XDG_DATA_HOME/Agda/."
+  mv "agda-stdlib-1.7" "$XDG_DATA_HOME/Agda/."
+
+  trace "Change directory to $XDG_DATA_HOME/Agda/agda-stdlib-1.7"
+  cd "$XDG_DATA_HOME/Agda/agda-stdlib-1.7"
+
+  trace "Install agda-stdlib"
+  cabal v2-install --with-compiler ghc-9.0
+
+  trace "Create ~/.agda"
+  mkdir -p "$HOME/.agda"
+
+  trace "Create ~/.agda/libraries and populate file"
+  printf "%s/Agda/agda-stdlib-1.7/standard-library.agda-lib" "$XDG_DATA_HOME" >> "$HOME/.agda/libraries"
+
 
 }
 
@@ -257,93 +278,6 @@ do_ghcup() {
 }
 
 
-SKIP_COD="${SKIP_COD:-$(check_installed cod)}"
-
-do_cod() {
-
-  debug "Install cod"
-
-  if "$SKIP_COD"
-  then
-    return 0
-  fi
-
-  download "cod-linux-amd64.tgz" "https://github.com/dim-an/cod/releases/latest/download/cod-linux-amd64.tgz" "NONE" ""
-
-  trace "Extract cod"
-  tar --extract --file "cod-linux-amd64.tgz"
-
-  trace "Move cod to ~/.local/bin"
-  mv "cod" "$HOME/.local/bin/."
-
-}
-
-
-SKIP_STARSHIP="${SKIP_STARSHIP:-$(check_installed starship)}"
-
-do_starship() {
-
-  debug "Install starship"
-
-  if "$SKIP_STARSHIP"
-  then
-    return 0
-  fi
-
-  download "starship.sh" "https://starship.rs/install.sh" "NONE" ""
-
-  trace "Make starship-installer executable"
-  chmod u+x starship.sh
-
-  trace "Run starship-installer"
-  ./starship.sh -y -b "$HOME/.local/bin"
-
-}
-
-
-SKIP_AGDA="${SKIP_AGDA:-$(check_installed agda)}"
-
-do_agda() {
-
-  debug "Install Agda and its standard library"
-
-  if "$SKIP_AGDA"
-  then
-    return 0
-  fi
-
-  trace "Install Agda"
-  cabal v2-update
-  cabal v2-install alex happy
-  cabal v2-install --with-compiler ghc-9.0 --lib Agda ieee754
-
-  download "agda-stdlib.tar" "https://github.com/agda/agda-stdlib/archive/v1.7.tar.gz" "NONE" ""
-
-  trace "Extract agda-stdlib"
-  tar -zxvf "agda-stdlib.tar"
-
-  trace "Create $AGDA_ROOT"
-  mkdir -p "$XDG_DATA_HOME/Agda/"
-
-  trace "Move agda-stdlib to $XDG_DATA_HOME/Agda/."
-  mv "agda-stdlib-1.7" "$XDG_DATA_HOME/Agda/."
-
-  trace "Change directory to $XDG_DATA_HOME/Agda/agda-stdlib-1.7"
-  cd "$XDG_DATA_HOME/Agda/agda-stdlib-1.7"
-
-  trace "Install agda-stdlib"
-  cabal v2-install --with-compiler ghc-9.0
-
-  trace "Create ~/.agda"
-  mkdir -p "$HOME/.agda"
-
-  trace "Create ~/.agda/libraries and populate file"
-  printf "%s/Agda/agda-stdlib-1.7/standard-library.agda-lib" "$XDG_DATA_HOME" >> "$HOME/.agda/libraries"
-
-
-}
-
-
 SKIP_NVM="${SKIP_NVM:-$(check_installed nvm)}"
 
 do_nvm() {
@@ -352,6 +286,9 @@ do_nvm() {
 
   if ! "$SKIP_NVM"
   then
+
+      trace "Create $NVM_ROOT, if not already present"
+      mkdir -p "$NVM_ROOT"
 
       trace "Clone nvm into $NVM_DIR"
       git clone "https://github.com/nvm-sh/nvm.git" "$NVM_DIR"
@@ -399,6 +336,44 @@ do_nvm() {
 }
 
 
+SKIP_PYENV="${SKIP_PYENV:-$(check_installed pyenv)}"
+
+do_pyenv() {
+
+  if "$SKIP_PYENV"
+  then
+    return 0
+  fi
+
+  trace "Create $PYENV_ROOT if not already present"
+  mkdir -p "$PYENV_ROOT"
+
+  trace "Clone pyenv into $PYENV_DIR"
+  git clone "https://github.com/pyenv/pyenv.git" "$PYENV_DIR"
+
+}
+
+
+SKIP_ZINIT="${SKIP_ZINIT:-$(check_installed zinit)}"
+
+do_zinit() {
+
+  debug "Install zinit"
+
+  if "$SKIP_ZINIT"
+  then
+    return 0
+  fi
+
+  trace "Create $ZINIT_ROOT, if not already present"
+  mkdir -p "$ZINIT_ROOT"
+
+  trace "Clone zinit into $ZINIT_HOME"
+  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+
+}
+
+
 do_post_distro() {
 
   DOWNLOADER="${DOWNLOADER:-aria2c}"
@@ -422,22 +397,18 @@ do_post_distro() {
 
   info "Execute special (post) installations for programs:"
 
-  info "(0/7) nvm"
+  info "(0/5) zinit"
+  do_zinit
+  info "(1/5) pyenv"
+  do_pyenv
+  info "(2/5) nvm"
   do_nvm
-  info "(1/7) cod"
-  do_cod
-  info "(2/7) starship"
-  do_starship
-  info "(3/7) znap"
-  do_znap
-  info "(4/7) ghcup"
+  info "(3/5) ghcup"
   do_ghcup
-  info "(5/7) agda"
+  info "(4/5) agda"
   do_agda
-  info "(6/7) miniconda"
-  do_miniconda
 
-  info "(7/7) done."
+  info "(5/5) done."
 
 }
 
@@ -499,41 +470,48 @@ do_common() {
   mkdir -p "$HOME/Downloads"
 
   trace "Export necessary variables like PATH for this session"
-  export NVM_ROOT="${NVM_ROOT:-${XDG_DATA_HOME}/nvm}"
-  export NVM_DIR="${NVM_DIR:-${NVM_ROOT}/nvm.git}"
-  export AGDA_STDLIB_ROOT="${AGDA_STDLIB_ROOT:-${XDG_DATA_HOME}/agda}"
-  export AGDA_STDLIB_DIR="${AGDA_STDLIB_DIR:-${AGDA_STDLIB_ROOT}}"
-  export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
-  export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
-
   export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}"
   export XDG_CACHE_HOME="${XDG_CACHE_HOME:-${HOME}/.cache}"
   export XDG_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"
   export XDG_STATE_HOME="${XDG_STATE_HOME:-${HOME}/.local/state}"
+  export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
+
+  export AGDA_STDLIB_ROOT="${AGDA_STDLIB_ROOT:-${XDG_DATA_HOME}/agda}"
+  export AGDA_STDLIB_DIR="${AGDA_STDLIB_DIR:-${AGDA_STDLIB_ROOT}/agda-stlib}"
+  export NVM_ROOT="${NVM_ROOT:-${XDG_DATA_HOME}/nvm}"
+  export NVM_DIR="${NVM_DIR:-${NVM_ROOT}/nvm.git}"
+  export PYENV_ROOT="${PYENV_ROOT:-${XDG_DATA_HOME}/pyenv}"
+  export PYENV_DIR="${PYENV_DIR:-${PYENV_ROOT}/pyenv.git}"
+  export ZINIT_ROOT="${ZINIT_ROOT:-${XDG_DATA_HOME}/zinit}"
+  export ZINIT_HOME_DIR="${ZINIT_HOME_DIR:-${ZINIT_ROOT}}"
+  export ZINIT_DIR="${ZINIT_DIR:-${ZINIT_ROOT}/zinit.git}"
+  export ZINIT_HOME="${ZINIT_HOME:-${ZINIT_DIR}}"
 
 }
+
 
 do_linux() {
 
   OS_ID=$(grep -E '^ID="?[a-zA-Z]*"?$' /etc/os-release | sed -E 's/(^ID="?)([a-zA-Z]*)("?$)/\2/')
   trace "Found linux: $OS_ID"
   case "$OS_ID" in
-  "solus")
-  debug "Install for solus"
-  do_common
-  do_solus
-  do_post_distro
-  ;;
-  "ubuntu")
-  debug "Install for ubuntu"
-  do_common
-  do_ubuntu
-  do_post_distro
-  ;;
-  *) die "Unsupported distribution: $OS_ID"
+    "solus")
+      debug "Install for solus"
+      do_common
+      do_solus
+      do_post_distro
+      ;;
+    "ubuntu")
+      debug "Install for ubuntu"
+      do_common
+      do_ubuntu
+      do_post_distro
+      ;;
+    *) die "Unsupported distribution: $OS_ID"
   esac
 
 }
+
 
 do_os() {
 
@@ -549,6 +527,7 @@ do_os() {
 
 }
 
+
 VERBOSITY=0
 SKIP_PACKAGES=0
 
@@ -559,20 +538,18 @@ while [ "$#" -gt 0 ]; do
   -v|--verbose) VERBOSITY=$((VERBOSITY + 1)); shift 1;;
   -q|--quiet) VERBOSITY=$((VERBOSITY - 1)); shift 1;;
   -s|--skip-packages) SKIP_PACKAGES=1; shift 1;;
-  --no-nvm)       SKIP_NVM=1; shift 1;;
-  --nvm)          SKIP_NVM=0; shift 1;;
   --no-agda)      SKIP_AGDA=1; shift 1;;
   --agda)         SKIP_AGDA=0; shift 1;;
-  --no-cod)       SKIP_COD=1; shift 1;;
-  --cod)          SKIP_COD=0; shift 1;;
-  --no-starship)  SKIP_STARSHIP=1; shift 1;;
-  --starship)     SKIP_STARSHIP=0; shift 1;;
   --no-ghcup)     SKIP_GHCUP=1; shift 1;;
   --ghcup)        SKIP_GHCUP=0; shift 1;;
-  --no-miniconda) SKIP_MINICONDA=1; shift 1;;
-  --miniconda)    SKIP_MINICONDA=0; shift 1;;
-  --nothing)      SKIP_NVM=1; SKIP_AGDA=1; SKIP_COD=1; SKIP_STARSHIP=1; SKIP_GHCUP=1; SKIP_MINICONDA=1; shift 1;;
-  --all)          SKIP_NVM=0; SKIP_AGDA=0; SKIP_COD=0; SKIP_STARSHIP=0; SKIP_GHCUP=0; SKIP_MINICONDA=0; shift 1;;
+  --no-nvm)       SKIP_NVM=1; shift 1;;
+  --nvm)          SKIP_NVM=0; shift 1;;
+  --no-pyenv)     SKIP_PYENV=1; shift 1;;
+  --pyenv)        SKIP_PYENV=0; shift 1;;
+  --no-zinit)     SKIP_ZINIT=1; shift 1;;
+  --zinit)        SKIP_ZINIT=0; shift 1;;
+  --nothing)      SKIP_AGDA=1; SKIP_GHCUP=1; SKIP_NVM=1; SKIP_PYENV=1; SKIP_ZINIT=1; shift 1;;
+  --all)          SKIP_AGDA=0; SKIP_GHCUP=0; SKIP_NVM=0; SKIP_PYENV=0; SKIP_ZINIT=0; shift 1;;
 
   -v=*|--verbose=*) VERBOSITY="${1#*=}"; shift 1;;
   -q=*|--quiet=*) VERBOSITY="${1#*=}"; shift 1;;

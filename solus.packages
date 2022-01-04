@@ -1,3 +1,9 @@
 man-pages
 dconf
 util-linux
+zlib-devel
+bzip2-devel
+readline-devel
+sqlite3-devel
+openssl-devel
+tk-devel
