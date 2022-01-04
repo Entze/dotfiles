@@ -71,6 +71,13 @@ then
    export SSH_KEY_PATH="$HOME"/.ssh/id_rsa
 fi
 
+export OS_ID=$(grep -E '^ID="?[a-zA-Z]*"?$' /etc/os-release | sed -E 's/(^ID="?)([a-zA-Z]*)("?$)/\2/')
+
+if [[ $OS_ID = "ubuntu" ]]
+then
+    skip_global_compinit=1
+fi
+
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8

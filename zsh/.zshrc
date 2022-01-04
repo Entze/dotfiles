@@ -4,23 +4,12 @@
 PS1="\$ $(pwd): "
 export PS1
 
-ZNAP_FOUND="false"
+source "$ZINIT_HOME"/zinit.zsh
 
-if [[ -r "$HOME"/Apps/zsh-plugins/zsh-snap/znap.zsh ]]
+if [[ $OS_ID != "ubuntu" ]]
 then
-
-  # shellcheck source=/dev/null
-  source "$HOME"/Apps/zsh-plugins/zsh-snap/znap.zsh
-
-  ZNAP_FOUND="true"
-
-  export ZSH_HIGHLIGHT_HIGHLIGHTERS=( main brackets )
-  znap source zsh-users/zsh-syntax-highlighting
-
-else
-
-  printf "znap was not found\n"
-
+    autoload -Uz _zinit
+    (( ${+_comps} )) && _comps[zinit]=_zinit
 fi
 
 export HISTFILE=$HOME/.zsh_history
@@ -34,6 +23,42 @@ setopt HIST_REDUCE_BLANKS  # Trim Whitespace
 setopt HIST_IGNORE_SPACE   # Don't save in history if first character is a space
 setopt INC_APPEND_HISTORY  # This is default, but set for share_history
 setopt SHARE_HISTORY     # Share history file amongst all Zsh sessions
+
+zinit light-mode for \
+  zdharma-continuum/zinit-annex-as-monitor \
+  zdharma-continuum/zinit-annex-bin-gem-node \
+  zdharma-continuum/zinit-annex-patch-dl \
+  zdharma-continuum/zinit-annex-rust
+
+# Plugins
+zinit ice wait lucid atload"
+  bindkey '^[[A' history-substring-search-up;
+  bindkey '^[OA' history-substring-search-up;
+  bindkey '^[[B' history-substring-search-down;
+  bindkey '^[OB' history-substring-search-down;"
+zinit light zsh-users/zsh-history-substring-search
+
+zinit ice wait lucid
+zinit light zsh-users/zsh-completions
+
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+zinit ice wait lucid
+zinit light zsh-users/zsh-autosuggestions
+
+zinit ice wait lucid
+zinit light zdharma-continuum/fast-syntax-highlighting
+
+zinit ice wait lucid
+zinit light dim-an/cod
+
+# Load starship theme
+zinit ice as"command" \
+          from"gh-r" \
+          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+          atpull"%atclone" \
+          src"init.zsh"
+zinit light starship/starship
+
 
 DISPLAY_T="${DISPLAY:t}"
 
@@ -89,18 +114,6 @@ zle -N sudo-command-line
 bindkey "\e\e" sudo-command-line
 bindkey -M vicmd '\e\e' sudo-command-line
 
-# Plugins
-
-# shellcheck disable=SC2153
-if [ $ZNAP_FOUND = "true" ]
-then
-
-  #znap source zsh-users/zsh-history-substring-search
-  znap source marlonrichert/zsh-autocomplete
-  znap source zsh-users/zsh-completions
-  znap source dim-an/cod
-
-fi
 
 builtin zstyle ':completion:*:corrections'  format ' %F{green}-- %d (errors: %e) --%f'
 builtin zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
@@ -134,43 +147,6 @@ then
 
 fi
 
-if whence -p starship > /dev/null 2>&1
-then
-
-  # shellcheck disable=SC2153
-  if [ $ZNAP_FOUND = "true" ]
-  then
-
-  znap eval starship "starship init zsh --print-full-init"
-  znap prompt
-
-  else
-
-  eval "$(starship init zsh)"
-
-  fi
-
-fi
-
-
-if [[ -r "$HOME"/.miniconda3 ]]
-then
-  # >>> conda initialize >>>
-  # !! Contents within this block are managed by 'conda init' !!
-  if __conda_setup="$("$HOME/.miniconda3/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"; then
-    eval "$__conda_setup"
-  else
-    if [ -f "$HOME/.miniconda3/etc/profile.d/conda.sh" ]; then
-        # shellcheck disable=SC1090,SC1091
-      . "$HOME/.miniconda3/etc/profile.d/conda.sh"
-    else
-      export PATH="$HOME/.miniconda3/bin:$PATH"
-    fi
-  fi
-  unset __conda_setup
-  # <<< conda initialize <<<
-fi
-
 if [[ -x "$NVM_DIR"/nvm.sh ]]
 then
 
@@ -186,6 +162,3 @@ then
     . "$NVM_DIR"/bash_completion
 
 fi
-
-
-unset ZNAP_FOUND
