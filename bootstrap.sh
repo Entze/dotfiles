@@ -13,8 +13,8 @@ YELLOW="$(tput setaf 3 2>/dev/null || echo '')"
 NO_COLOR="$(tput sgr0 2>/dev/null || echo '')"
 
 THIS_PWD="$(pwd)"
-
-
+VERBOSITY=0
+SKIP_PACKAGES=0
 
 
 trace() {
@@ -323,7 +323,7 @@ do_nvm() {
   fi
 
   trace "Activate nvm"
-  # shellcheck disable=SC1090
+  # shellcheck source=/dev/null
   . "$NVM_DIR/nvm.sh"
 
   trace "Install lastest node and npm"
@@ -527,9 +527,6 @@ do_os() {
 
 }
 
-
-VERBOSITY=0
-SKIP_PACKAGES=0
 
 # parse argv variables
 while [ "$#" -gt 0 ]; do
