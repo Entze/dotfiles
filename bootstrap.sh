@@ -16,6 +16,32 @@ THIS_PWD="$(pwd)"
 VERBOSITY=0
 SKIP_PACKAGES=0
 
+# parse argv variables
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+
+  -v|--verbose) VERBOSITY=$((VERBOSITY + 1)); shift 1;;
+  -q|--quiet) VERBOSITY=$((VERBOSITY - 1)); shift 1;;
+  -s|--skip-packages) SKIP_PACKAGES=1; shift 1;;
+  --no-agda)      SKIP_AGDA=1; shift 1;;
+  --agda)         SKIP_AGDA=0; shift 1;;
+  --no-ghcup)     SKIP_GHCUP=1; shift 1;;
+  --ghcup)        SKIP_GHCUP=0; shift 1;;
+  --no-nvm)       SKIP_NVM=1; shift 1;;
+  --nvm)          SKIP_NVM=0; shift 1;;
+  --no-pyenv)     SKIP_PYENV=1; shift 1;;
+  --pyenv)        SKIP_PYENV=0; shift 1;;
+  --no-zinit)     SKIP_ZINIT=1; shift 1;;
+  --zinit)        SKIP_ZINIT=0; shift 1;;
+  --nothing)      SKIP_AGDA=1; SKIP_GHCUP=1; SKIP_NVM=1; SKIP_PYENV=1; SKIP_ZINIT=1; shift 1;;
+  --all)          SKIP_AGDA=0; SKIP_GHCUP=0; SKIP_NVM=0; SKIP_PYENV=0; SKIP_ZINIT=0; shift 1;;
+
+  -v=*|--verbose=*) VERBOSITY="${1#*=}"; shift 1;;
+  -q=*|--quiet=*) VERBOSITY="${1#*=}"; shift 1;;
+
+  *) die "Unknown option $1";
+  esac
+done
 
 trace() {
 
@@ -26,6 +52,7 @@ trace() {
 
 }
 
+trace "Parsed argv variables"
 
 debug() {
 
@@ -179,7 +206,7 @@ do_agda() {
 
   debug "Install Agda and its standard library"
 
-  if "$SKIP_AGDA"
+  if [ "$SKIP_AGDA" -eq 1 ]
   then
     return 0
   fi
@@ -220,7 +247,7 @@ do_ghcup() {
 
   debug "Install ghcup"
 
-  if ! "$SKIP_GHCUP"
+  if [ "$SKIP_GHCUP" -eq 0 ]
   then
 
     export BOOTSTRAP_HASKELL_NONINTERACTIVE=1
@@ -284,7 +311,7 @@ do_nvm() {
 
   debug "Install NVM"
 
-  if ! "$SKIP_NVM"
+  if [ "$SKIP_NVM" -eq 0 ]
   then
 
       trace "Create $NVM_ROOT, if not already present"
@@ -338,7 +365,7 @@ do_nvm() {
 
 do_pyenv() {
 
-  if "$SKIP_PYENV"
+  if [ "$SKIP_PYENV" -eq 1 ]
   then
     return 0
   fi
@@ -356,7 +383,7 @@ do_zinit() {
 
   debug "Install zinit"
 
-  if "$SKIP_ZINIT"
+  if [ "$SKIP_ZINIT" -eq 1 ]
   then
     return 0
   fi
@@ -393,20 +420,41 @@ do_post_distro() {
 
   info "Determine what to install"
 
-  SKIP_AGDA_DEFAULT="$(check_installed agda)"
+  SKIP_AGDA_DEFAULT=0
+  if check_installed agda
+  then
+     SKIP_AGDA_DEFAULT=1
+  fi
+
   SKIP_AGDA="${SKIP_AGDA:-${SKIP_AGDA_DEFAULT}}"
 
-  SKIP_GHCUP_DEFAULT="$(check_installed ghcup)"
+  SKIP_GHCUP_DEFAULT=0
+  if check_installed ghcup
+  then
+     SKIP_GHCUP_DEFAULT=1
+  fi
   SKIP_GHCUP="${SKIP_GHCUP:-${SKIP_GHCUP_DEFAULT}}"
 
 
-  SKIP_NVM_DEFAULT="$(check_installed nvm)"
+  SKIP_NVM_DEFAULT=0
+  if check_installed nvm
+  then
+     SKIP_NVM_DEFAULT=1
+  fi
   SKIP_NVM="${SKIP_NVM:-${SKIP_NVM_DEFAULT}}"
 
-  SKIP_PYENV_DEFAULT="$(check_installed pyenv)"
+  SKIP_PYENV_DEFAULT=0
+  if check_installed pyenv
+  then
+     SKIP_PYENV_DEFAULT=1
+  fi
   SKIP_PYENV="${SKIP_PYENV:-${SKIP_PYENV_DEFAULT}}"
 
-  SKIP_ZINIT_DEFAULT="$(check_installed zinit)"
+  SKIP_ZINIT_DEFAULT=0
+  if check_installed zinit
+  then
+     SKIP_ZINIT_DEFAULT=1
+  fi
   SKIP_ZINIT="${SKIP_ZINIT:-${SKIP_ZINIT_DEFAULT}}"
 
   info "Execute special (post) installations for programs:"
@@ -434,13 +482,13 @@ do_ubuntu() {
   VERSION="$(grep -F "VERSION_ID" /etc/os-release | sed -E "s/^VERSION_ID=\"([0-9]{2})\.([0-9]{2})\"/\\1\\2/")"
 
 
-  if "$SKIP_PACKAGES"
+  if [ "$SKIP_PACKAGES" -eq 0 ]
   then
-  VERSIONDEPS=ubuntu."$VERSION".packages
-  trace "Update archive"
-  sudo apt-get update
-  trace "Install packages"
-  xargs -a <(awk '! /^ *(#|$)/' <(sort --unique ubuntu.packages common.packages "$VERSIONDEPS")) -r -- sudo apt-get install -y
+    VERSIONDEPS=ubuntu."$VERSION".packages
+    trace "Update archive"
+    sudo apt-get update
+    trace "Install packages"
+    xargs -a <(awk '! /^ *(#|$)/' <(sort --unique ubuntu.packages common.packages "$VERSIONDEPS")) -r -- sudo apt-get install -y
   fi
 
 }
@@ -543,35 +591,6 @@ do_os() {
 
 
 trace "Loaded script"
-
-
-# parse argv variables
-while [ "$#" -gt 0 ]; do
-  case "$1" in
-
-  -v|--verbose) VERBOSITY=$((VERBOSITY + 1)); shift 1;;
-  -q|--quiet) VERBOSITY=$((VERBOSITY - 1)); shift 1;;
-  -s|--skip-packages) SKIP_PACKAGES=1; shift 1;;
-  --no-agda)      SKIP_AGDA=1; shift 1;;
-  --agda)         SKIP_AGDA=0; shift 1;;
-  --no-ghcup)     SKIP_GHCUP=1; shift 1;;
-  --ghcup)        SKIP_GHCUP=0; shift 1;;
-  --no-nvm)       SKIP_NVM=1; shift 1;;
-  --nvm)          SKIP_NVM=0; shift 1;;
-  --no-pyenv)     SKIP_PYENV=1; shift 1;;
-  --pyenv)        SKIP_PYENV=0; shift 1;;
-  --no-zinit)     SKIP_ZINIT=1; shift 1;;
-  --zinit)        SKIP_ZINIT=0; shift 1;;
-  --nothing)      SKIP_AGDA=1; SKIP_GHCUP=1; SKIP_NVM=1; SKIP_PYENV=1; SKIP_ZINIT=1; shift 1;;
-  --all)          SKIP_AGDA=0; SKIP_GHCUP=0; SKIP_NVM=0; SKIP_PYENV=0; SKIP_ZINIT=0; shift 1;;
-
-  -v=*|--verbose=*) VERBOSITY="${1#*=}"; shift 1;;
-  -q=*|--quiet=*) VERBOSITY="${1#*=}"; shift 1;;
-
-  *) die "Unknown option $1";
-  esac
-done
-trace "Parsed argv variables"
 
 do_os
 
