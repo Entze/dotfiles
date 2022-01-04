@@ -440,6 +440,10 @@ do_post_distro() {
   if check_installed nvm
   then
      SKIP_NVM_DEFAULT=1
+  elif [[ -d "$NVM_DIR" ]]
+  then
+     info "Found nvm in $NVM_DIR, skipping install"
+     SKIP_NVM_DEFAULT=1
   fi
   SKIP_NVM="${SKIP_NVM:-${SKIP_NVM_DEFAULT}}"
 
