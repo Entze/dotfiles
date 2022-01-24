@@ -268,11 +268,6 @@ do_ghcup() {
     trace "Run ghcup-installer"
     ./ghcup.sh
 
-    trace "Make ghcup targets visible for session"
-    # shellcheck disable=SC1091
-    # shellcheck source=/dev/null
-    source "${GHCUP_DIR}/env"
-
   fi
 
   ghcup upgrade
@@ -610,6 +605,8 @@ do_common() {
 
   export AGDA_STDLIB_ROOT="${AGDA_STDLIB_ROOT:-${XDG_DATA_HOME}/agda}"
   export AGDA_STDLIB_DIR="${AGDA_STDLIB_DIR:-${AGDA_STDLIB_ROOT}/agda-stlib-1.7}"
+  export GHCUP_ROOT="${GHCUP_ROOT:-${HOME}/.ghcup}"
+  export GHCUP_DIR="${GHCUP_DIR:-${GHCUP_ROOT}}"
   export JULIA_ROOT="${JULIA_ROOT:-${XDG_DATA_HOME}/julia}"
   export JULIA_DIR="${JULIA_DIR:-${JULIA_ROOT}/julia-1.7.1}"
   export MINICONDA_ROOT="${MINICONDA_ROOT:-${XDG_DATA_HOME}/miniconda}"
