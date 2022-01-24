@@ -269,8 +269,9 @@ do_ghcup() {
     ./ghcup.sh
 
     trace "Make ghcup targets visible for session"
-    # shellcheck disable=SC1090,SC1091
-    source "$HOME/.local/share/ghcup/env"
+    # shellcheck disable=SC1091
+    # shellcheck source=/dev/null
+    source "${GHCUP_DIR}/env"
 
   fi
 
@@ -305,6 +306,27 @@ do_ghcup() {
   ghcup install hls
 
 }
+
+do_miniconda() {
+
+    if [ "$SKIP_MINICONDA" -eq 1 ]
+    then
+        return 0
+    fi
+
+    trace "Change directory to ~/Downloads"
+    cd "$HOME/Downloads"
+
+    download "miniconda.sh" "https://repo.anaconda.com/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh" "SHA256" "1ea2f885b4dbc3098662845560bc64271eb17085387a70c2ba3f29fff6f8d52f"
+
+    trace "Make miniconda-installer executable"
+    chmod u+x miniconda.sh
+
+    trace "Run miniconda-installer"
+    ./miniconda.sh -b -p "$MINICONDA_DIR"
+
+}
+
 
 
 do_nvm() {
@@ -434,6 +456,16 @@ do_post_distro() {
   fi
   SKIP_GHCUP="${SKIP_GHCUP:-${SKIP_GHCUP_DEFAULT}}"
 
+  SKIP_MINICONDA_DEFAULT=0
+  if check_installed conda
+  then
+      SKIP_MINICONDA_DEFAULT=1
+  elif [[ -d "$MINICONDA_DIR" ]]
+  then
+       info "Found miniconda in $MINICONDA_DIR, skipping install"
+       SKIP_MINICONDA_DEFAULT=1
+  fi
+  SKIP_MINICONDA="${SKIP_MINICONDA:-${SKIP_MINICONDA_DEFAULT}}"
 
   SKIP_NVM_DEFAULT=0
   if check_installed nvm
@@ -464,10 +496,10 @@ do_post_distro() {
 
   info "(0/5) zinit"
   do_zinit
-  info "(1/5) pyenv"
-  do_pyenv
-  info "(2/5) nvm"
+  info "(1/5) nvm"
   do_nvm
+  info "(2/5) miniconda"
+  do_miniconda
   info "(3/5) ghcup"
   do_ghcup
   info "(4/5) agda"
@@ -543,6 +575,8 @@ do_common() {
 
   export AGDA_STDLIB_ROOT="${AGDA_STDLIB_ROOT:-${XDG_DATA_HOME}/agda}"
   export AGDA_STDLIB_DIR="${AGDA_STDLIB_DIR:-${AGDA_STDLIB_ROOT}/agda-stlib-1.7}"
+  export MINICONDA_ROOT="${MINICONDA_ROOT:-${XDG_DATA_HOME}/miniconda}"
+  export MINICONDA_DIR="${MINICONDA_DIR:-${MINICONDA_ROOT}}"
   export NVM_ROOT="${NVM_ROOT:-${XDG_DATA_HOME}/nvm}"
   export NVM_DIR="${NVM_DIR:-${NVM_ROOT}/nvm.git}"
   export PYENV_ROOT="${PYENV_ROOT:-${XDG_DATA_HOME}/pyenv}"

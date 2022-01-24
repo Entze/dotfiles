@@ -10,7 +10,7 @@ source "$ZINIT_HOME"/zinit.zsh
 if [[ $OS_ID != "ubuntu" ]]
 then
     autoload -Uz _zinit
-    # shellcheck disable=SC2154
+    # shellcheck disable=SC2154,SC2034
     (( ${+_comps} )) && _comps[zinit]=_zinit
 fi
 
@@ -142,13 +142,6 @@ else
 
 fi
 
-if whence -p pyenv > /dev/null 2>&1
-then
-
-  eval "$(pyenv init -)"
-
-fi
-
 if [[ -x "$NVM_DIR"/nvm.sh ]]
 then
 
@@ -164,3 +157,19 @@ then
     . "$NVM_DIR"/bash_completion
 
 fi
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+if __conda_setup="$("${MINICONDA_DIR}/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
+then
+    eval "$__conda_setup"
+else
+    if [ -f "${MINICONDA_DIR}/conda.sh" ]; then
+        # shellcheck source=/dev/null
+        . "${MINICONDA_DIR}/etc/profile.d/conda.sh"
+    else
+        export PATH="${MINICONDA_DIR}/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
