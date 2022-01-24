@@ -252,11 +252,11 @@ do_ghcup() {
 
     export BOOTSTRAP_HASKELL_NONINTERACTIVE=1
     export BOOTSTRAP_HASKELL_NO_UPGRADE=0
-    export BOOTSTRAP_HASKELL_MINIMAL=0
+    export BOOTSTRAP_HASKELL_MINIMAL=1
     export GHCUP_USE_XDG_DIRS=1
     export BOOTSTRAP_HASKELL_VERBOSE=1
-    export BOOTSTRAP_HASKELL_INSTALL_STACK=1
-    export BOOTSTRAP_HASKELL_INSTALL_HLS=1
+    export BOOTSTRAP_HASKELL_INSTALL_STACK=0
+    export BOOTSTRAP_HASKELL_INSTALL_HLS=0
     export BOOTSTRAP_HASKELL_ADJUST_BASHRC=0
     export BOOTSTRAP_HASKELL_ADJUST_CABAL_CONFIG=0
 
@@ -327,7 +327,7 @@ do_julia() {
     mv "julia-1.7.1/" "$JULIA_ROOT/."
 
     trace "Installing julia binary via symlink"
-    ln -s "$JULIA_DIR/bin/julia" "$HOME/.local/bin/julia"
+    ln -s "$JULIA_DIR/bin/julia" "$XDG_BIN_HOME/julia"
 
 }
 
@@ -526,18 +526,20 @@ do_post_distro() {
 
   info "Execute special (post) installations for programs:"
 
-  info "(0/5) zinit"
+  info "(0/6) zinit"
   do_zinit
-  info "(1/5) nvm"
+  info "(1/6) nvm"
   do_nvm
-  info "(2/5) miniconda"
+  info "(2/6) miniconda"
   do_miniconda
-  info "(3/5) ghcup"
+  info "(3/6) ghcup"
   do_ghcup
-  info "(4/5) agda"
+  info "(4/6) julia"
+  do_julia
+  info "(5/6) agda"
   do_agda
 
-  info "(5/5) done."
+  info "(6/6) done."
 
 }
 
@@ -599,6 +601,7 @@ do_common() {
   mkdir -p "$HOME/Downloads"
 
   trace "Export necessary variables like PATH for this session"
+  export XDG_BIN_HOME="${XDG_BIN_HOME:-${HOME}/.local/bin}"
   export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}"
   export XDG_CACHE_HOME="${XDG_CACHE_HOME:-${HOME}/.cache}"
   export XDG_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"

@@ -8,6 +8,7 @@ else
   export VISUAL="vi"
 fi
 export EDITOR=${VISUAL}
+export XDG_BIN_HOME=${XDG_BIN_HOME:-${HOME}/.local/bin}
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-${HOME}/.config}
 export XDG_CACHE_HOME=${XDG_CACHE_HOME:-${HOME}/.cache}
 export XDG_DATA_HOME=${XDG_DATA_HOME:-${HOME}/.local/share}
@@ -90,4 +91,4 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 
-export PATH=$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:$PATH
+export PATH=$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/.ghcup/bin:$XDG_BIN_HOME:$PATH
