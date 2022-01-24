@@ -307,6 +307,31 @@ do_ghcup() {
 
 }
 
+
+do_julia() {
+
+    if [ "$SKIP_JULIA" -eq 1 ]
+    then
+        return 0
+    fi
+
+    download "julia.tar.gz" "https://julialang-s3.julialang.org/bin/linux/x64/1.7/julia-1.7.1-linux-x86_64.tar.gz" "SHA256" "44658e9c7b45e2b9b5b59239d190cca42de05c175ea86bc346c294a8fe8d9f11"
+
+    trace "Extract julia.tar.gz"
+    tar -zxvf "julia.tar.gz"
+
+    trace "Create $JULIA_ROOT, if not already present"
+    mkdir -p "$JULIA_ROOT"
+
+    trace "Move julia to $JULIA_ROOT"
+    mv "julia-1.7.1/" "$JULIA_ROOT/."
+
+    trace "Installing julia binary via symlink"
+    ln -s "$JULIA_DIR/bin/julia" "$HOME/.local/bin/julia"
+
+}
+
+
 do_miniconda() {
 
     if [ "$SKIP_MINICONDA" -eq 1 ]
@@ -456,6 +481,13 @@ do_post_distro() {
   fi
   SKIP_GHCUP="${SKIP_GHCUP:-${SKIP_GHCUP_DEFAULT}}"
 
+  SKIP_JULIA_DEFAULT=0
+  if check_installed julia
+  then
+      SKIP_JULIA_DEFAULT=1
+  fi
+  SKIP_JULIA="${SKIP_JULIA:-${SKIP_JULIA_DEFAULT}}"
+
   SKIP_MINICONDA_DEFAULT=0
   if check_installed conda
   then
@@ -575,6 +607,8 @@ do_common() {
 
   export AGDA_STDLIB_ROOT="${AGDA_STDLIB_ROOT:-${XDG_DATA_HOME}/agda}"
   export AGDA_STDLIB_DIR="${AGDA_STDLIB_DIR:-${AGDA_STDLIB_ROOT}/agda-stlib-1.7}"
+  export JULIA_ROOT="${JULIA_ROOT:-${XDG_DATA_HOME}/julia}"
+  export JULIA_DIR="${JULIA_DIR:-${JULIA_ROOT}/julia-1.7.1}"
   export MINICONDA_ROOT="${MINICONDA_ROOT:-${XDG_DATA_HOME}/miniconda}"
   export MINICONDA_DIR="${MINICONDA_DIR:-${MINICONDA_ROOT}}"
   export NVM_ROOT="${NVM_ROOT:-${XDG_DATA_HOME}/nvm}"
