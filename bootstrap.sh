@@ -273,17 +273,6 @@ do_ghcup() {
   trace "Install ghc via ghcup"
   ghcup install ghc
 
-  trace "Install ghc 8.10 via ghcup"
-  ghcup install ghc 8.10
-
-  trace "Install ghc 9.0 via ghcup"
-  ghcup install ghc 9.0
-
-  trace "Install ghc 9.2 via ghcup"
-  ghcup install ghc 9.2
-
-  SELECT="$(ghc-9.0 --version | grep -Eo "[0-9]+.[0-9]+.[0-9]+")"
-
   ghcup set ghc "$SELECT"
 
   trace "Install cabal via ghcup"
@@ -514,6 +503,19 @@ do_post_distro() {
 
 }
 
+do_fedora() {
+
+  debug "Do installation steps for fedora"
+
+
+  if [ "$SKIP_PACKAGES" -eq 0 ]
+  then
+    trace "Install packages"
+    xargs -a <(awk '! /^ *(#|$)/' <(sort --unique fedora.packages common.packages)) -r -- sudo dnf install -y
+  fi
+
+}
+
 
 do_ubuntu() {
 
@@ -616,6 +618,12 @@ do_linux() {
       debug "Install for ubuntu"
       do_common
       do_ubuntu
+      do_post_distro
+      ;;
+    "fedora")
+      debug "Install for fedora"
+      do_common
+      do_fedora
       do_post_distro
       ;;
     *) die "Unsupported distribution: $OS_ID"
