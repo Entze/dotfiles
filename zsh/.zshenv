@@ -13,26 +13,25 @@ export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-${HOME}/.config}
 export XDG_CACHE_HOME=${XDG_CACHE_HOME:-${HOME}/.cache}
 export XDG_DATA_HOME=${XDG_DATA_HOME:-${HOME}/.local/share}
 export XDG_STATE_HOME=${XDG_STATE_HOME:-${HOME}/.local/state}
+export INSTALL_DIR=${INSTALL_DIR:-${HOME}/.local/opt}
 
 # ghcup
 export GHCUP_USE_XDG_DIRS=1
 
-export AGDA_STDLIB_ROOT=${AGDA_STDLIB_ROOT:-${XDG_DATA_HOME}/agda}
-export AGDA_STDLIB_DIR=${AGDA_STDLIB_DIR:-${AGDA_STDLIB_ROOT}/agda-stlib}
-export GHCUP_ROOT=${GHCUP_ROOT:-${HOME}/.ghcup}
-export GHCUP_DIR=${GHCUP_DIR:-${GHCUP_ROOT}}
-export JULIA_ROOT=${JULIA_ROOT:-${XDG_DATA_HOME}/julia}
-export JULIA_DIR=${JULIA_DIR:-${JULIA_ROOT}/julia-1.7.1}
-export MINICONDA_ROOT=${MINICONDA_ROOT:-${XDG_DATA_HOME}/miniconda}
-export MINICONDA_DIR=${MINICONDA_DIR:-${MINICONDA_ROOT}}
-export NVM_ROOT=${NVM_ROOT:-${XDG_DATA_HOME}/nvm}
-export NVM_DIR=${NVM_DIR:-${NVM_ROOT}/nvm.git}
-export PYENV_ROOT=${PYENV_ROOT:-${XDG_DATA_HOME}/pyenv}
-export PYENV_DIR=${PYENV_DIR:-${PYENV_ROOT}/pyenv.git}
-export ZINIT_ROOT=${ZINIT_ROOT:-${XDG_DATA_HOME}/zinit}
-export ZINIT_HOME_DIR=${ZINIT_HOME_DIR:-${ZINIT_ROOT}}
-export ZINIT_DIR=${ZINIT_DIR:-${ZINIT_ROOT}/zinit.git}
-export ZINIT_HOME=${ZINIT_HOME:-${ZINIT_DIR}}
+export AGDA_STDLIB_ROOT="${AGDA_STDLIB_ROOT:-${INSTALL_DIR}/agda}"
+export AGDA_STDLIB_DIR="${AGDA_STDLIB_DIR:-${AGDA_STDLIB_ROOT}/agda-stlib-1.7}"
+export GHCUP_ROOT="${GHCUP_ROOT:-${HOME}/.ghcup}"
+export GHCUP_DIR="${GHCUP_DIR:-${GHCUP_ROOT}}"
+export JULIA_ROOT="${JULIA_ROOT:-${INSTALL_DIR}/julia}"
+export JULIA_DIR="${JULIA_DIR:-${JULIA_ROOT}/julia-1.7.1}"
+export MINICONDA_ROOT="${MINICONDA_ROOT:-${INSTALL_DIR}/miniconda}"
+export MINICONDA_DIR="${MINICONDA_DIR:-${MINICONDA_ROOT}}"
+export NVM_ROOT="${NVM_ROOT:-${INSTALL_DIR}/nvm}"
+export NVM_DIR="${NVM_DIR:-${NVM_ROOT}/nvm.git}"
+export ZINIT_ROOT="${ZINIT_ROOT:-${INSTALL_DIR}/zinit}"
+export ZINIT_HOME_DIR="${ZINIT_HOME_DIR:-${ZINIT_ROOT}}"
+export ZINIT_DIR="${ZINIT_DIR:-${ZINIT_ROOT}/zinit.git}"
+export ZINIT_HOME="${ZINIT_HOME:-${ZINIT_DIR}}"
 
 # github
 if [[ -r $HOME/.github/ENV ]]
