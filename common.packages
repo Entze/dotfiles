@@ -5,6 +5,5 @@ zsh
 git
 stow
 vim
-cargo
 wget
 aria2
