@@ -1,6 +1,5 @@
 make
 curl
-unzip
 zsh
 git
 stow
