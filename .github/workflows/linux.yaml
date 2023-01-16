@@ -41,7 +41,7 @@ jobs:
       - name: Checkout project
         uses: actions/checkout@v3
       - name: Run bootstrap.sh
-        run: ./bootstrap.sh --verbose --verbose
+        run: ./bootstrap.sh --verbose --verbose --no-ghcup
       - name: Run install.sh
         run: ./install.sh
   solus_4_1:
