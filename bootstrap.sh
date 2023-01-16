@@ -29,12 +29,10 @@ while [ "$#" -gt 0 ]; do
   --ghcup)        SKIP_GHCUP=0; shift 1;;
   --no-nvm)       SKIP_NVM=1; shift 1;;
   --nvm)          SKIP_NVM=0; shift 1;;
-  --no-pyenv)     SKIP_PYENV=1; shift 1;;
-  --pyenv)        SKIP_PYENV=0; shift 1;;
   --no-zinit)     SKIP_ZINIT=1; shift 1;;
   --zinit)        SKIP_ZINIT=0; shift 1;;
-  --nothing)      SKIP_AGDA=1; SKIP_GHCUP=1; SKIP_NVM=1; SKIP_PYENV=1; SKIP_ZINIT=1; shift 1;;
-  --all)          SKIP_AGDA=0; SKIP_GHCUP=0; SKIP_NVM=0; SKIP_PYENV=0; SKIP_ZINIT=0; shift 1;;
+  --nothing)      SKIP_AGDA=1; SKIP_GHCUP=1; SKIP_NVM=1; SKIP_ZINIT=1; shift 1;;
+  --all)          SKIP_AGDA=0; SKIP_GHCUP=0; SKIP_NVM=0; SKIP_ZINIT=0; shift 1;;
 
   -v=*|--verbose=*) VERBOSITY="${1#*=}"; shift 1;;
   -q=*|--quiet=*) VERBOSITY="${1#*=}"; shift 1;;
@@ -404,22 +402,6 @@ do_nvm() {
 }
 
 
-do_pyenv() {
-
-  if [ "$SKIP_PYENV" -eq 1 ]
-  then
-    return 0
-  fi
-
-  trace "Create $PYENV_ROOT if not already present"
-  mkdir -p "$PYENV_ROOT"
-
-  trace "Clone pyenv into $PYENV_DIR"
-  git clone "https://github.com/pyenv/pyenv.git" "$PYENV_DIR"
-
-}
-
-
 do_zinit() {
 
   debug "Install zinit"
@@ -504,13 +486,6 @@ do_post_distro() {
      SKIP_NVM_DEFAULT=1
   fi
   SKIP_NVM="${SKIP_NVM:-${SKIP_NVM_DEFAULT}}"
-
-  SKIP_PYENV_DEFAULT=0
-  if check_installed pyenv
-  then
-     SKIP_PYENV_DEFAULT=1
-  fi
-  SKIP_PYENV="${SKIP_PYENV:-${SKIP_PYENV_DEFAULT}}"
 
   SKIP_ZINIT_DEFAULT=0
   if check_installed zinit
@@ -613,9 +588,7 @@ do_common() {
   export MINICONDA_DIR="${MINICONDA_DIR:-${MINICONDA_ROOT}}"
   export NVM_ROOT="${NVM_ROOT:-${XDG_DATA_HOME}/nvm}"
   export NVM_DIR="${NVM_DIR:-${NVM_ROOT}/nvm.git}"
-  export PYENV_ROOT="${PYENV_ROOT:-${XDG_DATA_HOME}/pyenv}"
-  export PYENV_DIR="${PYENV_DIR:-${PYENV_ROOT}/pyenv.git}"
-  export ZINIT_ROOT="${ZINIT_ROOT:-${XDG_DATA_HOME}/zinit}"
+  export ZINIT_ROOT="${ZINIT_ROOT:-${INSTALL_DIR}/zinit}"
   export ZINIT_HOME_DIR="${ZINIT_HOME_DIR:-${ZINIT_ROOT}}"
   export ZINIT_DIR="${ZINIT_DIR:-${ZINIT_ROOT}/zinit.git}"
   export ZINIT_HOME="${ZINIT_HOME:-${ZINIT_DIR}}"
