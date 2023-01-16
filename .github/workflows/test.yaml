@@ -97,20 +97,3 @@ jobs:
       - name: Validate vim/.vimrc
         shell: bash
         run: vim -u NONE -c 'try | source vim/.vimrc | catch | cq | endtry | q'
-  check_emacs:
-    name: 📝 Check Emacs
-    runs-on: ubuntu-21.04
-    steps:
-      - name: Checkout project
-        uses: actions/checkout@v2
-      - name: Check if directory emacs/.emacs.d exists
-        shell: bash
-        run: test -d emacs/.emacs.d/
-      - name: Ensure emacs and stow
-        shell: bash
-        run: sudo apt-get install -y emacs stow
-      - name: Stow emacs config
-        run: stow --target="$HOME" --verbose=1 emacs
-      - name: Validate emacs/.emacs.d
-        shell: bash
-        run: emacs --debug-init --batch
