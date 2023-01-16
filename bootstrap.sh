@@ -273,8 +273,6 @@ do_ghcup() {
   trace "Install ghc via ghcup"
   ghcup install ghc
 
-  ghcup set ghc "$SELECT"
-
   trace "Install cabal via ghcup"
   ghcup install cabal
 
