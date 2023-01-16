@@ -304,7 +304,7 @@ do_julia() {
     mkdir -p "$JULIA_ROOT"
 
     trace "Move julia to $JULIA_ROOT"
-    mv "julia-1.7.1/" "$JULIA_ROOT/."
+    mv "julia-1.8.5/" "$JULIA_ROOT/."
 
     trace "Installing julia binary via symlink"
     ln -s "$JULIA_DIR/bin/julia" "$XDG_BIN_HOME/julia"
