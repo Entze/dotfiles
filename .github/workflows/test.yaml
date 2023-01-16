@@ -15,7 +15,7 @@ on:
 jobs:
   check_shell:
     name: 🐚 Check Shell Files
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-21.04
     steps:
       - name: Checkout project
         uses: actions/checkout@v2
@@ -49,7 +49,7 @@ jobs:
             install.sh
   check_toml:
     name: 📝 Check TOML Files
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-21.04
     steps:
       - name: Checkout project
         uses: actions/checkout@v2
@@ -75,7 +75,7 @@ jobs:
         run: toml-validator zsh/.config/starship.toml
   check_gitconfig:
     name: 🔻 Check Gitconfig
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-21.04
     steps:
       - name: Checkout project
         uses: actions/checkout@v2
@@ -87,7 +87,7 @@ jobs:
         run: git config --file git/.gitconfig --list
   check_vimrc:
     name: ⌨️ Check vimrc
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-21.04
     steps:
       - name: Checkout project
         uses: actions/checkout@v2
@@ -99,7 +99,7 @@ jobs:
         run: vim -u NONE -c 'try | source vim/.vimrc | catch | cq | endtry | q'
   check_emacs:
     name: 📝 Check Emacs
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-21.04
     steps:
       - name: Checkout project
         uses: actions/checkout@v2
