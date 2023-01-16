@@ -44,14 +44,3 @@ jobs:
         run: ./bootstrap.sh --verbose --verbose --no-ghcup
       - name: Run install.sh
         run: ./install.sh
-  solus_4_1:
-    name: 🐧 Linux Solus 4.1
-    runs-on: ubuntu-latest
-    container: silkeh/solus:4.1
-    steps:
-      - name: Checkout project
-        uses: actions/checkout@v3
-      - name: Run bootstrap.sh
-        run: ./bootstrap.sh --verbose --verbose
-      - name: Run install.sh
-        run: ./install.sh
