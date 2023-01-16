@@ -47,7 +47,7 @@ jobs:
   solus_4_1:
     name: 🐧 Linux Solus 4.1
     runs-on: ubuntu-latest
-    container: silkeh/solus:4.1-slim
+    container: silkeh/solus:4.1
     steps:
       - name: Checkout project
         uses: actions/checkout@v3
