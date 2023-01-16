@@ -245,28 +245,28 @@ do_ghcup() {
 
   debug "Install ghcup"
 
-  if [ "$SKIP_GHCUP" -eq 0 ]
+  if [ "$SKIP_GHCUP" -eq 1 ]
   then
-
-    export BOOTSTRAP_HASKELL_NONINTERACTIVE=1
-    export BOOTSTRAP_HASKELL_NO_UPGRADE=0
-    export BOOTSTRAP_HASKELL_MINIMAL=1
-    export GHCUP_USE_XDG_DIRS=1
-    export BOOTSTRAP_HASKELL_VERBOSE=1
-    export BOOTSTRAP_HASKELL_INSTALL_STACK=0
-    export BOOTSTRAP_HASKELL_INSTALL_HLS=0
-    export BOOTSTRAP_HASKELL_ADJUST_BASHRC=0
-    export BOOTSTRAP_HASKELL_ADJUST_CABAL_CONFIG=0
-
-    download "ghcup.sh" "https://get-ghcup.haskell.org" "NONE" ""
-
-    trace "Make ghcup-installer executable"
-    chmod u+x ghcup.sh
-
-    trace "Run ghcup-installer"
-    ./ghcup.sh
-
+    return 0
   fi
+
+  export BOOTSTRAP_HASKELL_NONINTERACTIVE=1
+  export BOOTSTRAP_HASKELL_NO_UPGRADE=0
+  export BOOTSTRAP_HASKELL_MINIMAL=1
+  export GHCUP_USE_XDG_DIRS=1
+  export BOOTSTRAP_HASKELL_VERBOSE=1
+  export BOOTSTRAP_HASKELL_INSTALL_STACK=0
+  export BOOTSTRAP_HASKELL_INSTALL_HLS=0
+  export BOOTSTRAP_HASKELL_ADJUST_BASHRC=0
+  export BOOTSTRAP_HASKELL_ADJUST_CABAL_CONFIG=0
+
+  download "ghcup.sh" "https://get-ghcup.haskell.org" "NONE" ""
+
+  trace "Make ghcup-installer executable"
+  chmod u+x ghcup.sh
+
+  trace "Run ghcup-installer"
+  ./ghcup.sh
 
   ghcup upgrade
 
