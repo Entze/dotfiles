@@ -308,7 +308,7 @@ do_julia() {
         return 0
     fi
 
-    download "julia.tar.gz" "https://julialang-s3.julialang.org/bin/linux/x64/1.7/julia-1.7.1-linux-x86_64.tar.gz" "SHA256" "44658e9c7b45e2b9b5b59239d190cca42de05c175ea86bc346c294a8fe8d9f11"
+    download "julia.tar.gz" "https://julialang-s3.julialang.org/bin/linux/x64/1.8/julia-1.8.5-linux-x86_64.tar.gz" "SHA256" "e71a24816e8fe9d5f4807664cbbb42738f5aa9fe05397d35c81d4c5d649b9d05"
 
     trace "Extract julia.tar.gz"
     tar -zxvf "julia.tar.gz"
@@ -335,7 +335,7 @@ do_miniconda() {
     trace "Change directory to ~/Downloads"
     cd "$HOME/Downloads"
 
-    download "miniconda.sh" "https://repo.anaconda.com/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh" "SHA256" "1ea2f885b4dbc3098662845560bc64271eb17085387a70c2ba3f29fff6f8d52f"
+    download "miniconda.sh" "https://repo.anaconda.com/miniconda/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh" "SHA256" "00938c3534750a0e4069499baf8f4e6dc1c2e471c86a59caa0dd03f4a9269db6"
 
     trace "Make miniconda-installer executable"
     chmod u+x miniconda.sh
@@ -358,7 +358,7 @@ do_nvm() {
       mkdir -p "$NVM_ROOT"
 
       trace "Clone nvm into $NVM_DIR"
-      git clone "https://github.com/nvm-sh/nvm.git" "$NVM_DIR"
+      git clone --branch master --single-branch "https://github.com/nvm-sh/nvm.git" "$NVM_DIR"
 
       trace "Change directory to $NVM_DIR"
       cd "$NVM_DIR"
@@ -415,7 +415,7 @@ do_zinit() {
   mkdir -p "$ZINIT_ROOT"
 
   trace "Clone zinit into $ZINIT_HOME"
-  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+  git clone --branch main --single-branch https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 
 }
 
