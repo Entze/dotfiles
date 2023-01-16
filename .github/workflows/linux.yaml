@@ -8,7 +8,6 @@ on:
       - "install.sh"
       - "vim/**"
       - "zsh/**"
-      - "emacs/**"
       - "*.packages"
     tags:
   workflow_dispatch:
@@ -27,6 +26,28 @@ jobs:
   ubuntu_2104:
     name: 🐧 Linux Ubuntu 21.04
     runs-on: ubuntu-21.04
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v3
+      - name: Run bootstrap.sh
+        run: ./bootstrap.sh --verbose --verbose
+      - name: Run install.sh
+        run: ./install.sh
+  fedora_37:
+    name: 🐧 Linux Fedora 37
+    runs-on: ubuntu-latest
+    container: fedora:37
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v3
+      - name: Run bootstrap.sh
+        run: ./bootstrap.sh --verbose --verbose
+      - name: Run install.sh
+        run: ./install.sh
+  solus_4_1:
+    name: 🐧 Linux Solus 4.1
+    runs-on: ubuntu-latest
+    container: solus:4.1-slim
     steps:
       - name: Checkout project
         uses: actions/checkout@v3
