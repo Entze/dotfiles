@@ -25,14 +25,18 @@ while [ "$#" -gt 0 ]; do
   -s|--skip-packages) SKIP_PACKAGES=1; shift 1;;
   --no-agda)      SKIP_AGDA=1; shift 1;;
   --agda)         SKIP_AGDA=0; shift 1;;
+  --no-conda)     SKIP_MINICONDA=1; shift 1;;
+  --conda)        SKIP_MINICONDA=0; shift 1;;
   --no-ghcup)     SKIP_GHCUP=1; shift 1;;
   --ghcup)        SKIP_GHCUP=0; shift 1;;
+  --no-mamba)     SKIP_MINIMAMBA=1; shift 1;;
+  --mamba)        SKIP_MINIMAMBA=0; shift 1;;
   --no-nvm)       SKIP_NVM=1; shift 1;;
   --nvm)          SKIP_NVM=0; shift 1;;
   --no-zinit)     SKIP_ZINIT=1; shift 1;;
   --zinit)        SKIP_ZINIT=0; shift 1;;
-  --nothing)      SKIP_AGDA=1; SKIP_GHCUP=1; SKIP_NVM=1; SKIP_ZINIT=1; shift 1;;
-  --all)          SKIP_AGDA=0; SKIP_GHCUP=0; SKIP_NVM=0; SKIP_ZINIT=0; shift 1;;
+  --nothing)      SKIP_AGDA=1; SKIP_MINICONDA=1; SKIP_GHCUP=1; SKIP_MINIMAMBA=1; SKIP_NVM=1; SKIP_ZINIT=1; shift 1;;
+  --all)          SKIP_AGDA=0; SKIP_MINICONDA=0; SKIP_GHCUP=0; SKIP_MINIMAMBA=0; SKIP_NVM=0; SKIP_ZINIT=0; shift 1;;
 
   -v=*|--verbose=*) VERBOSITY="${1#*=}"; shift 1;;
   -q=*|--quiet=*) VERBOSITY="${1#*=}"; shift 1;;
@@ -332,6 +336,25 @@ do_miniconda() {
 
 }
 
+do_minimamba() {
+
+  if [ "$SKIP_MINIMAMBA" -eq 1 ]
+  then
+    return 0
+  fi
+
+  trace "Change directory to ~/Downloads"
+  cd "$HOME/Downloads"
+
+  download "minimamba.sh" "https://github.com/conda-forge/miniforge/releases/download/22.9.0-3/Mambaforge-22.9.0-3-Linux-x86_64.sh" "29f6374464307732c2c9d6711cdbca4d685c632f31e8bf1a5565276c65e0069b"
+
+  trace "Make minimamba-installer executable"
+  chmod u+x minimamba.sh
+
+  trace "Run minimamba-installer"
+  ./minimamba.sh -b -p "$MINICONDA_DIR"
+
+}
 
 
 do_nvm() {
@@ -453,7 +476,7 @@ do_post_distro() {
   fi
   SKIP_JULIA="${SKIP_JULIA:-${SKIP_JULIA_DEFAULT}}"
 
-  SKIP_MINICONDA_DEFAULT=0
+  SKIP_MINICONDA_DEFAULT=1
   if check_installed conda
   then
       SKIP_MINICONDA_DEFAULT=1
@@ -463,6 +486,17 @@ do_post_distro() {
        SKIP_MINICONDA_DEFAULT=1
   fi
   SKIP_MINICONDA="${SKIP_MINICONDA:-${SKIP_MINICONDA_DEFAULT}}"
+
+  SKIP_MINIMAMBA_DEFAULT=0
+  if [[ check_installed  conda || check_installed mamba ]]
+  then
+      SKIP_MINIMAMBA_DEFAULT=1
+  elif [[ -d "$MINICONDA_DIR" ]]
+  then
+       info "Found miniconda in $MINICONDA_DIR, skipping install"
+       SKIP_MINIMAMBA_DEFAULT=1
+  fi
+  SKIP_MINIMAMBA="${SKIP_MINIMAMBA:-${SKIP_MINIMAMBA_DEFAULT}}"
 
   SKIP_NVM_DEFAULT=0
   if check_installed nvm
@@ -489,7 +523,13 @@ do_post_distro() {
   info "(1/6) nvm"
   do_nvm
   info "(2/6) miniconda"
-  do_miniconda
+  if [ "$SKIP_MINICONDA" -eq 0 ]
+  then
+    do_miniconda
+  elif [ "$SKIP_MINIMAMBA" -eq 0 ]
+  then
+    do_minimamba
+  fi
   info "(3/6) ghcup"
   do_ghcup
   info "(4/6) julia"
