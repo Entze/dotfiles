@@ -26,7 +26,7 @@ jobs:
         shell: bash
         run: file -f install.sh
       - name: Run ShellCheck on [bootstrap.sh,install.sh]
-        uses: ludeeus/action-shellcheck@1.1.0
+        uses: ludeeus/action-shellcheck@6d3f514f44620b9d4488e380339edc0d9bbe2fba
         with:
           ignore: >-
             git
@@ -39,7 +39,7 @@ jobs:
         shell: bash
         run: file -f zsh/.zshrc
       - name: Run ShellCheck on [zsh/*]
-        uses: ludeeus/action-shellcheck@1.1.0
+        uses: ludeeus/action-shellcheck@6d3f514f44620b9d4488e380339edc0d9bbe2fba
         with:
           additional_files: >-
             zsh/.zshenv
