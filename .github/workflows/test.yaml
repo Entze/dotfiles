@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout project
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Check if file bootstrap.sh exist
         shell: bash
         run: file -f bootstrap.sh
@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout project
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Check if file zsh/.config/starship.toml exists
         shell: bash
         run: test -f zsh/.config/starship.toml
@@ -78,7 +78,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout project
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Check if file git/.gitconfig exists
         shell: bash
         run: test -f git/.gitconfig
@@ -90,7 +90,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout project
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Check if file vim/.vimrc exists
         shell: bash
         run: test -f vim/.vimrc
