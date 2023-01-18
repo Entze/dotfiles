@@ -488,7 +488,7 @@ do_post_distro() {
   SKIP_MINICONDA="${SKIP_MINICONDA:-${SKIP_MINICONDA_DEFAULT}}"
 
   SKIP_MINIMAMBA_DEFAULT=0
-  if [[ check_installed  conda || check_installed mamba ]]
+  if check_installed mamba
   then
       SKIP_MINIMAMBA_DEFAULT=1
   elif [[ -d "$MINICONDA_DIR" ]]
