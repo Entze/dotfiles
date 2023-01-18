@@ -346,7 +346,7 @@ do_minimamba() {
   trace "Change directory to ~/Downloads"
   cd "$HOME/Downloads"
 
-  download "minimamba.sh" "https://github.com/conda-forge/miniforge/releases/download/22.9.0-3/Mambaforge-22.9.0-3-Linux-x86_64.sh" "29f6374464307732c2c9d6711cdbca4d685c632f31e8bf1a5565276c65e0069b"
+  download "minimamba.sh" "https://github.com/conda-forge/miniforge/releases/download/22.9.0-3/Mambaforge-22.9.0-3-Linux-x86_64.sh" "SHA256" "29f6374464307732c2c9d6711cdbca4d685c632f31e8bf1a5565276c65e0069b"
 
   trace "Make minimamba-installer executable"
   chmod u+x minimamba.sh
@@ -522,12 +522,13 @@ do_post_distro() {
   do_zinit
   info "(1/6) nvm"
   do_nvm
-  info "(2/6) miniconda"
   if [ "$SKIP_MINICONDA" -eq 0 ]
   then
+    info "(2/6) miniconda"
     do_miniconda
   elif [ "$SKIP_MINIMAMBA" -eq 0 ]
   then
+    info "(2/6) minimamba"
     do_minimamba
   fi
   info "(3/6) ghcup"
