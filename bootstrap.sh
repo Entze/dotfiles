@@ -512,7 +512,6 @@ do_post_distro() {
   if check_installed agda; then
     SKIP_AGDA_DEFAULT=1
   fi
-
   SKIP_AGDA="${SKIP_AGDA:-${SKIP_AGDA_DEFAULT}}"
 
   SKIP_GHCUP_DEFAULT=0
@@ -561,6 +560,7 @@ do_post_distro() {
     info "Found sdkman in $SDKMAN_DIR, skipping install"
     SKIP_SDKMAN_DEFAULT=1
   fi
+  SKIP_SDKMAN="${SKIP_SDKMAN:-${SKIP_SDKMAN_DEFAULT}}"
 
   SKIP_ZINIT_DEFAULT=0
   if check_installed zinit; then
