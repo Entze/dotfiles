@@ -1,9 +1,9 @@
 build-essential
 curl
-libffi-dev
 libffi8ubuntu1
-libgmp-dev
+libffi-dev
 libgmp10
-libncurses-dev
+libgmp-dev
 libncurses5
+libncurses-dev
 libtinfo5

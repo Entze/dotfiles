@@ -1,9 +1,9 @@
-man-pages
-dconf
-util-linux
-zlib-devel
 bzip2-devel
+dconf
+man-pages
+openssl-devel
 readline-devel
 sqlite3-devel
-openssl-devel
 tk-devel
+util-linux
+zlib-devel

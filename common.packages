@@ -1,9 +1,10 @@
-make
+aria2
 curl
-zsh
 git
+make
 stow
+unzip
 vim
 wget
-aria2
-unzip
+zip
+zsh
