@@ -172,4 +172,11 @@ else
     fi
 fi
 unset __conda_setup
+
+if [ -f "/home/lukas/.local/opt/miniconda/etc/profile.d/mamba.sh" ]; then
+    . "/home/lukas/.local/opt/miniconda/etc/profile.d/mamba.sh"
+fi
 # <<< conda initialize <<<
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"

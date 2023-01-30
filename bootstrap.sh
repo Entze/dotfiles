@@ -454,6 +454,23 @@ do_nvm() {
 
 }
 
+do_sdkman() {
+
+  debug "Install SDKMAN"
+
+  if [ "$SKIP_SDKMAN" -eq 1 ]; then
+    return 0
+  fi
+
+  download "sdkman.sh" "https://get.sdkman.io" "NONE" ""
+
+  trace "Make sdkman.sh executable"
+  chmod u+x sdkman.sh
+
+  trace "Run sdkman.sh"
+  ./sdkman.sh
+
+}
 
 do_zinit() {
 
