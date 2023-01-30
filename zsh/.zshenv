@@ -1,11 +1,10 @@
 # shellcheck shell=bash
 
 # Preferred editor for local and remote sessions
-if whence -p vim > /dev/null 2>&1
-then
-  export VISUAL="vim"
+if whence -p vim >/dev/null 2>&1; then
+   export VISUAL="vim"
 else
-  export VISUAL="vi"
+   export VISUAL="vi"
 fi
 export EDITOR=${VISUAL}
 export XDG_BIN_HOME=${XDG_BIN_HOME:-${HOME}/.local/bin}
@@ -36,15 +35,13 @@ export ZINIT_DIR="${ZINIT_DIR:-${ZINIT_ROOT}/zinit.git}"
 export ZINIT_HOME="${ZINIT_HOME:-${ZINIT_DIR}}"
 
 # github
-if [[ -r $HOME/.github/ENV ]]
-then
+if [[ -r $HOME/.github/ENV ]]; then
    # shellcheck disable=SC2086
    # shellcheck source=/dev/null
    source $HOME/.github/ENV
 fi
 
-if [[ -r $XDG_CONFIG_HOME/.github/ENV ]]
-then
+if [[ -r $XDG_CONFIG_HOME/.github/ENV ]]; then
    # shellcheck disable=SC2086
    # shellcheck source=/dev/null
    source $XDG_CONFIG_HOME/.github/ENV
@@ -55,40 +52,32 @@ GPG_TTY=$(tty)
 export GPG_TTY
 
 # ssh
-if [[ -r $XDG_CONFIG_HOME/.ssh/id_ecdsa ]]
-then
-    export SSH_KEY_PATH=$XDG_CONFIG_HOME/.ssh/id_ecdsa
+if [[ -r $XDG_CONFIG_HOME/.ssh/id_ecdsa ]]; then
+   export SSH_KEY_PATH=$XDG_CONFIG_HOME/.ssh/id_ecdsa
 fi
-if [[ -r $XDG_CONFIG_HOME/.ssh/id_ed25519 ]]
-then
-    export SSH_KEY_PATH=$XDG_CONFIG_HOME/.ssh/id_ed25519
+if [[ -r $XDG_CONFIG_HOME/.ssh/id_ed25519 ]]; then
+   export SSH_KEY_PATH=$XDG_CONFIG_HOME/.ssh/id_ed25519
 fi
-if [[ -r $XDG_CONFIG_HOME/.ssh/id_rsa ]]
-then
+if [[ -r $XDG_CONFIG_HOME/.ssh/id_rsa ]]; then
    export SSH_KEY_PATH=$XDG_CONFIG_HOME/.ssh/id_rsa
 fi
 
-if [[ -r $HOME/.ssh/id_ecdsa ]]
-then
+if [[ -r $HOME/.ssh/id_ecdsa ]]; then
    export SSH_KEY_PATH=$HOME/.ssh/id_ecdsa
 fi
-if [[ -r $HOME/.ssh/id_ed25519 ]]
-then
+if [[ -r $HOME/.ssh/id_ed25519 ]]; then
    export SSH_KEY_PATH=$HOME/.ssh/id_ed25519
 fi
-if [[ -r $HOME/.ssh/id_rsa ]]
-then
+if [[ -r $HOME/.ssh/id_rsa ]]; then
    export SSH_KEY_PATH=$HOME/.ssh/id_rsa
 fi
 
 OS_ID=$(grep -E '^ID="?[a-zA-Z]*"?$' /etc/os-release | sed -E 's/(^ID="?)([a-zA-Z]*)("?$)/\2/')
 export OS_ID
 
-if [[ $OS_ID = "ubuntu" ]]
-then
-    export skip_global_compinit=1
+if [[ $OS_ID = "ubuntu" ]]; then
+   export skip_global_compinit=1
 fi
-
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8

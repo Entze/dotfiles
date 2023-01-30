@@ -299,7 +299,6 @@ do_agda() {
 
 do_ghcup() {
 
-
   if [ "$SKIP_GHCUP" -eq 1 ]; then
     return 0
   fi
