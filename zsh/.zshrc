@@ -142,7 +142,7 @@ else
 
 fi
 
-if [[ -x "$NVM_DIR"/nvm.sh ]]
+if [[ -s "$NVM_DIR"/nvm.sh ]]
 then
 
     # shellcheck source=/dev/null
@@ -150,7 +150,7 @@ then
 
 fi
 
-if [[ -x "$NVM_DIR"/bash_completion ]]
+if [[ -s "$NVM_DIR"/bash_completion ]]
 then
 
     # shellcheck source=/dev/null

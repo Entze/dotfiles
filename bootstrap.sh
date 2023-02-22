@@ -367,6 +367,7 @@ do_julia() {
   mv "julia-1.8.5/" "$JULIA_ROOT/."
 
   trace "Installing julia binary via symlink"
+  rm -f "$XDG_BIN_HOME/julia"
   ln -s "$JULIA_DIR/bin/julia" "$XDG_BIN_HOME/julia"
 
 }
@@ -435,19 +436,6 @@ do_nvm() {
 
   trace "Change directory to ~"
   cd "$HOME"
-
-  if [[ -x "$NVM_DIR/nvm.sh" ]]; then
-
-    trace "Make nvm.sh executable"
-    chmod +x "$NVM_DIR/nvm.sh"
-
-  fi
-
-  if [[ -x "$NVM_DIR/bash_completion" ]]; then
-
-    chmod +x "$NVM_DIR/bash_completion"
-
-  fi
 
   trace "Activate nvm"
   # shellcheck source=/dev/null
