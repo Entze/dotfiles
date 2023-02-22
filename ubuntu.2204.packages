@@ -1,5 +1,4 @@
 build-essential
-curl
 libffi8ubuntu1
 libffi-dev
 libgmp10
