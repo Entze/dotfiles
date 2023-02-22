@@ -42,8 +42,12 @@ while [ "$#" -gt 0 ]; do
     ;;
   --no-cod)
     SKIP_COD=1
+    shift 1
+    ;;
   --cod)
     SKIP_COD=0
+    shift 1
+    ;;
   --no-conda)
     SKIP_MINICONDA=1
     shift 1
