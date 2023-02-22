@@ -349,7 +349,7 @@ do_ghcup() {
 do_julia() {
 
   if [ "$SKIP_JULIA" -eq 1 ]; then
-  info "Skipping julia install"
+    info "Skipping julia install"
     return 0
   fi
 
