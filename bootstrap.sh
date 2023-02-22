@@ -264,13 +264,13 @@ trace "Loaded download helpers"
 do_agda() {
 
   if [ "$SKIP_AGDA" -eq 1 ]; then
-    info "Skipping Agda install"
+    info "Skipping agda install"
     return 0
   fi
 
-  debug "Install Agda and its standard library"
+  debug "Install agda and its standard library"
 
-  trace "Install Agda"
+  trace "Install agda"
   cabal v2-update
   cabal v2-install alex happy
   cabal v2-install --with-compiler ghc-9.0 --lib Agda ieee754
@@ -374,11 +374,11 @@ do_julia() {
 do_miniconda() {
 
   if [ "$SKIP_MINICONDA" -eq 1 ]; then
-    info "Skipping Miniconda install"
+    info "Skipping miniconda install"
     return 0
   fi
 
-  debug "Install Miniconda"
+  debug "Install miniconda"
 
   download "miniconda.sh" "https://repo.anaconda.com/miniconda/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh" "SHA256" "00938c3534750a0e4069499baf8f4e6dc1c2e471c86a59caa0dd03f4a9269db6"
 
@@ -393,11 +393,11 @@ do_miniconda() {
 do_minimamba() {
 
   if [ "$SKIP_MINIMAMBA" -eq 1 ]; then
-    info "Skipping Minimamba install"
+    info "Skipping minimamba install"
     return 0
   fi
 
-  debug "Install Minimamba"
+  debug "Install minimamba"
 
   download "minimamba.sh" "https://github.com/conda-forge/miniforge/releases/download/22.9.0-3/Mambaforge-22.9.0-3-Linux-x86_64.sh" "SHA256" "29f6374464307732c2c9d6711cdbca4d685c632f31e8bf1a5565276c65e0069b"
 
@@ -412,11 +412,11 @@ do_minimamba() {
 do_nvm() {
 
   if [ "$SKIP_NVM" -eq 1 ]; then
-    info "Skipping NVM install"
+    info "Skipping nvm install"
     return 0
   fi
 
-  debug "Install NVM"
+  debug "Install nvm"
 
   trace "Create $NVM_ROOT, if not already present"
   mkdir -p "$NVM_ROOT"
@@ -464,11 +464,11 @@ do_nvm() {
 do_sdkman() {
 
   if [ "$SKIP_SDKMAN" -eq 1 ]; then
-    info "Skipping SDKMAN install"
+    info "Skipping sdkman install"
     return 0
   fi
 
-  debug "Install SDKMAN"
+  debug "Install sdkman"
 
   download "sdkman.sh" "https://get.sdkman.io" "NONE" ""
 
