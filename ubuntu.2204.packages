@@ -1,8 +1,0 @@
-build-essential
-libffi8ubuntu1
-libffi-dev
-libgmp10
-libgmp-dev
-libncurses5
-libncurses-dev
-libtinfo5
