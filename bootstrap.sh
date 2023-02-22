@@ -204,7 +204,7 @@ check_installed() {
   elif FUNC="$(command -v "$CMD")"; then
     IS_INSTALLED=0
     info "Found $CMD as $FUNC, skipping install"
-  else; then
+  else
     info "Did not find $CMD"
   fi
   return "$IS_INSTALLED"
