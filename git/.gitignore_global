@@ -1,6 +1,5 @@
-
-# Created by https://www.gitignore.io/api/Emacs,Git,Linux,MacOS,Vim,Windows
-# Edit at https://www.gitignore.io/?templates=Emacs,Git,Linux,MacOS,Vim,Windows
+# Created by https://www.toptal.com/developers/gitignore/api/emacs,git,linux,macos,vim,visualstudiocode,windows
+# Edit at https://www.toptal.com/developers/gitignore?templates=emacs,git,linux,macos,vim,visualstudiocode,windows
 
 ### Emacs ###
 # -*- mode: gitignore; -*-
@@ -89,7 +88,7 @@ flycheck_*.el
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
 
 # Thumbnails
 ._*
@@ -110,9 +109,14 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+### macOS Patch ###
+# iCloud generated files
+*.icloud
+
 ### Vim ###
 # Swap
 [._]*.s[a-v][a-z]
+!*.svg  # comment out if you don't need vector files
 [._]*.sw[a-p]
 [._]s[a-rt-v][a-z]
 [._]ss[a-gi-z]
@@ -124,15 +128,29 @@ Sessionx.vim
 
 # Temporary
 .netrwhist
-
 # Auto-generated tag files
 tags
-
 # Persistent undo
 [._]*.un~
 
-# Coc configuration directory
-.vim
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
 
 ### Windows ###
 # Windows thumbnail cache files
@@ -160,5 +178,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.gitignore.io/api/Emacs,Git,Linux,MacOS,Vim,Windows
+# End of https://www.toptal.com/developers/gitignore/api/emacs,git,linux,macos,vim,visualstudiocode,windows
 
