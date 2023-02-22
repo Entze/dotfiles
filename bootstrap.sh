@@ -262,6 +262,7 @@ trace "Loaded download helpers"
 do_agda() {
 
   if [ "$SKIP_AGDA" -eq 1 ]; then
+    info "Skipping Agda install"
     return 0
   fi
 
@@ -300,6 +301,7 @@ do_agda() {
 do_ghcup() {
 
   if [ "$SKIP_GHCUP" -eq 1 ]; then
+    info "Skipping ghcup install"
     return 0
   fi
 
@@ -345,8 +347,11 @@ do_ghcup() {
 do_julia() {
 
   if [ "$SKIP_JULIA" -eq 1 ]; then
+  info "Skipping julia install"
     return 0
   fi
+
+  debug "Install julia"
 
   download "julia.tar.gz" "https://julialang-s3.julialang.org/bin/linux/x64/1.8/julia-1.8.5-linux-x86_64.tar.gz" "SHA256" "e71a24816e8fe9d5f4807664cbbb42738f5aa9fe05397d35c81d4c5d649b9d05"
 
@@ -367,6 +372,7 @@ do_julia() {
 do_miniconda() {
 
   if [ "$SKIP_MINICONDA" -eq 1 ]; then
+    info "Skipping Miniconda install"
     return 0
   fi
 
@@ -385,6 +391,7 @@ do_miniconda() {
 do_minimamba() {
 
   if [ "$SKIP_MINIMAMBA" -eq 1 ]; then
+    info "Skipping Minimamba install"
     return 0
   fi
 
@@ -403,9 +410,8 @@ do_minimamba() {
 do_nvm() {
 
   if [ "$SKIP_NVM" -eq 1 ]; then
-
+    info "Skipping NVM install"
     return 0
-
   fi
 
   debug "Install NVM"
@@ -455,11 +461,12 @@ do_nvm() {
 
 do_sdkman() {
 
-  debug "Install SDKMAN"
-
   if [ "$SKIP_SDKMAN" -eq 1 ]; then
+    info "Skipping SDKMAN install"
     return 0
   fi
+
+  debug "Install SDKMAN"
 
   download "sdkman.sh" "https://get.sdkman.io" "NONE" ""
 
@@ -473,11 +480,12 @@ do_sdkman() {
 
 do_zinit() {
 
-  debug "Install zinit"
-
   if [ "$SKIP_ZINIT" -eq 1 ]; then
+    info "Skipping zinit install"
     return 0
   fi
+
+  debug "Install zinit"
 
   trace "Create $ZINIT_ROOT, if not already present"
   mkdir -p "$ZINIT_ROOT"
@@ -530,7 +538,7 @@ do_post_distro() {
   if check_installed conda; then
     SKIP_MINICONDA_DEFAULT=1
   elif [[ -d "$MINICONDA_DIR" ]]; then
-    info "Found miniconda in $MINICONDA_DIR, skipping install"
+    info "Found miniconda in $MINICONDA_DIR, skipping install of miniconda"
     SKIP_MINICONDA_DEFAULT=1
   fi
   SKIP_MINICONDA="${SKIP_MINICONDA:-${SKIP_MINICONDA_DEFAULT}}"
@@ -539,7 +547,7 @@ do_post_distro() {
   if check_installed mamba; then
     SKIP_MINIMAMBA_DEFAULT=1
   elif [[ -d "$MINICONDA_DIR" ]]; then
-    info "Found miniconda in $MINICONDA_DIR, skipping install"
+    info "Found miniconda in $MINICONDA_DIR, skipping install of minimamba"
     SKIP_MINIMAMBA_DEFAULT=1
   fi
   SKIP_MINIMAMBA="${SKIP_MINIMAMBA:-${SKIP_MINIMAMBA_DEFAULT}}"
@@ -548,7 +556,7 @@ do_post_distro() {
   if check_installed nvm; then
     SKIP_NVM_DEFAULT=1
   elif [[ -d "$NVM_DIR" ]]; then
-    info "Found nvm in $NVM_DIR, skipping install"
+    info "Found nvm in $NVM_DIR, skipping install of nvm"
     SKIP_NVM_DEFAULT=1
   fi
   SKIP_NVM="${SKIP_NVM:-${SKIP_NVM_DEFAULT}}"
@@ -557,7 +565,7 @@ do_post_distro() {
   if check_installed sdkman; then
     SKIP_SDKMAN_DEFAULT=1
   elif [[ -d "$SDKMAN_DIR" ]]; then
-    info "Found sdkman in $SDKMAN_DIR, skipping install"
+    info "Found sdkman in $SDKMAN_DIR, skipping install of sdkman"
     SKIP_SDKMAN_DEFAULT=1
   fi
   SKIP_SDKMAN="${SKIP_SDKMAN:-${SKIP_SDKMAN_DEFAULT}}"
