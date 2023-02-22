@@ -1,6 +1,9 @@
 aria2
+clang
 curl
+gcc
 git
+g++
 make
 stow
 unzip
