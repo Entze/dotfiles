@@ -19,6 +19,8 @@ export GHCUP_USE_XDG_DIRS=1
 
 export AGDA_STDLIB_ROOT="${AGDA_STDLIB_ROOT:-${INSTALL_DIR}/agda}"
 export AGDA_STDLIB_DIR="${AGDA_STDLIB_DIR:-${AGDA_STDLIB_ROOT}/agda-stlib-1.7}"
+export COD_ROOT="${COD_ROOT:-${INSTALL_DIR}/cod}"
+export COD_DIR="${COD_DIR:-${COD_ROOT}}"
 export GHCUP_ROOT="${GHCUP_ROOT:-${HOME}/.ghcup}"
 export GHCUP_DIR="${GHCUP_DIR:-${GHCUP_ROOT}}"
 export JULIA_ROOT="${JULIA_ROOT:-${INSTALL_DIR}/julia}"

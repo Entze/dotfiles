@@ -40,6 +40,10 @@ while [ "$#" -gt 0 ]; do
     SKIP_AGDA=0
     shift 1
     ;;
+  --no-cod)
+    SKIP_COD=1
+  --cod)
+    SKIP_COD=0
   --no-conda)
     SKIP_MINICONDA=1
     shift 1
@@ -90,6 +94,7 @@ while [ "$#" -gt 0 ]; do
     ;;
   --nothing)
     SKIP_AGDA=1
+    SKIP_COD=1
     SKIP_GHCUP=1
     SKIP_MINICONDA=1
     SKIP_MINIMAMBA=1
@@ -100,6 +105,7 @@ while [ "$#" -gt 0 ]; do
     ;;
   --all)
     SKIP_AGDA=0
+    SKIP_COD=0
     SKIP_GHCUP=0
     SKIP_MINICONDA=0
     SKIP_MINIMAMBA=0
@@ -297,6 +303,35 @@ do_agda() {
 
   trace "Create ~/.agda/libraries and populate file"
   printf "%s/agda-stdlib-1.7/standard-library.agda-lib" "$AGDA_STDLIB_ROOT" >>"$HOME/.agda/libraries"
+
+}
+
+do_cod() {
+
+  if [ "$SKIP_COD" -eq 1 ]; then
+    info "Skipping cod install"
+    return 0
+  fi
+
+  debug "Install cod"
+
+  download "cod-linux-amd64.tgz" "https://github.com/dim-an/cod/releases/download/v0.1.0/cod-linux-amd64.tgz" "NONE" ""
+
+  trace "Extract cod-linux-amd64.tgz"
+  tar -zxvf "cod-linux-amd64.tgz"
+
+  trace "Create $COD_DIR, if not already present"
+  mkdir -p "$COD_DIR"
+
+  trace "Move cod into $COD_DIR"
+  mv cod "$COD_DIR/cod-0.1.0"
+
+  trace "Make cod executable"
+  chmod +X "$COD_DIR"/cod-0.1.0
+
+  trace "Installing cod binary via symlink"
+  rm -f "$XDG_BIN_HOME/cod"
+  ln -s "$COD_DIR/cod-0.1.0" "$XDG_BIN_HOME/cod"
 
 }
 
@@ -512,6 +547,12 @@ do_post_distro() {
   fi
   SKIP_AGDA="${SKIP_AGDA:-${SKIP_AGDA_DEFAULT}}"
 
+  SKIP_COD_DEFAULT=0
+  if check_installed cod; then
+    SKIP_COD_DEFAULT=1
+  fi
+  SKIP_COD="${SKIP_COD:-${SKIP_COD_DEFAULT}}"
+
   SKIP_GHCUP_DEFAULT=0
   if check_installed ghcup; then
     SKIP_GHCUP_DEFAULT=1
@@ -568,27 +609,29 @@ do_post_distro() {
 
   info "Execute special (post) installations for programs:"
 
-  info "(0/7) zinit"
+  info "(0/8) zinit"
   do_zinit
-  info "(1/7) sdkman"
+  info "(1/8) sdkman"
   do_sdkman
-  info "(2/7) nvm"
+  info "(2/8) nvm"
   do_nvm
   if [ "$SKIP_MINICONDA" -eq 0 ]; then
-    info "(3/7) miniconda"
+    info "(3/8) miniconda"
     do_miniconda
   elif [ "$SKIP_MINIMAMBA" -eq 0 ]; then
-    info "(3/7) minimamba"
+    info "(3/8) minimamba"
     do_minimamba
   fi
-  info "(4/7) julia"
+  info "(4/8) julia"
   do_julia
-  info "(5/7) ghcup"
+  info "(5/8) ghcup"
   do_ghcup
-  info "(6/7) agda"
+  info "(6/8) cod"
+  do_cod
+  info "(7/8) agda"
   do_agda
 
-  info "(7/7) done."
+  info "(8/8) done."
 
 }
 
@@ -668,6 +711,8 @@ do_common() {
 
   export AGDA_STDLIB_ROOT="${AGDA_STDLIB_ROOT:-${INSTALL_DIR}/agda}"
   export AGDA_STDLIB_DIR="${AGDA_STDLIB_DIR:-${AGDA_STDLIB_ROOT}/agda-stlib-1.7}"
+  export COD_ROOT="${COD_ROOT:-${INSTALL_DIR}/cod}"
+  export COD_DIR="${COD_DIR:-${COD_ROOT}}"
   export GHCUP_ROOT="${GHCUP_ROOT:-${HOME}/.ghcup}"
   export GHCUP_DIR="${GHCUP_DIR:-${GHCUP_ROOT}}"
   export JULIA_ROOT="${JULIA_ROOT:-${INSTALL_DIR}/julia}"
