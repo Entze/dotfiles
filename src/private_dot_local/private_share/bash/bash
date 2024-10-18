@@ -1,3 +1,6 @@
+# set the location of the history file away from $HOME
+setenv HISTFILE "${XDG_STATE_HOME}"/bash/history
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignorespace
