@@ -1,3 +1,5 @@
+# define shell-wide environment files
+# definition of setenv should depend on the shell
 setenv XDG_DATA_HOME "${HOME}"/.local/share
 setenv XDG_CONFIG_HOME "${HOME}"/.config
 setenv XDG_STATE_HOME "${HOME}"/.local/state

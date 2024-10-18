@@ -1,3 +1,4 @@
+# define the setenv function, see also the env file (below)
 function setenv() {
     export "$1"="$2"
 }
