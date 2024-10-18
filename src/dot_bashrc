@@ -1,0 +1,31 @@
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+function setenv() {
+    export "$1"="$2"
+}
+
+if [ -f "${XDG_DATA_HOME}"/login-shell/env ]; then
+    . "${XDG_DATA_HOME}"/login-shell/env
+elif [ -f "${HOME}"/.local/share/login-shell/env ]; then
+    . "${HOME}"/.local/share/login-shell/env
+fi
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+if [ -f "${XDG_DATA_HOME}"/bash/bash ]; then
+    . "${XDG_DATA_HOME}"/bash/bash
+fi
+
+if [ -f "${XDG_DATA_HOME}"/bash/lesspipe ]; then
+    . "${XDG_DATA_HOME}"/bash/lesspipe
+fi
+
+if [ -f "${XDG_DATA_HOME}"/bash/mise ]; then
+    . "${XDG_DATA_HOME}"/bash/mise
+fi

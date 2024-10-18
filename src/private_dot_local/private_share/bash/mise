@@ -1,0 +1,5 @@
+# enable mise (see https://mise.jdx.dev/) if it is available
+if command -v mise 2>&1 >/dev/null
+then
+    eval "$(mise activate)"
+fi
