@@ -1,0 +1,12 @@
+theme = "gruvbox_dark_hard"
+
+[editor.soft-wrap]
+enable = true
+
+[keys.normal]
+A-q = ["goto_line_end", "goto_prev_paragraph", "goto_next_paragraph", ":reflow", "collapse_selection", "add_newline_below"]
+A-S-q = [":reflow"]
+
+[keys.insert]
+A-q = ["goto_line_end", "goto_prev_paragraph", "goto_next_paragraph", ":reflow", "collapse_selection", "add_newline_below"]
+A-S-q = [":reflow"]
