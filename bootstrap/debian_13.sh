@@ -2,7 +2,7 @@
 
 function ensure_installed() {
 
-  pkgs="$(mktemp 'bootstrap-debian-13.XXXX')"
+  pkgs="$(mktemp --tmpdir="/tmp" 'bootstrap-debian-13.XXXX')"
   dpkg --list > "$pkgs"
 
   for pkg in "$@"; do
