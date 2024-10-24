@@ -27,14 +27,14 @@ function install_mise() {
     wget -qO - "https://mise.jdx.dev/gpg-key.pub" | gpg --dearmor | sudo tee /etc/apt/keyrings/mise-archive-keyring.gpg
 
     printf "X-Repolib-Name: mise
-  Enabled: yes
-  Types: deb
-  URIs: https://mise.jdx.dev/deb
-  Suites: stable
-  Components: main
-  Signed-By: /etc/apt/keyrings/mise-archive-keyring.gpg
-  Architectures: amd64
-  " | sudo tee /etc/apt/sources.list.d/mise.sources
+Enabled: yes
+Types: deb
+URIs: https://mise.jdx.dev/deb
+Suites: stable
+Components: main
+Signed-By: /etc/apt/keyrings/mise-archive-keyring.gpg
+Architectures: amd64
+" | sudo tee /etc/apt/sources.list.d/mise.sources
 
     sudo apt-get update
     ensure_installed mise
