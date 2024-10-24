@@ -53,3 +53,5 @@ function install_chezmoi() {
 
 install_mise
 install_chezmoi
+ensure_installed git
+export GITHUB_USER="Entze"
