@@ -14,9 +14,12 @@ function ensure_installed() {
     set +e
     set +o pipefail
     grep --quiet --extended-regexp "ii[[:space:]]+${pkg}[[:space:]]" "$pkgs"
+    installed="$?"
     set -e
     set -o pipefail
-    if [[ "$?" -eq 1 ]]; then
+
+    if [[ "$installed" -eq 1 ]]; then
+
       sudo apt-get install --assume-yes "$pkg"
     fi
   done
@@ -28,10 +31,12 @@ function install_mise() {
 
   set +e
   set +o pipefail
-  dpkg --list | grep --quiet --extended-regexp "ii[[:space:]]+mise"
+  dpkg --list | grep --quiet --extended-regexp "ii[[:space:]]+mise[[:space:]]"
+  installed="$?"
   set -e
   set -o pipefail
-  if [[ "$?" -eq 1 ]]; then
+
+  if [[ "$installed" -eq 1 ]]; then
 
     sudo apt-get update --assume-yes
     sudo apt-get upgrade --assume-yes
