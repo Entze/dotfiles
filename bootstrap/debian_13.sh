@@ -11,6 +11,7 @@ function ensure_installed() {
   dpkg --list > "$pkgs"
 
   for pkg in "$@"; do
+
     set +e
     set +o pipefail
     grep --quiet --extended-regexp "ii[[:space:]]+${pkg}[[:space:]]" "$pkgs"
@@ -21,7 +22,9 @@ function ensure_installed() {
     if [[ "$installed" -eq 1 ]]; then
 
       sudo apt-get install --assume-yes "$pkg"
+
     fi
+
   done
 
 }
