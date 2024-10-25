@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+set -e
+set -u
+set -o pipefail
+
 function ensure_installed() {
 
   pkgs="$(mktemp --tmpdir="/tmp" 'bootstrap-debian-13.XXXX')"
