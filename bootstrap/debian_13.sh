@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+set -x
 set -e
 set -u
 set -o pipefail
@@ -10,7 +11,11 @@ function ensure_installed() {
   dpkg --list > "$pkgs"
 
   for pkg in "$@"; do
-    grep --quiet "ii[[:space:]]+${pkg}" "$pkgs"
+    set +e
+    set +o pipefail
+    grep --quiet --extended-regexp "ii[[:space:]]+${pkg}[[:space:]]" "$pkgs"
+    set -e
+    set -o pipefail
     if [[ "$?" -eq 1 ]]; then
       sudo apt-get install --assume-yes "$pkg"
     fi
@@ -21,7 +26,11 @@ function ensure_installed() {
 
 function install_mise() {
 
-  dpkg --list | grep --quiet "ii[[:space:]]+mise"
+  set +e
+  set +o pipefail
+  dpkg --list | grep --quiet --extended-regexp "ii[[:space:]]+mise"
+  set -e
+  set -o pipefail
   if [[ "$?" -eq 1 ]]; then
 
     sudo apt-get update --assume-yes
