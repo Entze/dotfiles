@@ -6,8 +6,7 @@ A dotfile repository, managed by [chezmoi](https://chezmoi.io).
 
 For every supported operating system includes, under `bootstrap/` in this
 repository, a self-contained script to bootstrap the dotfiles. Specifically, it
-will install [git](#git), [mise](#mise), and [chezmoi](#chezmoi). Furthermore it
-will set essential environment variables.
+will install [mise](#mise), [chezmoi](#chezmoi), and [git](#git).
 
 Use the following command to initialize, and apply the configuration.
 
