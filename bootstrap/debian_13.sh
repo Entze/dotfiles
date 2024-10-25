@@ -26,22 +26,19 @@ function install_mise() {
 
     sudo apt-get update --assume-yes
     sudo apt-get upgrade --assume-yes
-    ensure_installed gpg sudo wget curl
-    sudo install -dm 755 /etc/apt/keyrings
-    wget -qO - "https://mise.jdx.dev/gpg-key.pub" | gpg --dearmor | sudo tee /etc/apt/keyrings/mise-archive-keyring.gpg
+    ensure_installed "gpg" "sudo" "wget" "curl"
+    sudo install --directory --mode 'u=rwx,go=rx' "/etc/apt/keyrings"
+    wget --quiet --output-document - "https://mise.jdx.dev/gpg-key.pub" > "mise-archive-keyring"
+    gpg --dearmor "mise-archive-keyring"
+    sudo mv "mise-archive-keyring.gpg" "/etc/apt/keyrings/."
 
-    printf "X-Repolib-Name: mise
-Enabled: yes
-Types: deb
-URIs: https://mise.jdx.dev/deb
-Suites: stable
-Components: main
-Signed-By: /etc/apt/keyrings/mise-archive-keyring.gpg
-Architectures: amd64
-" | sudo tee /etc/apt/sources.list.d/mise.sources
+    mise_sources="$(mktemp 'bootstrap-mise.XXXX')"
+
+    printf "X-Repolib-Name: mise\nEnabled: yes\nTypes: deb\nURIs: https://mise.jdx.dev/deb\nSuites: stable\nComponents: main\nSigned-By: /etc/apt/keyrings/mise-archive-keyring.gpg\nArchitectures: amd64\n" > "$mise_sources"
+    sudo mv "$mise_sources" "/etc/apt/sources.list.d/mise.sources"
 
     sudo apt-get update
-    ensure_installed mise
+    ensure_installed "mise"
 
   fi
 
