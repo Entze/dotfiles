@@ -43,6 +43,14 @@ Chezmoi serves as a declarative config manager.
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/chezmoi.svg)](https://repology.org/project/chezmoi/versions)\
 [![GitHub Release](https://img.shields.io/github/v/release/twpayne/chezmoi?display_name=release&label=mise&color=brightgreen)](https://github.com/twpayne/chezmoi/releases)
 
+### dateutils
+
+Dateutils serves as a manipulation to work with dates.
+
+
+[![latest packaged version(s)](https://repology.org/badge/latest-versions/dateutils.svg)](https://repology.org/project/dateutils/versions)\
+[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/dateutils.svg)](https://repology.org/project/dateutils/versions)
+
 ### git
 
 Git serves as a source code manager.

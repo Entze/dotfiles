@@ -16,6 +16,11 @@ packages:
     mise:
       package: "chezmoi"
       command: "chezmoi"
+  dateutils:
+    debian:
+      trixie:
+        package: "dateutils"
+        command: "dateround"
   git:
     debian:
       trixie:
