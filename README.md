@@ -40,7 +40,7 @@ Chezmoi serves as a declarative config manager.
 Git serves as a source code manager.
 
 [![latest packaged version(s)](https://repology.org/badge/latest-versions/git.svg)](https://repology.org/project/git/versions)\
-[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/git.svg)](https://repology.org/project/git/version)\
+[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/git.svg)](https://repology.org/project/git/version)
 
 ### helix
 
