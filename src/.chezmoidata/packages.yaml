@@ -2,7 +2,7 @@ packages:
   bat-cat:
     debian:
       trixie: 
-        package: "rust-bat"
+        package: "bat"
         command: "batcat"
     mise:
       package: "bat"
