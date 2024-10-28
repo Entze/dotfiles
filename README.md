@@ -25,7 +25,7 @@ Bash serves as a fallback to [fish](#fish). Bash as interactive shell is
 primarily useful in situations where POSIX compliance is mandatory.
 
 [![latest packaged version(s)](https://repology.org/badge/latest-versions/bash.svg)](https://repology.org/project/bash/versions)\
-[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/bash.svg)](https://repology.org/project/bash/version)
+[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/bash.svg)](https://repology.org/project/bash/versions)
 
 ### bat-cat
 
