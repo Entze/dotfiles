@@ -1,0 +1,26 @@
+{{ if (and (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.versionCodename "trixie")) -}}
+#!/usr/bin/env bash
+
+sudo apt-get update --yes
+
+{{- range .packages -}}
+
+{{- if (and (hasKey . "debian") (hasKey .debian "trixie")) }}
+
+if ! command -v {{ .debian.trixie.command | quote }} 2>&1 >/dev/null; then
+
+  sudo apt-get install --yes {{ .debian.trixie.package | quote }}
+
+fi
+
+{{- else if (hasKey . "mise") }}
+
+if ! command -v {{ .mise.command | quote }} 2>&1 >/dev/null; then
+
+  mise use --global --yes {{ .mise.package | quote }}
+
+fi
+
+{{- end -}}
+{{- end -}}
+{{- end }}

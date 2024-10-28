@@ -1,0 +1,27 @@
+packages:
+  bat-cat:
+    debian:
+      trixie: 
+        package: "rust-bat"
+        command: "batcat"
+    mise:
+      package: "bat"
+      command: "bat"
+  bash:
+    debian:
+      trixie:
+        package: "bash"
+        command: "bash"
+  chezmoi:
+    mise:
+      package: "chezmoi"
+      command: "chezmoi"
+  git:
+    debian:
+      trixie:
+        package: "git"
+        command: "git"
+  helix-editor:
+    mise:
+      package: "ubi:helix-editor/helix"
+      command: "hx"
