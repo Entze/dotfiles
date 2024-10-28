@@ -1,4 +1,9 @@
 packages:
+  bash:
+    debian:
+      trixie:
+        package: "bash"
+        command: "bash"
   bat-cat:
     debian:
       trixie: 
@@ -7,11 +12,6 @@ packages:
     mise:
       package: "bat"
       command: "bat"
-  bash:
-    debian:
-      trixie:
-        package: "bash"
-        command: "bash"
   chezmoi:
     mise:
       package: "chezmoi"
