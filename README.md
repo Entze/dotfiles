@@ -27,6 +27,14 @@ primarily useful in situations where POSIX compliance is mandatory.
 [![latest packaged version(s)](https://repology.org/badge/latest-versions/bash.svg)](https://repology.org/project/bash/versions)\
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/bash.svg)](https://repology.org/project/bash/version)
 
+### bat-cat
+
+Bat serves as a pager and commandline file viewer.
+
+[![latest packaged version(s)](https://repology.org/badge/latest-versions/bat-cat.svg)](https://repology.org/project/bat-cat/versions)\
+[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/bat-cat.svg)](https://repology.org/project/bat-cat/version)\
+[![GitHub Release](https://img.shields.io/github/v/release/sharkdp/bat?display_name=release&label=mise&color=brightgreen)](https://github.com/sharkdp/bat/releases)
+
 ### chezmoi
 
 Chezmoi serves as a declarative config manager.
