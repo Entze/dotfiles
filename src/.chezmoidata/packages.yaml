@@ -41,6 +41,14 @@ packages:
     mise:
       package: "eza"
       command: "eza"
+  fd-find:
+    debian:
+      trixie:
+        package: "fd-find"
+        command: "fdfind"
+    mise:
+      package: "fd"
+      command: "fd"
   git:
     debian:
       trixie:

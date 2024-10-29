@@ -75,6 +75,14 @@ Eza serves as a more feature-rich ls alternative.
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/eza.svg)](https://repology.org/project/eza/versions)\
 [![GitHub Release](https://img.shields.io/github/v/release/eza-community/eza?display_name=release&label=mise&color=brightgreen)](https://github.com/eza-community/eza/releases)
 
+### fd-find
+
+Fdfind serves as a more feature-rich find alternative.
+
+[![latest packaged version(s)](https://repology.org/badge/latest-versions/fd-find.svg)](https://repology.org/project/fd-find/versions)\
+[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/fd-find.svg)](https://repology.org/project/fd-find/versions)\
+[![GitHub Release](https://img.shields.io/github/v/release/sharkdp/fd?display_name=release&label=mise&color=brightgreen)](https://github.com/sharkdp/fd/releases)
+
 ### git
 
 Git serves as a source code manager.
