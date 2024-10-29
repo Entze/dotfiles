@@ -33,6 +33,14 @@ packages:
     mise:
       package: "dust"
       command: "dust"
+  eza:
+    debian:
+      trixie:
+        package: "eza"
+        command: "eza"
+    mise:
+      package: "eza"
+      command: "eza"
   git:
     debian:
       trixie:

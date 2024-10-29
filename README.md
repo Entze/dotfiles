@@ -67,6 +67,14 @@ Dust serves as a file space estimation tool.
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/du-dust.svg)](https://repology.org/project/du-dust/versions)\
 [![GitHub Release](https://img.shields.io/github/v/release/bootandy/dust?display_name=release&label=mise&color=brightgreen)](https://github.com/bootandy/dust/releases)
 
+### eza
+
+Eza serves as a more feature-rich ls alternative.
+
+[![latest packaged version(s)](https://repology.org/badge/latest-versions/eza.svg)](https://repology.org/project/eza/versions)\
+[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/eza.svg)](https://repology.org/project/eza/versions)\
+[![GitHub Release](https://img.shields.io/github/v/release/eza-community/eza?display_name=release&label=mise&color=brightgreen)](https://github.com/eza-community/eza/releases)
+
 ### git
 
 Git serves as a source code manager.
