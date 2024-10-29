@@ -25,6 +25,14 @@ packages:
     mise:
       package: "difftastic"
       command: "difft"
+  du-dust:
+    debian:
+      trixie:
+        package: "du-dust"
+        command: "dust"
+    mise:
+      package: "dust"
+      command: "dust"
   git:
     debian:
       trixie:
