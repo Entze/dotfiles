@@ -19,6 +19,10 @@ if [ -f "${XDG_DATA_HOME}"/bash/bash ]; then
     . "${XDG_DATA_HOME}"/bash/bash
 fi
 
+if [ -f "${XDG_DATA_HOME}"/bash/alias ]; then
+    . "${XDG_DATA_HOME}"/bash/alias
+fi
+
 if [ -f "${XDG_DATA_HOME}"/bash/lesspipe ]; then
     . "${XDG_DATA_HOME}"/bash/lesspipe
 fi

@@ -1,0 +1,11 @@
+{{ if eq .chezmoi.osRelease.id "debian" -}}
+{{- if eq .chezmoi.osRelease.versionCodename "trixie" -}}
+
+if command -v "batcat" 2>&1 >/dev/null; then
+
+  alias bat='batcat'
+
+fi
+
+{{- end -}}
+{{- end }}
