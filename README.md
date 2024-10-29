@@ -65,7 +65,7 @@ Dust serves as a file space estimation tool.
 
 [![latest packaged version(s)](https://repology.org/badge/latest-versions/du-dust.svg)](https://repology.org/project/du-dust/versions)\
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/du-dust.svg)](https://repology.org/project/du-dust/versions)\
-[![GitHub Release](https://img.shields.io/github/v/release/bootandy/du-dust?display_name=release&label=mise&color=brightgreen)](https://github.com/bootandy/dust/releases)
+[![GitHub Release](https://img.shields.io/github/v/release/bootandy/dust?display_name=release&label=mise&color=brightgreen)](https://github.com/bootandy/dust/releases)
 
 ### git
 
