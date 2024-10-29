@@ -58,6 +58,14 @@ Git serves as a source code manager.
 [![latest packaged version(s)](https://repology.org/badge/latest-versions/git.svg)](https://repology.org/project/git/versions)\
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/git.svg)](https://repology.org/project/git/versions)
 
+### git-delta
+
+Delta serves as a diff tool.
+
+[![latest packaged version(s)](https://repology.org/badge/latest-versions/git-delta.svg)](https://repology.org/project/git-delta/versions)\
+[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/git-delta.svg)](https://repology.org/project/git-delta/versions)\
+[![GitHub Release](https://img.shields.io/github/v/release/dandavison/delta?display_name=release&label=mise&color=brightgreen)](https://github.com/dandavison/delta/releases)
+
 ### helix
 
 Helix serves as the primary editor.

@@ -26,6 +26,14 @@ packages:
       trixie:
         package: "git"
         command: "git"
+  git-delta:
+    debian:
+      trixie:
+        package: "git-delta"
+        command: "delta"
+    mise:
+      package: "delta"
+      command: "delta"
   helix-editor:
     mise:
       package: "ubi:helix-editor/helix"
