@@ -1,0 +1,18 @@
+[user]
+	name = Lukas Grassauer
+	email = lukas@grassauer.eu
+[push]
+	default = simple
+[init]
+	defaultBranch = main
+[core]
+	editor = "hx +1"
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+[merge]
+	conflicstyle = diff3
+[alias]
+	fresh = "!git pull --stat --ff-only || git pull --stat --rebase"
