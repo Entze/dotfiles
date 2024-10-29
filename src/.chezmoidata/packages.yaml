@@ -49,6 +49,11 @@ packages:
     mise:
       package: "fd"
       command: "fd"
+  fish:
+    debian:
+      trixie:
+        package: "fish"
+        command: "fish"
   git:
     debian:
       trixie:

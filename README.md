@@ -82,6 +82,13 @@ Fdfind serves as a more feature-rich find alternative.
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/fd-find.svg)](https://repology.org/project/fd-find/versions)\
 [![GitHub Release](https://img.shields.io/github/v/release/sharkdp/fd?display_name=release&label=mise&color=brightgreen)](https://github.com/sharkdp/fd/releases)
 
+### fish
+
+Fish serves as the primary interactive shell.
+
+[![latest packaged version(s)](https://repology.org/badge/latest-versions/fish.svg)](https://repology.org/project/fish/versions)\
+[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/fish.svg)](https://repology.org/project/fish/versions)
+
 ### git
 
 Git serves as a source code manager.
