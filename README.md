@@ -51,6 +51,14 @@ Dateutils serves as a manipulation to work with dates.
 [![latest packaged version(s)](https://repology.org/badge/latest-versions/dateutils.svg)](https://repology.org/project/dateutils/versions)\
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/dateutils.svg)](https://repology.org/project/dateutils/versions)
 
+### difftastic
+
+Difftastic serves as a general purpose diff tool.
+
+[![latest packaged version(s)](https://repology.org/badge/latest-versions/difftastic.svg)](https://repology.org/project/difftastic/versions)\
+[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/difftastic.svg)](https://repology.org/project/difftastic/versions)\
+[![GitHub Release](https://img.shields.io/github/v/release/Wilfred/difftastic?display_name=release&label=mise&color=brightgreen)](https://github.com/Wilfred/difftastic/releases)
+
 ### git
 
 Git serves as a source code manager.
@@ -60,7 +68,7 @@ Git serves as a source code manager.
 
 ### git-delta
 
-Delta serves as a diff tool.
+Delta serves as a git-diff tool.
 
 [![latest packaged version(s)](https://repology.org/badge/latest-versions/git-delta.svg)](https://repology.org/project/git-delta/versions)\
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/git-delta.svg)](https://repology.org/project/git-delta/versions)\

@@ -21,6 +21,10 @@ packages:
       trixie:
         package: "dateutils"
         command: "dateround"
+  difftastic:
+    mise:
+      package: "difftastic"
+      command: "difft"
   git:
     debian:
       trixie:
