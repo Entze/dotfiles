@@ -80,3 +80,11 @@ packages:
     mise:
       package: "ubi:helix-editor/helix"
       command: "hx"
+      after:
+        - HX_BIN="$(which hx)"
+        - HX_DIR="$(dirname ${HX_BIN})"
+        - if ! [ -d "${HX_DIR}"/runtime ]; then
+        -   DOWNLOADS="$(mktemp --directory --tmpdir 'chezmoi.hx.XXXX')"
+        -   gh release download --dir "${DOWNLOADS}" --repo helix-editor/helix --archive tar.gz
+        -   tar --extract --gzip --file="${DOWNLOADS}"/helix-*.tar.gz --directory="${HX_DIR}" --wildcards --strip-components=1 helix-*/runtime
+        - fi
