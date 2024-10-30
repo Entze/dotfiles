@@ -67,6 +67,15 @@ packages:
     mise:
       package: "delta"
       command: "delta"
+  github-cli:
+    debian:
+      trixie:
+        package: "gh"
+        command: "gh"
+    mise:
+      trixie:
+        package: "gh"
+        command: "gh"
   helix-editor:
     mise:
       package: "ubi:helix-editor/helix"
