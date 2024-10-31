@@ -89,6 +89,14 @@ Fish serves as the primary interactive shell.
 [![latest packaged version(s)](https://repology.org/badge/latest-versions/fish.svg)](https://repology.org/project/fish/versions)\
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/fish.svg)](https://repology.org/project/fish/versions)
 
+### flox
+
+Flox serves as a development environment manager.
+
+[![latest packaged version(s)](https://repology.org/badge/latest-versions/flox-dev-enviroments.svg)](https://repology.org/project/flox-development-environments/versions)\
+[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/flox-dev-environments.svg)](https://repology.org/project/flox-dev-environments/versions)\
+[![GitHub Release](https://img.shields.io/github/v/release/flox/helix?display_name=release&label=apt&color=brightgreen)](https://github.com/flox/flox/releases)
+
 ### git
 
 Git serves as a source code manager.

@@ -54,6 +54,33 @@ packages:
       trixie:
         package: "fish"
         command: "fish"
+  flox:
+    debian:
+      trixie:
+        package: "flox"
+        command: "flox"
+        before:
+          - WORKDIR="$(mktemp --directory --tmpdir 'chezmoi.flox.XXXX')"
+          - if ! [ -f "/etc/apt/keyrings/flox-archive-keyring.gpg" ]; then
+          - '  wget --quiet --output-document - "https://downloads.flox.dev/by-env/stable/deb/flox-archive-keyring.asc" > "${WORKDIR}/flox-archive-keyring"'
+          - '  gpg --dearmor "${WORKDIR}/flox-archive-keyring"'
+          - '  sudo mv "${WORKDIR}/flox-archive-keyring.gpg" "/etc/apt/keyrings/."'
+          - fi
+          - if ! [ -f "/etc/apt/sources.list.d/flox.sources" ]; then
+          - '  printf "X-Repolib-Name: flox\nEnabled: yes\nTypes: deb\nURIs: https://downloads.flox.dev/by-env/stable/deb\nSuites: stable/\nSigned-By: /etc/apt/keyrings/flox-archive-keyring.gpg\nArchitectures: amd64\n" > "${WORKDIR}/flox.sources"'
+          - '  sudo mv "${WORKDIR}/flox.sources" "/etc/apt/sources.list.d/flox.sources"'
+          - '  sudo apt update --yes'
+          - fi
+        after:
+          - WORKDIR="$(mktemp --directory --tmpdir 'chezmoi.flox.XXXX')"
+          - if ! [ -d "/etc/sddm.conf.d/" ]; then
+          - '  sudo mkdir "/etc/sddm.conf.d/"'
+          - fi
+          - if ! [ -f "/etc/sddm.conf.d/nix.conf" ]; then
+          - '  printf "[Users]\nHideShells=/usr/bin/nologin,/sbin/nologin\n" > "${WORKDIR}"/nix.conf'
+          - '  sudo mv "${WORKDIR}"/nix.conf "/etc/sddm.conf.d/nix.conf"'
+          - fi
+
   git:
     debian:
       trixie:
