@@ -45,7 +45,7 @@ Chezmoi serves as a declarative config manager.
 
 ### dateutils
 
-Dateutils serves as a manipulation to work with dates.
+Dateutils serves as a tool to work with dates.
 
 [![latest packaged version(s)](https://repology.org/badge/latest-versions/dateutils.svg)](https://repology.org/project/dateutils/versions)\
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/dateutils.svg)](https://repology.org/project/dateutils/versions)
