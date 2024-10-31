@@ -110,8 +110,8 @@ packages:
       after:
         - HX_BIN="$(which hx)"
         - HX_DIR="$(dirname ${HX_BIN})"
+        - WORKDIR="$(mktemp --directory --tmpdir 'chezmoi.hx.XXXX')"
         - if ! [ -d "${HX_DIR}"/runtime ]; then
-        -   DOWNLOADS="$(mktemp --directory --tmpdir 'chezmoi.hx.XXXX')"
-        -   gh release download --dir "${DOWNLOADS}" --repo helix-editor/helix --archive tar.gz
-        -   tar --extract --gzip --file="${DOWNLOADS}"/helix-*.tar.gz --directory="${HX_DIR}" --wildcards --strip-components=1 helix-*/runtime
+        - '  gh release download --dir "${WORKDIR}" --repo helix-editor/helix --archive tar.gz'
+        - '  tar --extract --gzip --file="${WORKDIR}"/helix-*.tar.gz --directory="${HX_DIR}" --wildcards --strip-components=1 helix-*/runtime'
         - fi
