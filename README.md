@@ -93,7 +93,7 @@ Fish serves as the primary interactive shell.
 
 Flox serves as a development environment manager.
 
-[![latest packaged version(s)](https://repology.org/badge/latest-versions/flox-dev-enviroments.svg)](https://repology.org/project/flox-development-environments/versions)\
+[![latest packaged version(s)](https://repology.org/badge/latest-versions/flox-dev-environments.svg)](https://repology.org/project/flox-dev-environments/versions)\
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/flox-dev-environments.svg)](https://repology.org/project/flox-dev-environments/versions)\
 [![GitHub Release](https://img.shields.io/github/v/release/flox/flox?display_name=release&label=deb&color=brightgreen)](https://github.com/flox/flox/releases)
 
