@@ -9,19 +9,19 @@ sudo apt-get update --yes
 
 if ! command -v {{ .debian.trixie.command | quote }} 2>&1 >/dev/null; then
 
-  {{- if hasKey .debian.trixie "before" -}}
+  {{ if hasKey .debian.trixie "before" -}}
   {{- range .debian.trixie.before }}
   {{ . }}
   {{ end -}}
-  {{- end }}
+  {{- end -}}
 
   sudo apt-get install --yes {{ .debian.trixie.package | quote }}
 
-  {{ if hasKey .debian.trixie "after" -}}
+  {{- if hasKey .debian.trixie "after" -}}
   {{- range .debian.trixie.after }}
   {{ . }}
   {{ end -}}
-  {{- end -}}
+  {{- end }}
 
 fi
 
@@ -33,15 +33,15 @@ if ! command -v {{ .mise.command | quote }} 2>&1 >/dev/null; then
   {{- range .mise.before }}
   {{ . }}
   {{ end -}}
-  {{- end }}
+  {{- end -}}
 
   mise use --global --yes {{ .mise.package | quote }}
 
-  {{ if hasKey .mise "after" -}}
+  {{- if hasKey .mise "after" -}}
   {{ range .mise.after }}
   {{ . }}
   {{ end -}}
-  {{- end -}}
+  {{- end }}
 
 fi
 
