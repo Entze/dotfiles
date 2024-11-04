@@ -80,7 +80,9 @@ packages:
           - '  printf "[Users]\nHideShells=/usr/bin/nologin,/sbin/nologin\n" > "${WORKDIR}"/nix.conf'
           - '  sudo mv "${WORKDIR}"/nix.conf "/etc/sddm.conf.d/nix.conf"'
           - fi
-
+          - if [ -f "/etc/apt/sources.list.d/flox.list" ]; then
+          - '  sudo rm "/etc/apt/sources.list.d/flox.list"'
+          - fi
   git:
     debian:
       trixie:
