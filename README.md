@@ -104,15 +104,6 @@ Git serves as a source code manager.
 [![latest packaged version(s)](https://repology.org/badge/latest-versions/git.svg)](https://repology.org/project/git/versions)\
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/git.svg)](https://repology.org/project/git/versions)
 
-### github-cli
-
-Github-cli is used to register new ssh-keys with github, and downloading assets from github.
-
-[![latest packaged version(s)](https://repology.org/badge/latest-versions/github-cli.svg)](https://repology.org/project/github-cli/versions)\
-[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/github-cli.svg)](https://repology.org/project/github-cli/versions)\
-[![GitHub Release](https://img.shields.io/github/v/release/cli/cli?display_name=release&label=mise&color=brightgreen)](https://github.com/cli/cli/releases)
-
-
 ### git-delta
 
 Delta serves as a git-diff tool.
@@ -120,6 +111,14 @@ Delta serves as a git-diff tool.
 [![latest packaged version(s)](https://repology.org/badge/latest-versions/git-delta.svg)](https://repology.org/project/git-delta/versions)\
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/git-delta.svg)](https://repology.org/project/git-delta/versions)\
 [![GitHub Release](https://img.shields.io/github/v/release/dandavison/delta?display_name=release&label=mise&color=brightgreen)](https://github.com/dandavison/delta/releases)
+
+### github-cli
+
+Github-cli is used to register new ssh-keys with github, and downloading assets from github.
+
+[![latest packaged version(s)](https://repology.org/badge/latest-versions/github-cli.svg)](https://repology.org/project/github-cli/versions)\
+[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/github-cli.svg)](https://repology.org/project/github-cli/versions)\
+[![GitHub Release](https://img.shields.io/github/v/release/cli/cli?display_name=release&label=mise&color=brightgreen)](https://github.com/cli/cli/releases)
 
 ### helix
 
