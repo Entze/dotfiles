@@ -120,6 +120,14 @@ Github-cli is used to register new ssh-keys with github, and downloading assets 
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/github-cli.svg)](https://repology.org/project/github-cli/versions)\
 [![GitHub Release](https://img.shields.io/github/v/release/cli/cli?display_name=release&label=mise&color=brightgreen)](https://github.com/cli/cli/releases)
 
+### glow
+
+Glow serves as a CLI markdown renderer.
+
+[![latest packaged version(s)](https://repology.org/badge/latest-versions/glow.svg)](https://repology.org/project/glow/versions)\
+[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/glow.svg)](https://repology.org/project/glow/versions)\
+[![GitHub Release](https://img.shields.io/github/v/release/charmbracelet/glow?display_name=release&label=mise&color=brightgreen)](https://github.com/charmbracelet/glow/releases)
+
 ### helix
 
 Helix serves as the primary editor.

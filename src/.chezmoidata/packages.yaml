@@ -104,6 +104,10 @@ packages:
     mise:
       package: "gh"
       command: "gh"
+  glow:
+    mise:
+      package: "glow"
+      command: "glow"
   helix-editor:
     mise:
       package: "ubi:helix-editor/helix"
