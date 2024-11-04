@@ -124,3 +124,7 @@ packages:
         - '  gh release download --dir "${WORKDIR}" --repo helix-editor/helix --archive tar.gz'
         - '  tar --extract --gzip --file="${WORKDIR}"/helix-*.tar.gz --directory="${HX_DIR}" --wildcards --strip-components=1 helix-*/runtime'
         - fi
+  lazygit:
+    mise:
+      package: "lazygit"
+      command: "lazygit"

@@ -143,3 +143,9 @@ Helix serves as the primary editor.
 [![latest packaged version(s)](https://repology.org/badge/latest-versions/helix-editor.svg)](https://repology.org/project/helix-editor/versions)\
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/helix-editor.svg)](https://repology.org/project/helix-editor/versions)\
 [![GitHub Release](https://img.shields.io/github/v/release/helix-editor/helix?display_name=release&label=mise&color=brightgreen)](https://github.com/helix-editor/helix/releases)
+
+### lazygit
+
+[![latest packaged version(s)](https://repology.org/badge/latest-versions/lazygit.svg)](https://repology.org/project/lazygit/versions)\
+[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/lazygit.svg)](https://repology.org/project/lazygit/versions)\
+[![GitHub Release](https://img.shields.io/github/v/release/jesseduffield/lazygit?display_name=release&label=mise&color=brightgreen)](https://github.com/jesseduffield/lazygit/releases)
