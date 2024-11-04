@@ -102,9 +102,8 @@ packages:
         package: "gh"
         command: "gh"
     mise:
-      trixie:
-        package: "gh"
-        command: "gh"
+      package: "gh"
+      command: "gh"
   helix-editor:
     mise:
       package: "ubi:helix-editor/helix"
