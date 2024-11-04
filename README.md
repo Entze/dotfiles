@@ -146,6 +146,8 @@ Helix serves as the primary editor.
 
 ### lazygit
 
+Lazygit serves as a TUI for git.
+
 [![latest packaged version(s)](https://repology.org/badge/latest-versions/lazygit.svg)](https://repology.org/project/lazygit/versions)\
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/lazygit.svg)](https://repology.org/project/lazygit/versions)\
 [![GitHub Release](https://img.shields.io/github/v/release/jesseduffield/lazygit?display_name=release&label=mise&color=brightgreen)](https://github.com/jesseduffield/lazygit/releases)
