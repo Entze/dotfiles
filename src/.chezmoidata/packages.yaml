@@ -108,6 +108,10 @@ packages:
     mise:
       package: "glow"
       command: "glow"
+  gum-shell-tool:
+    mise:
+      package: "gum"
+      command: "gum"
   helix-editor:
     mise:
       package: "ubi:helix-editor/helix"

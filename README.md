@@ -128,6 +128,14 @@ Glow serves as a CLI markdown renderer.
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/glow.svg)](https://repology.org/project/glow/versions)\
 [![GitHub Release](https://img.shields.io/github/v/release/charmbracelet/glow?display_name=release&label=mise&color=brightgreen)](https://github.com/charmbracelet/glow/releases)
 
+### gum-shell-tool
+
+Glow serves as a library to enhance CLI tools.
+
+[![latest packaged version(s)](https://repology.org/badge/latest-versions/gum-shell-tool.svg)](https://repology.org/project/gum-shell-tool/versions)\
+[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/gum-shell-tool.svg)](https://repology.org/project/gum-shell-tool/versions)\
+[![GitHub Release](https://img.shields.io/github/v/release/charmbracelet/gum?display_name=release&label=mise&color=brightgreen)](https://github.com/charmbracelet/gum/releases)
+
 ### helix
 
 Helix serves as the primary editor.
