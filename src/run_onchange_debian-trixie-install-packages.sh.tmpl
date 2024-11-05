@@ -5,23 +5,29 @@ sudo apt-get update --yes
 
 {{- range .packages -}}
 
+{{- range . -}}
+
 {{- if (and (hasKey . "debian") (hasKey .debian "trixie")) }}
 
 if ! command -v {{ .debian.trixie.command | quote }} 2>&1 >/dev/null; then
 
   {{ if hasKey .debian.trixie "before" -}}
-  {{- range .debian.trixie.before }}
-  {{ . }}
-  {{ end -}}
-  {{- end -}}
+  {{ .debian.trixie.before }}
+  {{- end }}
 
   sudo apt-get install --yes {{ .debian.trixie.package | quote }}
 
-  {{- if hasKey .debian.trixie "after" -}}
-  {{- range .debian.trixie.after }}
-  {{ . }}
-  {{ end -}}
+  {{ if hasKey .debian.trixie "after" -}}
+  {{ .debian.trixie.after }}
   {{- end }}
+
+fi
+
+{{- else if (hasKey . "bootstrap" )}}
+
+if ! command -v {{ .bootstrap.command | quote }} 2>&1 >/dev/null; then
+
+  {{ .bootstrap.package }}
 
 fi
 
@@ -30,21 +36,17 @@ fi
 if ! command -v {{ .mise.command | quote }} 2>&1 >/dev/null; then
 
   {{ if hasKey .mise "before" -}}
-  {{- range .mise.before }}
-  {{ . }}
-  {{ end -}}
-  {{- end -}}
+  {{ .mise.before }}
+  {{- end }}
 
   mise use --global --yes {{ .mise.package | quote }}
 
-  {{- if hasKey .mise "after" -}}
-  {{ range .mise.after }}
-  {{ . }}
-  {{ end -}}
+  {{ if hasKey .mise "after" -}}
+  {{ .mise.after }}
   {{- end }}
 
 fi
-
+{{- end -}}
 {{- end -}}
 {{- end -}}
 {{- end }}
