@@ -31,6 +31,20 @@ if ! command -v {{ .bootstrap.command | quote }} 2>&1 >/dev/null; then
 
 fi
 
+{{- else if (hasKey . "deb_get" )}}
+
+if ! command -v {{ .deb_get.command | quote }} 2>&1 >/dev/null; then
+
+  {{ if hasKey .deb_get "before" -}}
+  {{ .deb_get.before }}
+  {{- end }}
+  deb-get install {{ .deb_get.package | quote }}
+  {{ if hasKey .deb_get "after" -}}
+  {{ .deb_get.after }}
+  {{- end }}
+
+fi
+
 {{- else if (hasKey . "mise") }}
 
 if ! command -v {{ .mise.command | quote }} 2>&1 >/dev/null; then
@@ -46,6 +60,7 @@ if ! command -v {{ .mise.command | quote }} 2>&1 >/dev/null; then
   {{- end }}
 
 fi
+
 {{- end -}}
 {{- end -}}
 {{- end -}}

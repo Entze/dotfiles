@@ -21,7 +21,7 @@ packages:
         trixie:
           package: dateutils
           command: dateround
-  - deb-get:
+  - deb_get:
       bootstrap:
         command: deb-get
         package: |
