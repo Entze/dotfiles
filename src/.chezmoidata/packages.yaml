@@ -162,3 +162,7 @@ packages:
       mise:
         package: ripgrep
         command: rg
+  - zettlr:
+      deb_get:
+        package: zettlr
+        command: zettlr
