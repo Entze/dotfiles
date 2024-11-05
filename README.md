@@ -50,6 +50,14 @@ Dateutils serves as a tool to work with dates.
 [![latest packaged version(s)](https://repology.org/badge/latest-versions/dateutils.svg)](https://repology.org/project/dateutils/versions)\
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/dateutils.svg)](https://repology.org/project/dateutils/versions)
 
+### deb-get
+
+Deb-get serves as a 3rd party Debian repository manager and installation tool.
+
+[![latest packaged version(s)](https://repology.org/badge/latest-versions/deb-get.svg)](https://repology.org/project/deb-get/versions)\
+[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/deb-get.svg)](https://repology.org/project/deb-get/versions)\
+[![GitHub Release](https://img.shields.io/github/v/release/wimpysworld/deb-get?display_name=release&label=bootstrap&color=brightgreen)](https://github.com/wimpysworld/deb-get/releases)
+
 ### difftastic
 
 Difftastic serves as a general purpose diff tool.
