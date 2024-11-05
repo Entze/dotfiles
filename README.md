@@ -162,7 +162,8 @@ Lazygit serves as a TUI for git.
 
 ### mise
 
-Mise serves as a fallback installation tool if the distributions repositories do not have a package listed.
+Mise serves as a fallback installation tool if the distribution's repositories do not have a package listed.
+
 [![latest packaged version(s)](https://repology.org/badge/latest-versions/mise.svg)](https://repology.org/project/mise/versions)\
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/mise.svg)](https://repology.org/project/mise/versions)\
 [![GitHub Release](https://img.shields.io/github/v/release/jdx/mise?display_name=release&label=bootstrap&color=brightgreen)](https://github.com/jdx/mise/releases)
