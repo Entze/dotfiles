@@ -154,3 +154,11 @@ packages:
       mise:
         package: numbat
         command: numbat
+  - ripgrep:
+      debian:
+        trixie:
+          package: ripgrep
+          command: rg
+      mise:
+        package: ripgrep
+        command: rg
