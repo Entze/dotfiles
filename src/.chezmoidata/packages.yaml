@@ -146,3 +146,11 @@ packages:
       mise:
         package: lazygit
         command: lazygit
+  - numbat:
+      debian:
+        trixie:
+          package: numbat
+          command: numbat
+      mise:
+        package: numbat
+        command: numbat

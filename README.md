@@ -167,3 +167,11 @@ Mise serves as a fallback installation tool if the distribution's repositories d
 [![latest packaged version(s)](https://repology.org/badge/latest-versions/mise.svg)](https://repology.org/project/mise/versions)\
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/mise.svg)](https://repology.org/project/mise/versions)\
 [![GitHub Release](https://img.shields.io/github/v/release/jdx/mise?display_name=release&label=bootstrap&color=brightgreen)](https://github.com/jdx/mise/releases)
+
+### numbat
+
+Numbat serves as a CLI calculator with units as first class citizens.
+
+[![latest packaged version(s)](https://repology.org/badge/latest-versions/numbat.svg)](https://repology.org/project/numbat/versions)\
+[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/numbat.svg)](https://repology.org/project/numbat/versions)\
+[![GitHub Release](https://img.shields.io/github/v/release/sharkdp/numbat?display_name=release&label=bootstrap&color=brightgreen)](https://github.com/sharkdp/numbat/releases)
