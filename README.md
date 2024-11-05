@@ -76,7 +76,7 @@ Dust serves as a file space estimation tool.
 
 ### eza
 
-Eza serves as a more feature-rich ls alternative.
+Eza serves as feature-richer ls alternative.
 
 [![latest packaged version(s)](https://repology.org/badge/latest-versions/eza.svg)](https://repology.org/project/eza/versions)\
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/eza.svg)](https://repology.org/project/eza/versions)\
@@ -84,7 +84,7 @@ Eza serves as a more feature-rich ls alternative.
 
 ### fd-find
 
-Fdfind serves as a more feature-rich find alternative.
+Fdfind serves as feature-richer find alternative.
 
 [![latest packaged version(s)](https://repology.org/badge/latest-versions/fd-find.svg)](https://repology.org/project/fd-find/versions)\
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/fd-find.svg)](https://repology.org/project/fd-find/versions)\
