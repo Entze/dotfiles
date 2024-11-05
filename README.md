@@ -136,7 +136,7 @@ Glow serves as a library to enhance CLI tools.
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/gum-shell-tool.svg)](https://repology.org/project/gum-shell-tool/versions)\
 [![GitHub Release](https://img.shields.io/github/v/release/charmbracelet/gum?display_name=release&label=mise&color=brightgreen)](https://github.com/charmbracelet/gum/releases)
 
-### helix
+### helix-editor
 
 Helix serves as the primary editor.
 
