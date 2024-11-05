@@ -152,7 +152,7 @@ packages:
           package: numbat
           command: numbat
       mise:
-        package: numbat
+        package: ubi:sharkdp/numbat
         command: numbat
   - ripgrep:
       debian:
