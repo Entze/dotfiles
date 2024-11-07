@@ -1,168 +1,177 @@
 packages:
   - bash:
-      debian:
+    - debian:
         trixie:
           package: bash
           command: bash
   - bat-cat:
-      debian:
-        trixie:
-          package: bat
-          command: batcat
-      mise:
-        package: bat
-        command: bat
+      - debian:
+          trixie:
+            package: bat
+            command: batcat
+      - mise:
+         package: bat
+         command: bat
   - chezmoi:
-      mise:
-        package: chezmoi
-        command: chezmoi
+      - mise:
+          package: chezmoi
+          command: chezmoi
   - dateutils:
-      debian:
-        trixie:
-          package: dateutils
-          command: dateround
+      - debian:
+          trixie:
+            package: dateutils
+            command: dateround
   - deb_get:
-      bootstrap:
-        command: deb-get
-        package: |
-          if ! command -v "curl" 2>&1 >/dev/null; then
-            sudo apt install "curl"
-          fi
-          if ! command -v "lsb-release" 2>&1 >/dev/null; then
-            sudo apt install "lsb-release"
-          fi
-          if ! command -v "wget" 2>&1 >/dev/null; then
-            sudo apt install "wget"
-          fi
-          WORKDIR="$(mktemp --directory --tmpdir 'chezmoi.deb-get.XXXX')"
-          DEBGET_TOKEN="${GITHUB_TOKEN:-$(gh auth token)}"
-          wget --quiet --output-document - "https://raw.githubusercontent.com/wimpysworld/deb-get/main/deb-get" >"${WORKDIR}"/deb-get
-          chmod +x "${WORKDIR}"/deb-get
-          sudo "${WORKDIR}"/deb-get install deb-get
+      - bootstrap:
+          command: deb-get
+          package: |
+              if ! command -v "curl" 2>&1 >/dev/null; then
+                sudo apt install "curl"
+              fi
+              if ! command -v "lsb-release" 2>&1 >/dev/null; then
+                sudo apt install "lsb-release"
+              fi
+              if ! command -v "wget" 2>&1 >/dev/null; then
+                sudo apt install "wget"
+              fi
+              WORKDIR="$(mktemp --directory --tmpdir 'chezmoi.deb-get.XXXX')"
+              DEBGET_TOKEN="${GITHUB_TOKEN:-$(gh auth token)}"
+              wget --quiet --output-document - "https://raw.githubusercontent.com/wimpysworld/deb-get/main/deb-get" >"${WORKDIR}"/deb-get
+              chmod +x "${WORKDIR}"/deb-get
+              sudo "${WORKDIR}"/deb-get install deb-get
   - difftastic:
-      mise:
-        package: difftastic
-        command: difft
+      - mise:
+          package: difftastic
+          command: difft
   - du-dust:
-      debian:
-        trixie:
-          package: du-dust
+      - debian:
+          trixie:
+            package: du-dust
+            command: dust
+      - mise:
+          package: dust
           command: dust
-      mise:
-        package: dust
-        command: dust
   - eza:
-      debian:
-        trixie:
+      - debian:
+          trixie:
+            package: eza
+            command: eza
+      - mise:
           package: eza
           command: eza
-      mise:
-        package: eza
-        command: eza
   - fd-find:
-      debian:
-        trixie:
-          package: fd-find
-          command: fdfind
-      mise:
-        package: fd
-        command: fd
+      - debian:
+          trixie:
+            package: fd-find
+            command: fdfind
+      - mise:
+          package: fd
+          command: fd
   - fish:
-      debian:
-        trixie:
-          package: fish
-          command: fish
+      - debian:
+          trixie:
+            package: fish
+            command: fish
   - flox:
-      debian:
-        trixie:
-          package: flox
-          command: flox
-          before: |
-            WORKDIR="$(mktemp --directory --tmpdir 'chezmoi.flox.XXXX')"
-            if ! [ -f "/etc/apt/keyrings/flox-archive-keyring.gpg" ]; then
-              wget --quiet --output-document - "https://downloads.flox.dev/by-env/stable/deb/flox-archive-keyring.asc" > "${WORKDIR}/flox-archive-keyring"
-              gpg --dearmor "${WORKDIR}/flox-archive-keyring"
-              sudo mv "${WORKDIR}/flox-archive-keyring.gpg" "/etc/apt/keyrings/."
-            fi
-            if ! [ -f "/etc/apt/sources.list.d/flox.sources" ]; then
-              printf "X-Repolib-Name: flox\nEnabled: yes\nTypes: deb\nURIs: https://downloads.flox.dev/by-env/stable/deb\nSuites: stable/\nSigned-By: /etc/apt/keyrings/flox-archive-keyring.gpg\nArchitectures: amd64\n" > "${WORKDIR}/flox.sources"
-              sudo mv "${WORKDIR}/flox.sources" "/etc/apt/sources.list.d/flox.sources"
-              sudo apt update --yes
-              fi
-          after: |
-            WORKDIR="$(mktemp --directory --tmpdir 'chezmoi.flox.XXXX')"
-            if ! [ -d "/etc/sddm.conf.d/" ]; then
-              sudo mkdir "/etc/sddm.conf.d/"
-            fi
-            if ! [ -f "/etc/sddm.conf.d/nix.conf" ]; then
-              printf "[Users]\nHideShells=/usr/bin/nologin,/sbin/nologin\n" > "${WORKDIR}"/nix.conf
-              sudo mv "${WORKDIR}"/nix.conf "/etc/sddm.conf.d/nix.conf"
-            fi
-            if [ -f "/etc/apt/sources.list.d/flox.list" ]; then
-              sudo rm "/etc/apt/sources.list.d/flox.list"
-            fi
+      - debian:
+          trixie:
+            package: flox
+            command: flox
+            before: |
+                WORKDIR="$(mktemp --directory --tmpdir 'chezmoi.flox.XXXX')"
+                if ! [ -f "/etc/apt/keyrings/flox-archive-keyring.gpg" ]; then
+                  wget --quiet --output-document - "https://downloads.flox.dev/by-env/stable/deb/flox-archive-keyring.asc" > "${WORKDIR}/flox-archive-keyring"
+                  gpg --dearmor "${WORKDIR}/flox-archive-keyring"
+                  sudo mv "${WORKDIR}/flox-archive-keyring.gpg" "/etc/apt/keyrings/."
+                fi
+                if ! [ -f "/etc/apt/sources.list.d/flox.sources" ]; then
+                  printf "X-Repolib-Name: flox\nEnabled: yes\nTypes: deb\nURIs: https://downloads.flox.dev/by-env/stable/deb\nSuites: stable/\nSigned-By: /etc/apt/keyrings/flox-archive-keyring.gpg\nArchitectures: amd64\n" > "${WORKDIR}/flox.sources"
+                  sudo mv "${WORKDIR}/flox.sources" "/etc/apt/sources.list.d/flox.sources"
+                  sudo apt update --yes
+                  fi
+            after: |
+                WORKDIR="$(mktemp --directory --tmpdir 'chezmoi.flox.XXXX')"
+                if ! [ -d "/etc/sddm.conf.d/" ]; then
+                  sudo mkdir "/etc/sddm.conf.d/"
+                fi
+                if ! [ -f "/etc/sddm.conf.d/nix.conf" ]; then
+                  printf "[Users]\nHideShells=/usr/bin/nologin,/sbin/nologin\n" > "${WORKDIR}"/nix.conf
+                  sudo mv "${WORKDIR}"/nix.conf "/etc/sddm.conf.d/nix.conf"
+                fi
+                if [ -f "/etc/apt/sources.list.d/flox.list" ]; then
+                  sudo rm "/etc/apt/sources.list.d/flox.list"
+                fi
   - git:
-      debian:
-        trixie:
-          package: git
-          command: git
+      - debian:
+          trixie:
+            package: git
+            command: git
   - git-delta:
-      debian:
-        trixie:
-          package: git-delta
+      - debian:
+          trixie:
+            package: git-delta
+            command: delta
+      - mise:
+          package: delta
           command: delta
-      mise:
-        package: delta
-        command: delta
+      - deb_get:
+          package: git-delta
+          command: git-delta
   - github-cli:
-      debian:
-        trixie:
+      - debian:
+          trixie:
+            package: gh
+            command: gh
+      - mise:
           package: gh
           command: gh
-      mise:
-        package: gh
-        command: gh
+      - deb_get:
+          package: git-delta
+          command: git-delta
   - glow:
-      mise:
-        package: glow
-        command: glow
+      - mise:
+          package: glow
+          command: glow
+      - deb_get:
+          package: glow
+          command: glow
   - gum-shell-tool:
-      mise:
-        package: gum
-        command: gum
+      - mise:
+          package: gum
+          command: gum
   - helix-editor:
-      mise:
-        package: ubi:helix-editor/helix
-        command: hx
-        after: |
-          HX_BIN="$(which hx)"
-          HX_DIR="$(dirname ${HX_BIN})"
-          WORKDIR="$(mktemp --directory --tmpdir 'chezmoi.hx.XXXX')"
-          if ! [ -d "${HX_DIR}"/runtime ]; then
-            gh release download --dir "${WORKDIR}" --repo helix-editor/helix --archive tar.gz
-            tar --extract --gzip --file="${WORKDIR}"/helix-*.tar.gz --directory="${HX_DIR}" --wildcards --strip-components=1 helix-*/runtime
-          fi
+      - mise:
+          package: ubi:helix-editor/helix
+          command: hx
+          after: |
+            HX_BIN="$(which hx)"
+            HX_DIR="$(dirname ${HX_BIN})"
+            WORKDIR="$(mktemp --directory --tmpdir 'chezmoi.hx.XXXX')"
+            if ! [ -d "${HX_DIR}"/runtime ]; then
+              gh release download --dir "${WORKDIR}" --repo helix-editor/helix --archive tar.gz
+              tar --extract --gzip --file="${WORKDIR}"/helix-*.tar.gz --directory="${HX_DIR}" --wildcards --strip-components=1 helix-*/runtime
+            fi
   - lazygit:
-      mise:
-        package: lazygit
-        command: lazygit
+      - mise:
+          package: lazygit
+          command: lazygit
   - numbat:
-      debian:
-        trixie:
-          package: numbat
+      - mise:
+          package: ubi:sharkdp/numbat
           command: numbat
-      mise:
-        package: ubi:sharkdp/numbat
-        command: numbat
+      - debian:
+          trixie:
+            package: numbat
+            command: numbat
   - ripgrep:
-      debian:
-        trixie:
+      - debian:
+          trixie:
+            package: ripgrep
+            command: rg
+      - mise:
           package: ripgrep
           command: rg
-      mise:
-        package: ripgrep
-        command: rg
   - zettlr:
-      deb_get:
-        package: zettlr
-        command: zettlr
+      - deb_get:
+          package: zettlr
+          command: zettlr

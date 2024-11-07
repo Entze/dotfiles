@@ -1,67 +1,96 @@
-{{ if (and (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.versionCodename "trixie")) -}}
+{{- if (and (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.versionCodename "trixie")) -}}
 #!/usr/bin/env bash
 
 sudo apt-get update --yes
 
-{{- range .packages -}}
+##### <Packages> ######
 
-{{- range . -}}
+  {{- $pkgs := dict }}
+  {{- range .packages }}
+    {{- $pkg := keys . | first }}
+    {{- $_ := set $pkgs $pkg false }}
+#### <{{ $pkg }}> #####
 
-{{- if (and (hasKey . "debian") (hasKey .debian "trixie")) }}
+    {{- range . }}
+      {{- range . }}
+        {{- if (and (not (get $pkgs $pkg)) (hasKey . "bootstrap" ))}}
+### <{{$pkg}}/bootstrap> ###
+          {{- $_ := set $pkgs $pkg true }}
+
+if ! command -v {{ .bootstrap.command | quote }} 2>&1 >/dev/null; then
+{{ .bootstrap.package }}
+fi        
+### </{{ $pkg }}/bootstrap> ###
+        {{- else if (and (not (get $pkgs $pkg)) (hasKey . "debian" ) (hasKey .debian "trixie")) }}
+### <{{$pkg}}/apt> ###
+          {{- $_ := set $pkgs $pkg true }}
 
 if ! command -v {{ .debian.trixie.command | quote }} 2>&1 >/dev/null; then
 
-  {{ if hasKey .debian.trixie "before" -}}
-  {{ .debian.trixie.before }}
-  {{- end }}
+## <{{ $pkg }}/apt/before> ##
+          {{- if hasKey .debian.trixie "before" }}
+{{ .debian.trixie.before }}
+          {{- end }}
+## </{{ $pkg }}/apt/before> ##
 
-  sudo apt-get install --yes {{ .debian.trixie.package | quote }}
+sudo apt-get install --yes {{ .debian.trixie.package | quote }}
 
-  {{ if hasKey .debian.trixie "after" -}}
-  {{ .debian.trixie.after }}
-  {{- end }}
-
-fi
-
-{{- else if (hasKey . "bootstrap" )}}
-
-if ! command -v {{ .bootstrap.command | quote }} 2>&1 >/dev/null; then
-
-  {{ .bootstrap.package }}
+## <{{ $pkg }}/apt/after> ##
+          {{- if hasKey .debian.trixie "after" }}
+{{ .debian.trixie.after }}
+          {{- end }}
+## </{{ $pkg }}/apt/after> ##
 
 fi
-
-{{- else if (hasKey . "deb_get" )}}
+### </{{$pkg}}/apt> ###
+        {{- else if (and (not (get $pkgs $pkg)) (hasKey . "deb_get" )) }}
+### <{{$pkg}}/deb-get> ###
+          {{- $_ := set $pkgs $pkg true }}
 
 if ! command -v {{ .deb_get.command | quote }} 2>&1 >/dev/null; then
 
-  {{ if hasKey .deb_get "before" -}}
-  {{ .deb_get.before }}
-  {{- end }}
-  deb-get install {{ .deb_get.package | quote }}
-  {{ if hasKey .deb_get "after" -}}
-  {{ .deb_get.after }}
-  {{- end }}
+## <{{ $pkg }}/deb-get/before> ##
+          {{- if hasKey .deb_get "before" }}
+{{ .deb_get.before }}
+          {{- end }}
+## </{{ $pkg }}/deb-get/before> ##
+
+deb-get install --yes {{ .deb_get.package | quote }}
+
+## <{{ $pkg }}/deb-get/after> ##
+          {{- if hasKey .deb_get "after" }}
+{{ .deb_get.after }}
+          {{- end }}
+## </{{ $pkg }}/deb-get/after> ##
 
 fi
-
-{{- else if (hasKey . "mise") }}
+### </{{$pkg}}/deb-get> ###
+        {{- else if (and (not (get $pkgs $pkg)) (hasKey . "mise" )) }}
+### <{{$pkg}}/mise> ###
+          {{- $_ := set $pkgs $pkg true }}
 
 if ! command -v {{ .mise.command | quote }} 2>&1 >/dev/null; then
 
-  {{ if hasKey .mise "before" -}}
-  {{ .mise.before }}
-  {{- end }}
+## <{{ $pkg }}/mise/before> ##
+          {{- if hasKey .mise "before" }}
+{{ .mise.before }}
+          {{- end }}
+## </{{ $pkg }}/mise/before> ##
 
-  mise use --global --yes {{ .mise.package | quote }}
+mise use --global --yes {{ .mise.package | quote }}
 
-  {{ if hasKey .mise "after" -}}
-  {{ .mise.after }}
-  {{- end }}
+## <{{ $pkg }}/mise/after> ##
+          {{- if hasKey .mise "after" }}
+{{ .mise.after }}
+          {{- end }}
+## </{{ $pkg }}/mise/after> ##
 
 fi
-
-{{- end -}}
-{{- end -}}
-{{- end -}}
+### </{{$pkg}}/mise> ###
+        {{- end }}
+      {{- end }}
+    {{- end }}
+#### </{{ $pkg }}> ####
+  {{ end }}
+##### </Packages> ######
 {{- end }}
