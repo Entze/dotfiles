@@ -182,7 +182,7 @@ Ripgrep serves as feature-richer grep alternative.
 
 [![latest packaged version(s)](https://repology.org/badge/latest-versions/ripgrep.svg)](https://repology.org/project/ripgrep/versions)\
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/ripgrep.svg)](https://repology.org/project/ripgrep/versions)\
-[![GitHub Release](https://img.shields.io/github/v/release/burntsushi/ripgrep?display_name=release&label=misecolor=brightgreen)](https://github.com/burntsushi/ripgrep/releases)
+[![GitHub Release](https://img.shields.io/github/v/release/burntsushi/ripgrep?display_name=release&label=color=brightgreen)](https://github.com/burntsushi/ripgrep/releases)
 
 ### zettlr
 
