@@ -7,7 +7,7 @@ set -o pipefail
 
 function ensure_installed() {
 
-  pkgs="$(mktemp --tmpdir="/tmp" 'bootstrap-debian-13.XXXX')"
+  pkgs="$(mktemp --tmpdir="/tmp" 'bootstrap-debian-trixie.XXXX')"
   dpkg --list > "$pkgs"
 
   for pkg in "$@"; do
@@ -68,7 +68,15 @@ function install_chezmoi() {
 
 }
 
-
 install_mise
 install_chezmoi
-ensure_installed git
+ensure_installed git gh
+set +e
+set +o pipefail
+gh auth status
+gh_auth_status="$?"
+set -e
+set -o pipefail
+if [[ "$gh_auth_status" -eq 1 ]]; then
+  gh auth login
+fi
