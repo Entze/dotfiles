@@ -141,16 +141,8 @@ packages:
           command: gum
   - helix-editor:
       - mise:
-          package: ubi:helix-editor/helix
+          package: aqua:helix-editor/helix
           command: hx
-          after: |
-            HX_BIN="$(which hx)"
-            HX_DIR="$(dirname ${HX_BIN})"
-            WORKDIR="$(mktemp --directory --tmpdir 'chezmoi.hx.XXXX')"
-            if ! [ -d "${HX_DIR}"/runtime ]; then
-              gh release download --dir "${WORKDIR}" --repo helix-editor/helix --archive tar.gz
-              tar --extract --gzip --file="${WORKDIR}"/helix-*.tar.gz --directory="${HX_DIR}" --wildcards --strip-components=1 helix-*/runtime
-            fi
   - lazygit:
       - mise:
           package: lazygit
