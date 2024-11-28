@@ -176,6 +176,14 @@ Numbat serves as a CLI calculator with units as first class citizens.
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/numbat.svg)](https://repology.org/project/numbat/versions)\
 [![GitHub Release](https://img.shields.io/github/v/release/sharkdp/numbat?display_name=release&label=mise&color=brightgreen)](https://github.com/sharkdp/numbat/releases)
 
+### pastel-sharkdp
+
+Pastel serves as a handy CLI tool for picking colours.
+
+[![latest packaged version(s)](https://repology.org/badge/latest-versions/pastel-sharkdp.svg)](https://repology.org/project/pastel-sharkdp/versions)\
+[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/pastel-sharkdp.svg)](https://repology.org/project/pastel-sharkdp/versions)\
+[![GitHub Release](https://img.shields.io/github/v/release/sharkdp/pastel?display_name=release&label=mise&color=brightgreen)](https://github.com/sharkdp/pastel/releases)
+
 ### ripgrep
 
 Ripgrep serves as feature-richer grep alternative.
