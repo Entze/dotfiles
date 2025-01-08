@@ -55,7 +55,7 @@ if ! command -v {{ .deb_get.command | quote }} 2>&1 >/dev/null; then
           {{- end }}
 ## </{{ $pkg }}/deb-get/before> ##
 
-deb-get install --yes {{ .deb_get.package | quote }}
+deb-get install {{ .deb_get.package | quote }}
 
 ## <{{ $pkg }}/deb-get/after> ##
           {{- if hasKey .deb_get "after" }}
