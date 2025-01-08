@@ -11,7 +11,9 @@ will install [mise](#mise), [chezmoi](#chezmoi), and [git](#git).
 Use the following command to initialize, and apply the configuration.
 
 ```bash
-chezmoi init --apply -- $GITHUB_USER
+export PATH="$HOME/.local/share/mise/installs/chezmoi/latest/bin:$PATH"
+chezmoi init -- $GITHUB_USER
+chezmoi apply
 ```
 
 ## Tools
