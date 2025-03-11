@@ -1,4 +1,4 @@
-theme = "gruvbox_dark_hard"
+theme = "catppuccin_latte"
 
 [editor.soft-wrap]
 enable = true
