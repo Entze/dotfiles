@@ -10,8 +10,12 @@
 	pager = delta
 [interactive]
 	diffFilter = delta --color-only
+[include]
+	path = ~/.local/share/catppuccin/delta/catppuccin.gitconfig
 [delta]
+	features = catppuccin-latte
 	navigate = true
+	side-by-side = true
 [merge]
 	conflicstyle = diff3
 [alias]
