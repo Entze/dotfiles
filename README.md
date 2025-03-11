@@ -195,10 +195,10 @@ Ripgrep serves as feature-richer grep alternative.
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/ripgrep.svg)](https://repology.org/project/ripgrep/versions)\
 [![GitHub Release](https://img.shields.io/github/v/release/burntsushi/ripgrep?display_name=release&label=mise&color=brightgreen)](https://github.com/burntsushi/ripgrep/releases)
 
-### zettlr
+### vivid
 
-Zettlr serves as a markdown editor.
+Vivid is a generator for the LS_COLORS environment variable
 
-[![latest packaged version(s)](https://repology.org/badge/latest-versions/zettlr.svg)](https://repology.org/project/zettlr/versions)\
-[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/zettlr.svg)](https://repology.org/project/zettlr/versions)\
-[![GitHub Release](https://img.shields.io/github/v/release/zettlr/zettlr?display_name=release&label=deb-get&color=brightgreen)](https://github.com/zettlr/zettlr/releases)
+[![latest packaged version(s)](https://repology.org/badge/latest-versions/vivid.svg)](https://repology.org/project/vivid/versions)\
+[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/vivid.svg)](https://repology.org/project/vivid/versions)\
+[![GitHub Release](https://img.shields.io/github/v/release/sharkdp/vivid?display_name=release&label=mise&color=brightgreen)](https://github.com/sharkdp/vivid/releases)

@@ -30,3 +30,7 @@ fi
 if [ -f "${XDG_DATA_HOME}"/bash/mise ]; then
     . "${XDG_DATA_HOME}"/bash/mise
 fi
+
+if [ -f "${XDG_DATA_HOME}"/bash/ls_colors ]; then
+    . "${XDG_DATA_HOME}"/bash/ls_colors
+fi
