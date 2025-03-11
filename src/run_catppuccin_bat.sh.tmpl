@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+set -exuo pipefail
+
+if command -v "bat" 2>&1 >/dev/null; then
+
+  BAT_CONFIG_DIR="$(bat --config-dir)"
+  
+fi
+
+{{ if eq .chezmoi.osRelease.id "debian" -}}
+{{- if eq .chezmoi.osRelease.versionCodename "trixie" -}}
+
+BAT_CONFIG_DIR="$(batcat --config-dir)"
+
+{{- end -}}
+{{- end }}
+
+_DIRECTORY="${XDG_DATA_HOME}/catppuccin/bat/"
+
+mkdir --parents "${XDG_DATA_HOME}/catppuccin/"
+mkdir --parents "${BAT_CONFIG_DIR}/themes/"
+
+if ! [ -d "${XDG_DATA_HOME}/catppuccin/bat/" ]; then
+  git clone --depth=1 "git@github.com:catppuccin/bat.git" "${_DIRECTORY}"
+fi
+
+git -C "${_DIRECTORY}" pull --ff-only --depth=1 --stat
+
+ln --force --symbolic "${_DIRECTORY}/themes/Catppuccin Frappe.tmTheme" "${BAT_CONFIG_DIR}/themes/."
+ln --force --symbolic "${_DIRECTORY}/themes/Catppuccin Latte.tmTheme" "${BAT_CONFIG_DIR}/themes/."
+ln --force --symbolic "${_DIRECTORY}/themes/Catppuccin Macchiato.tmTheme" "${BAT_CONFIG_DIR}/themes/."
+ln --force --symbolic "${_DIRECTORY}/themes/Catppuccin Mocha.tmTheme" "${BAT_CONFIG_DIR}/themes/."
