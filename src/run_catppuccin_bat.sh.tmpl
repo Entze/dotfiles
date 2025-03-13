@@ -6,15 +6,16 @@ if command -v "bat" 2>&1 >/dev/null; then
 
   BAT_CONFIG_DIR="$(bat --config-dir)"
   
-fi
-
 {{ if eq .chezmoi.osRelease.id "debian" -}}
 {{- if eq .chezmoi.osRelease.versionCodename "trixie" -}}
 
-BAT_CONFIG_DIR="$(batcat --config-dir)"
+else
+
+  BAT_CONFIG_DIR="$(batcat --config-dir)"
 
 {{- end -}}
 {{- end }}
+fi
 
 _DIRECTORY="${XDG_DATA_HOME}/catppuccin/bat/"
 
@@ -31,3 +32,19 @@ ln --force --symbolic "${_DIRECTORY}/themes/Catppuccin Frappe.tmTheme" "${BAT_CO
 ln --force --symbolic "${_DIRECTORY}/themes/Catppuccin Latte.tmTheme" "${BAT_CONFIG_DIR}/themes/."
 ln --force --symbolic "${_DIRECTORY}/themes/Catppuccin Macchiato.tmTheme" "${BAT_CONFIG_DIR}/themes/."
 ln --force --symbolic "${_DIRECTORY}/themes/Catppuccin Mocha.tmTheme" "${BAT_CONFIG_DIR}/themes/."
+
+
+if command -v "bat" 2>&1 >/dev/null; then
+
+  bat cache --build
+
+{{ if eq .chezmoi.osRelease.id "debian" -}}
+{{- if eq .chezmoi.osRelease.versionCodename "trixie" -}}
+
+else
+
+  batcat cache --build
+
+{{- end -}}
+{{- end }}
+fi
