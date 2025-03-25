@@ -167,6 +167,10 @@ packages:
       - mise:
           package: ripgrep
           command: rg
+  - tlrc:
+      - mise:
+          package: aqua:tldr-pages/tlrc
+          command: tldr
   - vivid-:
       - mise:
           package: vivid

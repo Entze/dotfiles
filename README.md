@@ -195,6 +195,14 @@ Ripgrep serves as feature-richer grep alternative.
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/ripgrep.svg)](https://repology.org/project/ripgrep/versions)\
 [![GitHub Release](https://img.shields.io/github/v/release/burntsushi/ripgrep?display_name=release&label=mise&color=brightgreen)](https://github.com/burntsushi/ripgrep/releases)
 
+### tldr-pages
+
+Tldr-pages serves as a more modern man alternative.
+
+[![latest packaged version(s)](https://repology.org/badge/latest-versions/tlrc.svg)](https://repology.org/project/tlrc/versions)\
+[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/tlcr.svg)](https://repology.org/project/tlrc/versions)\
+[![GitHub Release](https://img.shields.io/github/v/release/tldr-pages/tlrc?display_name=release&label=mise&color=brightgreen)](https://github.com/tldr-pages/tlrc/releases)
+
 ### vivid
 
 Vivid is a generator for the LS_COLORS environment variable
