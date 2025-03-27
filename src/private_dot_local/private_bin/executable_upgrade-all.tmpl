@@ -4,11 +4,6 @@ set -exuo pipefail
 
 {{- if (and (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.versionCodename "trixie")) }}
 
-sudo apt update
-sudo apt upgrade
-deb-get update
-deb-get upgrade
-mise upgrade --bump
 if ping -c 1 backup.entze.dev; then
 	flox activate -d "${ALM_DIR}" -- git -C "${ALM_DIR}" pull --ff-only --autostash --stat || flox activate -d "${ALM_DIR}" -- git -C "${ALM_DIR}" pull --rebase --autostash --stat
 	flox activate -d "${ALM_DIR}" -- git -C "${ALM_DIR}" push
@@ -17,5 +12,10 @@ if ping -c 1 backup.entze.dev; then
 	flox activate -d "${TTL_DIR}" -- git -C "${TTL_DIR}" pull --ff-only --autostash --stat || flox activate -d "${TTL_DIR}" -- git -C "${TTL_DIR}" pull --rebase --autostash --stat
 	flox activate -d "${TTL_DIR}" -- git -C "${TTL_DIR}" push
 fi
+sudo apt update
+sudo apt upgrade
+deb-get update
+deb-get upgrade
+mise upgrade --bump
 
 {{- end }}
