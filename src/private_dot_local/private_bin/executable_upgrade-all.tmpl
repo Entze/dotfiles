@@ -4,14 +4,34 @@ set -exuo pipefail
 
 {{- if (and (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.versionCodename "trixie")) }}
 
-if ping -c 1 backup.entze.dev; then
-	flox activate -d "${ALM_DIR}" -- git -C "${ALM_DIR}" pull --ff-only --autostash --stat || flox activate -d "${ALM_DIR}" -- git -C "${ALM_DIR}" pull --rebase --autostash --stat
-	flox activate -d "${ALM_DIR}" -- git -C "${ALM_DIR}" push
-	flox activate -d "${PKD_DIR}" -- git -C "${PKD_DIR}" pull --ff-only --autostash --stat || flox activate -d "${PKD_DIR}" -- git -C "${PKD_DIR}" pull --rebase --autostash --stat
-	flox activate -d "${PKD_DIR}" -- git -C "${PKD_DIR}" push
-	flox activate -d "${TTL_DIR}" -- git -C "${TTL_DIR}" pull --ff-only --autostash --stat || flox activate -d "${TTL_DIR}" -- git -C "${TTL_DIR}" pull --rebase --autostash --stat
-	flox activate -d "${TTL_DIR}" -- git -C "${TTL_DIR}" push
+sync_repository() {
+
+	DIR="$1"
+	REMOTE="$2"
+	BRANCH="$3"
+
+	flox activate -d "${DIR}" -- git -C "${DIR}" pull "${REMOTE}" "${BRANCH}" --ff-only --autostash --stat || flox activate -d "${DIR}" -- git -C "${DIR}" pull "${REMOTE}" "${BRANCH}" --rebase --autostash --stat
+	flox activate -d "${DIR}" -- git -C "${DIR}" push "${REMOTE}" "${BRANCH}"
+
+}
+
+if ping -c 1 srv-hpelitebook820g3-1-host; then
+
+	sync_repository "${ALM_DIR}" "tailscale" "main"
+	sync_repository "${PKD_DIR}" "tailscale" "main"
+	sync_repository "${TTL_DIR}" "tailscale" "main"
+
 fi
+
+
+if ping -c 1 backup.entze.dev; then
+
+	sync_repository "${ALM_DIR}" "origin" "main"
+	sync_repository "${PKD_DIR}" "origin" "main"
+	sync_repository "${TTL_DIR}" "origin" "main"
+
+fi
+
 sudo apt update
 sudo apt upgrade
 deb-get update
