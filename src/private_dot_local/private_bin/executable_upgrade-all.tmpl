@@ -15,16 +15,16 @@ sync_repository() {
 
 }
 
-if ping -c 1 srv-hpelitebook820g3-1-host; then
+if ping -c 1 "srv-hpelitebook820g3-1-host.gumiho-duck.ts.net"; then
 
-	sync_repository "${ALM_DIR}" "tailscale" "main"
-	sync_repository "${PKD_DIR}" "tailscale" "main"
-	sync_repository "${TTL_DIR}" "tailscale" "main"
+	sync_repository "${ALM_DIR}" "srv-hpelitebook820g3-1-host.tailscale" "main"
+	sync_repository "${PKD_DIR}" "srv-hpelitebook820g3-1-host.tailscale" "main"
+	sync_repository "${TTL_DIR}" "srv-hpelitebook820g3-1-host.tailscale" "main"
 
 fi
 
 
-if ping -c 1 backup.entze.dev; then
+if ping -c 1 "backup.entze.dev"; then
 
 	sync_repository "${ALM_DIR}" "origin" "main"
 	sync_repository "${PKD_DIR}" "origin" "main"
