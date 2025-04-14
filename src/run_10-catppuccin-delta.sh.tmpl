@@ -2,7 +2,8 @@
 
 set -exuo pipefail
 
-_DIRECTORY="${XDG_DATA_HOME}/catppuccin/delta/"
+DATA="${XDG_DATA_HOME:-$HOME/.local/share}"
+_DIRECTORY="${DATA}/catppuccin/delta/"
 
 mkdir --parents "${XDG_DATA_HOME}/catppuccin/"
 

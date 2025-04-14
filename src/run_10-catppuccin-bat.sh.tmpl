@@ -2,6 +2,8 @@
 
 set -exuo pipefail
 
+DATA="${XDG_DATA_HOME:-$HOME/.local/share}"
+
 if command -v "bat" 2>&1 >/dev/null; then
 
   BAT_CONFIG_DIR="$(bat --config-dir)"
@@ -17,12 +19,12 @@ else
 {{- end }}
 fi
 
-_DIRECTORY="${XDG_DATA_HOME}/catppuccin/bat/"
+_DIRECTORY="${DATA}/catppuccin/bat/"
 
-mkdir --parents "${XDG_DATA_HOME}/catppuccin/"
+mkdir --parents "${DATA}/catppuccin/"
 mkdir --parents "${BAT_CONFIG_DIR}/themes/"
 
-if ! [ -d "${XDG_DATA_HOME}/catppuccin/bat/" ]; then
+if ! [ -d "${DATA}/catppuccin/bat/" ]; then
   git clone --depth=1 "git@github.com:catppuccin/bat.git" "${_DIRECTORY}"
 fi
 

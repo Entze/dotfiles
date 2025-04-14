@@ -2,10 +2,11 @@
 
 set -euxo pipefail
 
-_DIRECTORY="${XDG_DATA_HOME}/catppuccin/konsole"
+DATA="${XDG_DATA_HOME:-$HOME/.local/share}"
+_DIRECTORY="${DATA}/catppuccin/konsole"
 
-mkdir --parents "${XDG_DATA_HOME}/catppuccin/"
-mkdir --parents "${XDG_DATA_HOME}/konsole/"
+mkdir --parents "${DATA}/catppuccin/"
+mkdir --parents "${DATA}/konsole/"
 
 if ! [ -d "${_DIRECTORY}" ]; then
   git clone --depth=1 "git@github.com:catppuccin/konsole.git" "${_DIRECTORY}"
@@ -13,7 +14,7 @@ fi
 
 git -C "${_DIRECTORY}" pull --depth=1 --stat --ff-only
 
-ln --symbolic --force "${_DIRECTORY}/themes/catppuccin-frappe.colorscheme" "${XDG_DATA_HOME}/konsole/."
-ln --symbolic --force "${_DIRECTORY}/themes/catppuccin-latte.colorscheme" "${XDG_DATA_HOME}/konsole/."
-ln --symbolic --force "${_DIRECTORY}/themes/catppuccin-macchiato.colorscheme" "${XDG_DATA_HOME}/konsole/."
-ln --symbolic --force "${_DIRECTORY}/themes/catppuccin-mocha.colorscheme" "${XDG_DATA_HOME}/konsole/."
+ln --symbolic --force "${_DIRECTORY}/themes/catppuccin-frappe.colorscheme" "${DATA}/konsole/."
+ln --symbolic --force "${_DIRECTORY}/themes/catppuccin-latte.colorscheme" "${DATA}/konsole/."
+ln --symbolic --force "${_DIRECTORY}/themes/catppuccin-macchiato.colorscheme" "${DATA}/konsole/."
+ln --symbolic --force "${_DIRECTORY}/themes/catppuccin-mocha.colorscheme" "${DATA}/konsole/."
