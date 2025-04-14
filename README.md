@@ -100,14 +100,6 @@ Fish serves as the primary interactive shell.
 [![latest packaged version(s)](https://repology.org/badge/latest-versions/fish.svg)](https://repology.org/project/fish/versions)\
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/fish.svg)](https://repology.org/project/fish/versions)
 
-### flox
-
-Flox serves as a development environment manager.
-
-[![latest packaged version(s)](https://repology.org/badge/latest-versions/flox-dev-environments.svg)](https://repology.org/project/flox-dev-environments/versions)\
-[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/flox-dev-environments.svg)](https://repology.org/project/flox-dev-environments/versions)\
-[![GitHub Release](https://img.shields.io/github/v/release/flox/flox?display_name=release&label=deb&color=brightgreen)](https://github.com/flox/flox/releases)
-
 ### git
 
 Git serves as a source code manager.
@@ -194,6 +186,14 @@ Ripgrep serves as feature-richer grep alternative.
 [![latest packaged version(s)](https://repology.org/badge/latest-versions/ripgrep.svg)](https://repology.org/project/ripgrep/versions)\
 [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/ripgrep.svg)](https://repology.org/project/ripgrep/versions)\
 [![GitHub Release](https://img.shields.io/github/v/release/burntsushi/ripgrep?display_name=release&label=mise&color=brightgreen)](https://github.com/burntsushi/ripgrep/releases)
+
+### topydo
+
+Topydo serves as a todo.txt manager
+
+[![latest packaged version(s)](https://repology.org/badge/latest-versions/topydo.svg)](https://repology.org/project/topydo/versions)\
+[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/topydo.svg)](https://repology.org/project/topydo/versions)\
+[![GitHub Release](https://img.shields.io/github/v/release/topydo/topydo?display_name=release&label=mise&color=brightgreen)](https://github.com/topydo/topydo/releases)
 
 ### tldr-pages
 
