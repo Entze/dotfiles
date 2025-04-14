@@ -147,7 +147,7 @@ packages:
       - mise:
           package: aqua:tldr-pages/tlrc
           command: tldr
-  - vivid-:
+  - vivid:
       - mise:
           package: vivid
           command: vivid
