@@ -200,7 +200,7 @@ Topydo serves as a todo.txt manager
 Tldr-pages serves as a more modern man alternative.
 
 [![latest packaged version(s)](https://repology.org/badge/latest-versions/tlrc.svg)](https://repology.org/project/tlrc/versions)\
-[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/tlcr.svg)](https://repology.org/project/tlrc/versions)\
+[![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/tlrc.svg)](https://repology.org/project/tlrc/versions)\
 [![GitHub Release](https://img.shields.io/github/v/release/tldr-pages/tlrc?display_name=release&label=mise&color=brightgreen)](https://github.com/tldr-pages/tlrc/releases)
 
 ### vivid
