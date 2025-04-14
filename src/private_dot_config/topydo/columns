@@ -1,0 +1,10 @@
+[Todo]
+title = Todo
+filterexpr = -queue:
+show_all = 0
+sortexpr = creation,project,context
+
+[Batch]
+title = Batch
+filterexpr = queue:
+sortexpr = "queue,creation"

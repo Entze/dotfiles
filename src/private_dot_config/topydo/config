@@ -1,0 +1,7 @@
+[topydo]
+filename = ~/alm/todo.txt
+archive_filename = ~/alm/done.txt
+colors = 256
+
+[colorscheme]
+focus_background_color = 251

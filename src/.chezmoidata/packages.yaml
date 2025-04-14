@@ -135,6 +135,18 @@ packages:
       - mise:
           package: aqua:sharkdp/pastel
           command: pastel
+  - python:
+      - mise:
+          package: python
+          command: python
+      - debian:
+          trixie:
+            package: python3
+            command: python3
+  - pipx:
+      - mise:
+          package: pipx
+          command: pipx
   - ripgrep:
       - debian:
           trixie:
@@ -143,6 +155,14 @@ packages:
       - mise:
           package: ripgrep
           command: rg
+  - topydo:
+      - mise:
+          package: "pipx:topydo"
+          command: topydo
+      - debian:
+          trixie:
+            package: topydo
+            command: topydo
   - tlrc:
       - mise:
           package: aqua:tldr-pages/tlrc
