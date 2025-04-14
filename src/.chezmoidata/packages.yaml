@@ -114,6 +114,11 @@ packages:
       - mise:
           package: aqua:helix-editor/helix
           command: hx
+  - kdiff3:
+      - debian:
+          trixie:
+            package: kdiff3
+            command: kdiff3
   - lazygit:
       - mise:
           package: lazygit
