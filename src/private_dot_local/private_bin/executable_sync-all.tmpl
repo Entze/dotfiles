@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+sync_repository() {
+
+	DIR="${1}"
+
+	gum log --level=debug --time=DateTime --structured "Changing directory to DIR" "DIR" "${DIR}"
+	cd "${DIR}"
+	mise run sync
+	
+}
+
+sync_repository "${ALM_DIR}"
+sync_repository "${PKD_DIR}"
+sync_repository "${TTL_DIR}"

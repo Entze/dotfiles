@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+full_sync_repository() {
+
+	DIR="${1}"
+
+	gum log --level=debug --time=DateTime --structured "Changing directory to DIR" "DIR" "${DIR}"
+	cd "${DIR}"
+	mise run full-sync
+	
+}
+
+full_sync_repository "${ALM_DIR}"
+full_sync_repository "${PKD_DIR}"
+full_sync_repository "${TTL_DIR}"
