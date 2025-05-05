@@ -167,6 +167,10 @@ packages:
           trixie:
             package: topydo
             command: topydo
+  - tailscale:
+      - deb_get:
+          package: tailscale
+          command: tailscale
   - tlrc:
       - mise:
           package: aqua:tldr-pages/tlrc
