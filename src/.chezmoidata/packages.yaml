@@ -4,23 +4,6 @@ packages:
         trixie:
           package: bash
           command: bash
-  - bat-cat:
-      - debian:
-          trixie:
-            package: bat
-            command: batcat
-      - mise:
-         package: bat
-         command: bat
-  - chezmoi:
-      - mise:
-          package: chezmoi
-          command: chezmoi
-  - dateutils:
-      - debian:
-          trixie:
-            package: dateutils
-            command: dateround
   - deb_get:
       - bootstrap:
           command: deb-get
@@ -39,6 +22,27 @@ packages:
               wget --quiet --output-document - "https://raw.githubusercontent.com/wimpysworld/deb-get/main/deb-get" >"${WORKDIR}"/deb-get
               chmod +x "${WORKDIR}"/deb-get
               sudo "${WORKDIR}"/deb-get install deb-get
+  - mise:
+      - deb_get:
+          package: mise
+          command: mise
+  - bat-cat:
+      - debian:
+          trixie:
+            package: bat
+            command: batcat
+      - mise:
+         package: bat
+         command: bat
+  - chezmoi:
+      - mise:
+          package: chezmoi
+          command: chezmoi
+  - dateutils:
+      - debian:
+          trixie:
+            package: dateutils
+            command: dateround
   - difftastic:
       - mise:
           package: difftastic
