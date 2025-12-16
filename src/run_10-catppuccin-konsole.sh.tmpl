@@ -2,7 +2,7 @@
 
 set -euxo pipefail
 
-DATA="${XDG_DATA_HOME:-$HOME/.local/share}"
+DATA="${XDG_DATA_HOME:-${HOME}/.local/share}"
 _DIRECTORY="${DATA}/catppuccin/konsole"
 
 mkdir --parents "${DATA}/catppuccin/"

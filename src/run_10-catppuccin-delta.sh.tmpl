@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-set -exuo pipefail
+set -exo pipefail
 
-DATA="${XDG_DATA_HOME:-$HOME/.local/share}"
+DATA="${XDG_DATA_HOME:-${HOME}/.local/share}"
 _DIRECTORY="${DATA}/catppuccin/delta/"
 
 mkdir --parents "${XDG_DATA_HOME}/catppuccin/"
