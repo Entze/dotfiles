@@ -10,3 +10,9 @@ A-S-q = [":reflow"]
 [keys.insert]
 A-q = ["goto_line_end", "goto_prev_paragraph", "goto_next_paragraph", ":reflow", "collapse_selection", "add_newline_below"]
 A-S-q = [":reflow"]
+
+[keys.normal.space.m]
+b = ":run-shell-command mise run build"
+c = ":run-shell-command mise run check"
+f = ":run-shell-command mise run fix"
+l = ":run-shell-command mise run lint"
