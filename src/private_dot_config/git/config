@@ -8,6 +8,7 @@
 [core]
 	editor = "hx +1"
 	pager = delta
+	autocrlf = input
 [interactive]
 	diffFilter = delta --color-only
 [include]
@@ -18,6 +19,6 @@
 	side-by-side = true
 [merge]
 	conflicstyle = diff3
-	tool = kdiff3
+	tool = meld
 [alias]
 	fresh = "!git pull --stat --ff-only || git pull --stat --rebase"
