@@ -29,47 +29,29 @@ function ensure_installed() {
 
 }
 
+function install_deb_get() {
+
+  downloads="$(mktemp --tmpdir="/tmp" 'bootstrap-debian-trixie.XXXX')"
+
+  wget --quiet --output-document - "https://raw.githubusercontent.com/wimpysworld/deb-get/main/deb-get" >"${downloads}"/deb-get
+  chmod +x "${downloads}"/deb-get
+  sudo "${downloads}"/deb-get install deb-get
+
+}
 
 function install_mise() {
 
-  set +e
-  set +o pipefail
-  dpkg --list | grep --quiet --extended-regexp "ii[[:space:]]+mise[[:space:]]"
-  installed="$?"
-  set -e
-  set -o pipefail
-
-  if [[ "$installed" -eq 1 ]]; then
-
-    sudo apt-get update --assume-yes
-    sudo apt-get upgrade --assume-yes
-    ensure_installed "gpg" "sudo" "wget" "curl"
-    sudo install --directory --mode 'u=rwx,go=rx' "/etc/apt/keyrings"
-    wget --quiet --output-document - "https://mise.jdx.dev/gpg-key.pub" > "mise-archive-keyring"
-    gpg --dearmor "mise-archive-keyring"
-    sudo mv "mise-archive-keyring.gpg" "/etc/apt/keyrings/."
-
-    mise_sources="$(mktemp 'bootstrap-mise.XXXX')"
-
-    printf "X-Repolib-Name: mise\nEnabled: yes\nTypes: deb\nURIs: https://mise.jdx.dev/deb\nSuites: stable\nComponents: main\nSigned-By: /etc/apt/keyrings/mise-archive-keyring.gpg\nArchitectures: amd64\n" > "$mise_sources"
-    sudo mv "$mise_sources" "/etc/apt/sources.list.d/mise.sources"
-
-    sudo apt-get update
-    ensure_installed "mise"
-
-  fi
+  deb-get install "mise"
 
 }
 
 
 function install_chezmoi() {
 
-  mise use --global --yes "chezmoi"
+  mise use --global --yes "chezmoi@latest"
 
 }
 
-install_mise
-install_chezmoi
 ensure_installed git gh
 set +e
 set +o pipefail
@@ -80,3 +62,9 @@ set -o pipefail
 if [[ "$gh_auth_status" -eq 1 ]]; then
   gh auth login
 fi
+export DEBGET_TOKEN="${GITHUB_TOKEN:-$(gh auth token)}"
+ensure_installed curl lsb-release wget
+install_deb_get
+deb-get update
+install_mise
+install_chezmoi
