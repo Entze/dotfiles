@@ -5,7 +5,7 @@ set -exo pipefail
 DATA="${XDG_DATA_HOME:-${HOME}/.local/share}"
 _DIRECTORY="${DATA}/catppuccin/delta/"
 
-mkdir --parents "${XDG_DATA_HOME}/catppuccin/"
+mkdir --parents "${DATA}/catppuccin/"
 
 if ! [ -d "${_DIRECTORY}" ]; then
   git clone --depth=1 "git@github.com:catppuccin/delta.git" "${_DIRECTORY}"
