@@ -31,7 +31,7 @@ function ensure_installed() {
 
 function install_deb_get() {
 
-  downloads="$(mktemp --tmpdir="/tmp" 'bootstrap-debian-trixie.XXXX')"
+  downloads="$(mktemp --directory --tmpdir="/tmp" 'bootstrap-debian-trixie.XXXX')"
 
   wget --quiet --output-document - "https://raw.githubusercontent.com/wimpysworld/deb-get/main/deb-get" >"${downloads}"/deb-get
   chmod +x "${downloads}"/deb-get
