@@ -1,0 +1,2 @@
+# Add BIN_HOME to PATH
+set -gx PATH $PATH $BIN_HOME
