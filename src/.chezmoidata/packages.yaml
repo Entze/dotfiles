@@ -129,7 +129,7 @@ packages:
           command: lazygit
   - numbat:
       - mise:
-          package: ubi:sharkdp/numbat
+          package: github:sharkdp/numbat
           command: numbat
       - debian:
           trixie:
