@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+DATA="${XDG_DATA_HOME:-${HOME}/.local/share}"
+CONFIG="${XDG_CONFIG_HOME:-${HOME}/.config}"
+_DIRECTORY="${DATA}/catppuccin/fish"
+
+mkdir --parents "${DATA}/catppuccin/"
+mkdir --parents "${CONFIG}/fish/themes/"
+
+if ! [ -d "${_DIRECTORY}" ]; then
+  git clone --depth=1 "git@github.com:catppuccin/fish.git" "${_DIRECTORY}"
+fi
+
+git -C "${_DIRECTORY}" pull --depth=1 --stat --ff-only
+
+ln --symbolic --force "${_DIRECTORY}/themes/Catppuccin Frappe.theme" "${CONFIG}/fish/themes/."
+ln --symbolic --force "${_DIRECTORY}/themes/Catppuccin Macchiato.theme" "${CONFIG}/fish/themes/."
+ln --symbolic --force "${_DIRECTORY}/themes/Catppuccin Mocha.theme" "${CONFIG}/fish/themes/."
