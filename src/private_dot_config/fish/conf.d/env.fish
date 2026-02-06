@@ -1,2 +1,1 @@
-# Add BIN_HOME to PATH
-set -gx PATH $PATH $BIN_HOME
+set -gx PATH $PATH $BIN_HOME $ELAN_HOME
