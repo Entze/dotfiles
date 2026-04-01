@@ -2,7 +2,7 @@
   "model": "sonnet",
   "statusLine": {
     "type": "command",
-    "command": "bash $HOME/.claude/statusline-command.sh"
+    "command": "zeile"
   },
   "enabledPlugins": {
     "skill-creator@claude-plugins-official": true
