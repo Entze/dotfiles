@@ -2,6 +2,9 @@
 # https://mise.jdx.dev/configuration.html#mise-toml
 mise.local.toml
 
+# https://code.claude.com/docs/en/settings
+.claude/settings.local.json
+
 # Created by https://www.toptal.com/developers/gitignore/api/jetbrains,kate
 # Edit at https://www.toptal.com/developers/gitignore?templates=jetbrains,kate
 
