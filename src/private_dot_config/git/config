@@ -25,3 +25,5 @@
 	fresh = "!git pull --stat --ff-only || git pull --stat --rebase"
 [credential]
 	helper = cache --timeout=3600
+[rebase]
+	updateRefs = true
